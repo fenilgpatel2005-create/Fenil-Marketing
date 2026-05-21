@@ -1,0 +1,2319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script>
+        if (sessionStorage.getItem('preloader_shown') === 'true') {
+            document.documentElement.classList.add('preloader-skipped');
+        }
+    </script>
+    <style>
+        .preloader-skipped #preloader {
+            display: none !important;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IKANTIK Agency | Premium Digital Growth & Development</title>
+    <meta name="description"
+        content="Elevate your brand with IKANTIK Agency. We build high-performance websites, Meta Ads campaigns, SEO optimization, and growth-focused marketing strategies.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Scripts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#05020c',
+                            primary: '#ff2e93',
+                            secondary: '#ff6a00',
+                            accent: '#00f2fe',
+                            slate: '#b4b6d4'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        heading: ['Sora', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+
+<body
+    x-data="{ mobileMenu: false, scrolled: false, activeServiceModal: null, activeDeliverableModal: null, activeFaq: null, activeSuccessModal: null }"
+    @scroll.window="scrolled = (window.pageYOffset > 20)">
+
+    <!-- ============================================ -->
+    <!-- ULTRA-PREMIUM CINEMATIC PRELOADER v2.0       -->
+    <!-- ============================================ -->
+    <div id="preloader" class="fixed inset-0 z-[99999] overflow-hidden" style="background: #020108;">
+        
+        <!-- Layer 1: Full-screen Particle Vortex Canvas -->
+        <canvas id="preloader-vortex-canvas" class="absolute inset-0 w-full h-full"></canvas>
+        
+        <!-- Layer 2: Hex Code Rain Columns -->
+        <div id="hex-rain-container" class="absolute inset-0 pointer-events-none overflow-hidden opacity-30"></div>
+
+        <!-- Layer 3: Expanding Energy Pulse Rings -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div class="preloader-ring-pulse ring-pulse-1"></div>
+            <div class="preloader-ring-pulse ring-pulse-2"></div>
+            <div class="preloader-ring-pulse ring-pulse-3"></div>
+            <div class="preloader-ring-pulse ring-pulse-4"></div>
+        </div>
+
+        <!-- Layer 4: Sacred Geometry Morphing Shape -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <svg id="sacred-geometry" viewBox="0 0 400 400" class="w-[280px] h-[280px] md:w-[400px] md:h-[400px] opacity-0" style="filter: drop-shadow(0 0 30px rgba(0,242,254,0.3));">
+                <!-- Outer rotating hexagon -->
+                <polygon class="sacred-shape shape-outer" points="200,40 340,120 340,280 200,360 60,280 60,120" fill="none" stroke="url(#grad-sacred-1)" stroke-width="1" stroke-dasharray="1200" stroke-dashoffset="1200"/>
+                <!-- Mid rotating triangle -->
+                <polygon class="sacred-shape shape-mid" points="200,60 330,270 70,270" fill="none" stroke="url(#grad-sacred-2)" stroke-width="1.5" stroke-dasharray="900" stroke-dashoffset="900"/>
+                <!-- Inner inverted triangle -->
+                <polygon class="sacred-shape shape-inner" points="200,340 70,130 330,130" fill="none" stroke="url(#grad-sacred-3)" stroke-width="1" stroke-dasharray="900" stroke-dashoffset="900"/>
+                <!-- Center circle -->
+                <circle class="sacred-shape shape-circle" cx="200" cy="200" r="60" fill="none" stroke="url(#grad-sacred-1)" stroke-width="2" stroke-dasharray="380" stroke-dashoffset="380"/>
+                <!-- Core dot -->
+                <circle cx="200" cy="200" r="4" fill="#00f2fe" class="sacred-core-dot">
+                    <animate attributeName="r" values="3;8;3" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <!-- Gradient Definitions -->
+                <defs>
+                    <linearGradient id="grad-sacred-1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#00f2fe"/>
+                        <stop offset="100%" stop-color="#ff2e93"/>
+                    </linearGradient>
+                    <linearGradient id="grad-sacred-2" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#ff2e93"/>
+                        <stop offset="100%" stop-color="#ff6a00"/>
+                    </linearGradient>
+                    <linearGradient id="grad-sacred-3" x1="0%" y1="100%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#ff6a00"/>
+                        <stop offset="100%" stop-color="#00f2fe"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+
+        <!-- Layer 5: Central Content Hub -->
+        <div class="absolute inset-0 flex flex-col items-center justify-center z-20">
+            
+            <!-- Audio Visualizer Bars -->
+            <div id="preloader-visualizer" class="flex items-end justify-center gap-[3px] mb-8 h-16 opacity-0">
+                <!-- 24 bars generated by JS -->
+            </div>
+
+            <!-- Chromatic Aberration Logo -->
+            <div class="preloader-logo-container mb-10 opacity-0" id="preloader-logo">
+                <div class="preloader-logo-glitch" data-text="IKANTIK">
+                    <span class="preloader-logo-main font-heading text-5xl md:text-7xl font-extrabold tracking-[0.25em] uppercase">
+                        <span class="text-white">IKAN</span><span style="color:#ff2e93;">TIK</span>
+                    </span>
+                </div>
+                <!-- Tagline that types in -->
+                <div class="mt-3 h-5 overflow-hidden">
+                    <p id="preloader-tagline" class="text-[11px] font-mono tracking-[0.4em] uppercase text-center" style="color: rgba(0,242,254,0.6);"></p>
+                </div>
+            </div>
+
+            <!-- Electric Progress System -->
+            <div class="w-full max-w-sm px-8 opacity-0" id="preloader-progress-wrap">
+                <!-- Status Line -->
+                <div class="flex justify-between items-center mb-2">
+                    <span id="boot-status" class="text-[9px] font-mono tracking-[0.3em] uppercase" style="color: rgba(255,46,147,0.7);">[INITIALIZING]</span>
+                    <span id="boot-progress" class="text-[9px] font-mono tracking-widest" style="color: rgba(0,242,254,0.8);">0%</span>
+                </div>
+                <!-- Progress Track -->
+                <div class="relative w-full h-[3px] rounded-full overflow-visible" style="background: rgba(255,255,255,0.06);">
+                    <div id="boot-bar" class="absolute top-0 left-0 h-full rounded-full w-0" style="background: linear-gradient(90deg, #ff2e93, #ff6a00, #00f2fe); box-shadow: 0 0 20px rgba(255,46,147,0.5), 0 0 40px rgba(0,242,254,0.3); transition: width 0.15s ease-out;"></div>
+                    <!-- Electric Spark at progress tip -->
+                    <div id="boot-spark" class="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full" style="background: #fff; box-shadow: 0 0 15px #00f2fe, 0 0 30px #ff2e93; left: 0%; transition: left 0.15s ease-out; filter: blur(1px);"></div>
+                </div>
+                <!-- Micro Stats -->
+                <div class="flex justify-between mt-3">
+                    <span id="boot-metric-1" class="text-[8px] font-mono" style="color: rgba(255,255,255,0.2);">PACKETS: 0</span>
+                    <span id="boot-metric-2" class="text-[8px] font-mono" style="color: rgba(255,255,255,0.2);">LATENCY: 0ms</span>
+                    <span id="boot-metric-3" class="text-[8px] font-mono" style="color: rgba(255,255,255,0.2);">NODES: 0/128</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Layer 6: Corner Decorations -->
+        <div class="absolute top-6 left-6 opacity-0 preloader-corner" id="corner-tl">
+            <div class="w-8 h-8 border-l-2 border-t-2" style="border-color: rgba(0,242,254,0.3);"></div>
+        </div>
+        <div class="absolute top-6 right-6 opacity-0 preloader-corner" id="corner-tr">
+            <div class="w-8 h-8 border-r-2 border-t-2" style="border-color: rgba(255,46,147,0.3);"></div>
+        </div>
+        <div class="absolute bottom-6 left-6 opacity-0 preloader-corner" id="corner-bl">
+            <div class="w-8 h-8 border-l-2 border-b-2" style="border-color: rgba(255,106,0,0.3);"></div>
+        </div>
+        <div class="absolute bottom-6 right-6 opacity-0 preloader-corner" id="corner-br">
+            <div class="w-8 h-8 border-r-2 border-b-2" style="border-color: rgba(0,242,254,0.3);"></div>
+        </div>
+
+        <!-- Layer 7: Scanning Laser (Enhanced) -->
+        <div class="absolute top-0 left-0 w-full h-[1px] preloader-scanline pointer-events-none" style="background: linear-gradient(90deg, transparent, #ff2e93, #00f2fe, transparent); box-shadow: 0 0 30px #ff2e93, 0 0 60px rgba(0,242,254,0.3);"></div>
+        
+        <!-- Layer 8: Vignette overlay -->
+        <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at center, transparent 40%, rgba(2,1,8,0.8) 100%);"></div>
+    </div>
+
+
+
+    <!-- Scroll Progress -->
+    <div class="progress-bar"></div>
+
+    <!-- Background Decoration -->
+    <div class="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden pointer-events-none">
+        <div class="cosmic-glow-1 top-[-10%] right-[-10%] opacity-20"></div>
+        <div class="cosmic-glow-2 bottom-[-10%] left-[-10%] opacity-15"></div>
+        <div class="absolute top-1/4 left-1/3 w-[450px] h-[450px] rounded-full bg-gradient-to-tr from-brand-primary/10 to-brand-accent/5 opacity-[0.03] blur-[100px] animate-pulse"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300"
+        :class="scrolled ? 'glass py-3' : 'py-6 bg-transparent'">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div class="relative w-10 h-10 flex items-center justify-center">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-secondary rounded-xl rotate-6 group-hover:rotate-12 transition-transform duration-300 opacity-80">
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-brand-dark rounded-xl border border-white/10 flex items-center justify-center shadow-lg shadow-brand-primary/20">
+                        <i data-lucide="orbit"
+                            class="text-white w-5 h-5 group-hover:rotate-180 transition-transform duration-700"></i>
+                    </div>
+                </div>
+                <span class="text-2xl font-heading font-extrabold tracking-tight text-white"><span class="spin-letters">IKAN</span><span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">TIK</span></span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-300">
+                <a href="index.html" class="text-brand-primary">Home</a>
+                <a href="services.html" class="hover:text-white transition-colors">Services</a>
+                <a href="process.html" class="hover:text-white transition-colors">Process</a>
+                <a href="portfolio.html" class="hover:text-white transition-colors">Portfolio</a>
+                <a href="about.html" class="hover:text-white transition-colors">About</a>
+                <a href="blog.html" class="hover:text-white transition-colors">Blog</a>
+                <a href="contact.html"
+                    class="px-5 py-2.5 bg-brand-primary text-white rounded-full hover:bg-brand-primary/80 transition-all shadow-lg shadow-brand-primary/20">Get
+                    Started</a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-white">
+                <i data-lucide="menu" x-show="!mobileMenu" class="w-8 h-8"></i>
+                <i data-lucide="x" x-show="mobileMenu" class="w-8 h-8"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div x-show="mobileMenu" x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 -translate-y-10" x-transition:enter-end="opacity-100 translate-y-0"
+            class="absolute top-full left-0 w-full glass md:hidden pb-8 shadow-2xl" x-cloak>
+            <div class="flex flex-col space-y-4 px-6 pt-4 text-lg font-medium">
+                <a href="index.html" class="text-brand-primary">Home</a>
+                <a href="services.html" class="text-slate-300 hover:text-white">Services</a>
+                <a href="process.html" class="hover:text-white transition-colors">Process</a>
+                <a href="portfolio.html" class="text-slate-300 hover:text-white">Portfolio</a>
+                <a href="about.html" class="text-slate-300 hover:text-white">About</a>
+                <a href="blog.html" class="text-slate-300 hover:text-white">Blog</a>
+                <a href="contact.html" class="text-brand-primary font-bold">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 text-center md:text-left z-10" data-aos="fade-up">
+                    <div x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)"
+                        class="transform transition-all duration-1000"
+                        :class="loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'">
+                        <span
+                            class="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-brand-secondary uppercase bg-brand-secondary/10 rounded-full border border-brand-secondary/20">
+                            Digital Architecture Redefined
+                        </span>
+                        <h1 class="text-5xl md:text-7xl font-heading font-extrabold leading-tight text-white mb-6">
+                            <span class="spin-letters">Crafting Digital</span> <br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary glow-text inline-block min-h-[1.2em]"
+                                  x-data="{ 
+                                      words: ['Masterpieces.', 'Growth Funnels.', 'Brand Legacies.'], 
+                                      wordIdx: 0, 
+                                      charIdx: 0, 
+                                      isDeleting: false,
+                                      currentWord: '',
+                                      tick() {
+                                          let word = this.words[this.wordIdx];
+                                          if (this.isDeleting) {
+                                              this.charIdx--;
+                                          } else {
+                                              this.charIdx++;
+                                          }
+                                          this.currentWord = word.substring(0, this.charIdx);
+                                          let speed = this.isDeleting ? 40 : 100;
+                                          if (!this.isDeleting && this.charIdx === word.length) {
+                                              speed = 2000;
+                                              this.isDeleting = true;
+                                          } else if (this.isDeleting && this.charIdx === 0) {
+                                              this.isDeleting = false;
+                                              this.wordIdx = (this.wordIdx + 1) % this.words.length;
+                                              speed = 500;
+                                          }
+                                          setTimeout(() => this.tick(), speed);
+                                      }
+                                  }" x-init="tick()" x-text="currentWord + '|'">
+                            </span>
+                        </h1>
+                        <p class="text-lg text-slate-400 mb-10 max-w-lg mx-auto md:mx-0">
+                            IKANTIK Agency engineers high-performance web applications, campaigns, and
+                            experiences that
+                            convert visitors into clients.
+                        </p>
+                        <div
+                            class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
+                            <a href="contact.html"
+                                class="px-8 py-4 bg-brand-primary text-white font-bold rounded-xl hover:scale-105 transition-transform shadow-xl shadow-brand-primary/30 flex items-center justify-center">
+                                Start Your Journey
+                                <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
+                            </a>
+                            <a href="services.html"
+                                class="px-8 py-4 glass text-white font-bold rounded-xl hover:bg-white/10 transition-colors flex items-center justify-center">
+                                Explore Services
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 mt-16 md:mt-0 relative" data-aos="fade-left" data-aos-delay="200">
+                    <div class="animate-float relative">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800"
+                            alt="Premium Web Development"
+                            class="rounded-3xl shadow-[0_0_50px_rgba(255,255,255,0.1)] border border-white/10 relative z-10 grayscale opacity-90 hover:grayscale-0 transition-all duration-700">
+                        <div
+                            class="absolute -top-10 -right-10 w-40 h-40 glass p-4 rounded-2xl hidden lg:block z-20 animate-pulse">
+                            <i data-lucide="code-2" class="text-brand-secondary w-10 h-10 mb-2"></i>
+                            <p class="text-xs text-slate-400">Performance</p>
+                            <p class="text-xl font-bold text-white">100/100</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 glass border-y border-white/5 reveal-on-scroll">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <h3 class="text-3xl font-heading font-extrabold text-white mb-2"><span class="stat-counter text-brand-primary">250+</span></h3>
+                    <p class="text-slate-500 text-sm uppercase tracking-widest font-bold">Brands Scaled</p>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-3xl font-heading font-extrabold text-white mb-2"><span class="stat-counter text-brand-secondary">$10M+</span></h3>
+                    <p class="text-slate-500 text-sm uppercase tracking-widest font-bold">Ad Spend Managed</p>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-3xl font-heading font-extrabold text-white mb-2"><span class="stat-counter text-brand-accent">4.8x</span></h3>
+                    <p class="text-slate-500 text-sm uppercase tracking-widest font-bold">Average ROAS</p>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-3xl font-heading font-extrabold text-white mb-2"><span class="stat-counter text-brand-primary">$50M+</span></h3>
+                    <p class="text-slate-500 text-sm uppercase tracking-widest font-bold">Revenue Driven</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Cosmic Growth Core (Heavy Interactive Animation) -->
+    <section class="relative w-full h-[800px] overflow-hidden bg-brand-dark flex items-center justify-center border-b border-white/5 reveal-on-scroll">
+        <!-- The HTML5 Particle Physics Canvas -->
+        <canvas id="growth-canvas"></canvas>
+
+        <!-- 3D Orbital Rings -->
+        <div class="perspective-container absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div class="relative w-[600px] h-[600px] md:w-[800px] md:h-[800px]">
+                <div class="orbital-ring ring-1"></div>
+                <div class="orbital-ring ring-2"></div>
+                <div class="orbital-ring ring-3"></div>
+            </div>
+        </div>
+
+        <!-- Central UI Core -->
+        <div class="relative z-10 glass-card rounded-[40px] p-8 md:p-12 text-center max-w-lg border border-white/10 shadow-[0_0_50px_rgba(0,242,254,0.1)] group hover:shadow-[0_0_80px_rgba(255,46,147,0.2)] transition-all duration-700 scale-95 md:scale-100">
+            <div class="absolute inset-0 bg-brand-dark/60 backdrop-blur-xl rounded-[40px] -z-10"></div>
+            <i data-lucide="cpu" class="w-12 h-12 mx-auto text-brand-primary mb-6 animate-pulse"></i>
+            <h2 class="text-4xl font-heading font-extrabold text-white mb-4"><span class="spin-letters">The Growth</span> <br><span class="cosmic-gradient-text">Nexus Core</span></h2>
+            <p class="text-slate-400 text-sm font-mono mb-8">Move your cursor to disrupt the neural network. Live data processing simulated.</p>
+            <a href="services.html" class="magnetic inline-flex items-center justify-center px-8 py-4 bg-white/5 hover:bg-brand-accent/20 border border-brand-accent/30 text-white font-bold rounded-full transition-all group/btn">
+                Initialize Algorithm
+                <i data-lucide="power" class="ml-2 w-4 h-4 text-brand-accent group-hover/btn:animate-pulse"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Infinite Marquee Section -->
+    <section class="py-16 border-b border-white/5 overflow-hidden">
+        <div class="marquee-container">
+            <div
+                class="marquee-content flex items-center space-x-16 opacity-30 hover:opacity-70 transition-opacity duration-500">
+                <h3 class="text-2xl font-heading font-extrabold text-white tracking-widest">GOOGLE</h3>
+                <h3 class="text-2xl font-heading font-extrabold text-white tracking-widest">META</h3>
+                <h3 class="text-2xl font-heading font-extrabold text-white tracking-widest">AMAZON</h3>
+                <h3 class="text-2xl font-heading font-extrabold text-white tracking-widest">MICROSOFT</h3>
+                <h3 class="text-2xl font-heading font-extrabold text-white tracking-widest">TESLA</h3>
+                <h3 class="text-2xl font-heading font-extrabold text-white tracking-widest">NETFLIX</h3>
+                <h3 class="text-2xl font-heading font-extrabold text-white tracking-widest">APPLE</h3>
+                <h3 class="text-2xl font-heading font-extrabold text-white tracking-widest">SPOTIFY</h3>
+                <!-- Duplicate for infinite effect -->
+                <h3 class="text-2xl font-heading font-extrabold text-white tracking-widest">GOOGLE</h3>
+                <h3 class="text-2xl font-heading font-extrabold text-white tracking-widest">META</h3>
+                <h3 class="text-2xl font-heading font-extrabold text-white tracking-widest">AMAZON</h3>
+                <h3 class="text-2xl font-heading font-extrabold text-white tracking-widest">MICROSOFT</h3>
+                <h3 class="text-2xl font-heading font-extrabold text-white tracking-widest">TESLA</h3>
+                <h3 class="text-2xl font-heading font-extrabold text-white tracking-widest">NETFLIX</h3>
+                <h3 class="text-2xl font-heading font-extrabold text-white tracking-widest">APPLE</h3>
+                <h3 class="text-2xl font-heading font-extrabold text-white tracking-widest">SPOTIFY</h3>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Services Highlight -->
+    <section class="py-24">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-heading font-extrabold text-white mb-4 spin-letters">Core Expertise</h2>
+            <p class="text-slate-400 mb-16 max-w-2xl mx-auto">We don't just provide services; we build engines for
+                sustainable growth.</p>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Premium Website Development -->
+                <div @click="activeServiceModal = 'webdev'"
+                    class="glass-card p-10 rounded-3xl text-left group cursor-pointer" data-aos="fade-up"
+                    data-aos-delay="0">
+                    <div
+                        class="w-16 h-16 bg-brand-primary/20 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-primary transition-colors border border-white/5">
+                        <i data-lucide="monitor"
+                            class="text-brand-primary w-8 h-8 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Premium Website Development</h3>
+                    <p class="text-slate-400 mb-6">Stunning, high-performance websites engineered to elevate your brand
+                        and drive real business results.</p>
+                    <span
+                        class="text-brand-primary font-bold inline-flex items-center group-hover:translate-x-2 transition-transform">
+                        Explore More <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </span>
+                </div>
+
+                <!-- Meta Ads Management -->
+                <div @click="activeServiceModal = 'metaads'"
+                    class="glass-card p-10 rounded-3xl text-left group cursor-pointer" data-aos="fade-up"
+                    data-aos-delay="100">
+                    <div
+                        class="w-16 h-16 bg-brand-secondary/20 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-secondary transition-colors border border-white/5">
+                        <i data-lucide="megaphone"
+                            class="text-brand-secondary w-8 h-8 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Meta Ads Management</h3>
+                    <p class="text-slate-400 mb-6">Data-driven Facebook & Instagram ad campaigns that maximize your ROAS
+                        and scale profitably.</p>
+                    <span
+                        class="text-brand-secondary font-bold inline-flex items-center group-hover:translate-x-2 transition-transform">
+                        Explore More <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </span>
+                </div>
+
+                <!-- SEO Optimization -->
+                <div @click="activeServiceModal = 'seo'"
+                    class="glass-card p-10 rounded-3xl text-left group cursor-pointer" data-aos="fade-up"
+                    data-aos-delay="200">
+                    <div
+                        class="w-16 h-16 bg-brand-accent/20 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-accent transition-colors border border-white/5">
+                        <i data-lucide="search"
+                            class="text-brand-accent w-8 h-8 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">SEO Optimization</h3>
+                    <p class="text-slate-400 mb-6">Dominate search rankings with technical SEO, content strategy, and
+                        authority-building backlinks.</p>
+                    <span
+                        class="text-brand-accent font-bold inline-flex items-center group-hover:translate-x-2 transition-transform">
+                        Explore More <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </span>
+                </div>
+
+                <!-- Landing Page Design -->
+                <div @click="activeServiceModal = 'landing'"
+                    class="glass-card p-10 rounded-3xl text-left group cursor-pointer" data-aos="fade-up"
+                    data-aos-delay="300">
+                    <div
+                        class="w-16 h-16 bg-brand-primary/20 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-primary transition-colors border border-white/5">
+                        <i data-lucide="layout"
+                            class="text-brand-primary w-8 h-8 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Landing Page Design</h3>
+                    <p class="text-slate-400 mb-6">Conversion-optimized landing pages that turn visitors into leads with
+                        compelling design & copy.</p>
+                    <span
+                        class="text-brand-primary font-bold inline-flex items-center group-hover:translate-x-2 transition-transform">
+                        Explore More <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </span>
+                </div>
+
+                <!-- Brand Identity & Strategy -->
+                <div @click="activeServiceModal = 'brand'"
+                    class="glass-card p-10 rounded-3xl text-left group cursor-pointer" data-aos="fade-up"
+                    data-aos-delay="400">
+                    <div
+                        class="w-16 h-16 bg-brand-secondary/20 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-secondary transition-colors border border-white/5">
+                        <i data-lucide="palette"
+                            class="text-brand-secondary w-8 h-8 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Brand Identity & Strategy</h3>
+                    <p class="text-slate-400 mb-6">Craft a powerful brand identity with logos, color systems, and visual
+                        guidelines that resonate.</p>
+                    <span
+                        class="text-brand-secondary font-bold inline-flex items-center group-hover:translate-x-2 transition-transform">
+                        Explore More <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </span>
+                </div>
+
+                <!-- Growth-Focused Strategy -->
+                <div @click="activeServiceModal = 'growth'"
+                    class="glass-card p-10 rounded-3xl text-left group cursor-pointer" data-aos="fade-up"
+                    data-aos-delay="500">
+                    <div
+                        class="w-16 h-16 bg-brand-accent/20 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-accent transition-colors border border-white/5">
+                        <i data-lucide="trending-up"
+                            class="text-brand-accent w-8 h-8 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Growth-Focused Strategy</h3>
+                    <p class="text-slate-400 mb-6">Full-funnel marketing strategies designed to accelerate revenue and
+                        scale your business fast.</p>
+                    <span
+                        class="text-brand-accent font-bold inline-flex items-center group-hover:translate-x-2 transition-transform">
+                        Explore More <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Growth Framework Section -->
+    <section class="py-24 relative overflow-hidden border-t border-white/5" x-data="{ activePhase: 1 }">
+        <!-- Decorative subtle grid background specifically for this section -->
+        <div
+            class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand-primary/5 via-transparent to-transparent pointer-events-none -z-10">
+        </div>
+
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span
+                    class="inline-block px-4 py-1.5 mb-4 text-xs font-bold tracking-widest text-brand-primary uppercase bg-brand-primary/10 rounded-full border border-brand-primary/20">
+                    How We Do It
+                </span>
+                <h2 class="text-4xl md:text-5xl font-heading font-extrabold text-white mb-4 spin-letters">Our Growth Framework</h2>
+                <p class="text-slate-400 max-w-xl mx-auto">Explore the exact sequential architectural steps we take to
+                    engineer high-velocity outcomes for your digital presence.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-5 gap-12 items-center">
+                <!-- Left Vertical Selector Tabs (Column Span: 2) -->
+                <div class="lg:col-span-2 space-y-4 relative pl-8 border-l border-white/10" data-aos="fade-right">
+                    <!-- Glowing Active Left Vertical Line Indicator -->
+                    <div class="absolute left-0 w-[3px] bg-gradient-to-b from-brand-primary to-brand-secondary transition-all duration-300 rounded-full"
+                        :style="{
+                             height: '24%',
+                             top: activePhase === 1 ? '5%' : activePhase === 2 ? '38%' : '71%'
+                         }"></div>
+
+                    <!-- Phase tab 1 -->
+                    <button @click="activePhase = 1"
+                        class="w-full text-left p-6 rounded-2xl transition-all cursor-pointer block border"
+                        :class="activePhase === 1 ? 'border-brand-primary bg-brand-primary/10 shadow-lg' : 'border-transparent bg-transparent hover:bg-white/5'">
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl font-heading font-extrabold text-brand-primary">01</span>
+                            <div>
+                                <h4 class="text-lg font-bold text-white mb-1">Discovery & Audit</h4>
+                                <p class="text-slate-400 text-xs">Deep performance diagnostics and flows.</p>
+                            </div>
+                        </div>
+                    </button>
+
+                    <!-- Phase tab 2 -->
+                    <button @click="activePhase = 2"
+                        class="w-full text-left p-6 rounded-2xl transition-all cursor-pointer block border"
+                        :class="activePhase === 2 ? 'border-brand-secondary bg-brand-secondary/10 shadow-lg' : 'border-transparent bg-transparent hover:bg-white/5'">
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl font-heading font-extrabold text-brand-secondary">02</span>
+                            <div>
+                                <h4 class="text-lg font-bold text-white mb-1">Velocity Build</h4>
+                                <p class="text-slate-400 text-xs">High-performance custom engineering.</p>
+                            </div>
+                        </div>
+                    </button>
+
+                    <!-- Phase tab 3 -->
+                    <button @click="activePhase = 3"
+                        class="w-full text-left p-6 rounded-2xl transition-all cursor-pointer block border"
+                        :class="activePhase === 3 ? 'border-brand-accent bg-brand-accent/10 shadow-lg' : 'border-transparent bg-transparent hover:bg-white/5'">
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl font-heading font-extrabold text-brand-accent">03</span>
+                            <div>
+                                <h4 class="text-lg font-bold text-white mb-1">Scale & Dominate</h4>
+                                <p class="text-slate-400 text-xs">Omnichannel marketing optimization.</p>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Right Live Content Details Panel (Column Span: 3) -->
+                <div class="lg:col-span-3 min-h-[380px]" data-aos="fade-left">
+                    <!-- Dynamic details box -->
+                    <div class="glass border border-white/10 rounded-[32px] p-8 md:p-10 shadow-2xl relative overflow-hidden transition-all duration-300"
+                        :class="{
+                             'border-brand-primary/20 shadow-brand-primary/5': activePhase === 1,
+                             'border-brand-secondary/20 shadow-brand-secondary/5': activePhase === 2,
+                             'border-brand-accent/20 shadow-brand-accent/5': activePhase === 3
+                         }">
+
+                        <!-- Glowing dynamic accent spot -->
+                        <div class="absolute -top-32 -right-32 w-64 h-64 rounded-full blur-[80px] opacity-20 pointer-events-none"
+                            :class="{
+                                 'bg-brand-primary': activePhase === 1,
+                                 'bg-brand-secondary': activePhase === 2,
+                                 'bg-brand-accent': activePhase === 3
+                             }"></div>
+
+                        <!-- Phase 1 Detail Content -->
+                        <div x-show="activePhase === 1" x-transition:enter="transition ease-out duration-300"
+                            x-transition:enter-start="opacity-0 translate-x-4"
+                            x-transition:enter-end="opacity-100 translate-x-0">
+                            <div class="flex justify-between items-center mb-6">
+                                <span
+                                    class="px-3 py-1 bg-brand-primary/10 text-brand-primary text-xs font-bold rounded-full uppercase tracking-wider">Timeline:
+                                    Weeks 1-2</span>
+                                <i data-lucide="search" class="text-brand-primary w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-2xl md:text-3xl font-heading font-extrabold text-white mb-4">Deep Tech Audit
+                                & User Flows</h3>
+                            <p class="text-slate-400 mb-6 leading-relaxed">Before writing a single line of code or
+                                launching a campaign, we run rigorous speed diagnostics, map user friction points, and
+                                audit your competitors' structural organic gaps.</p>
+
+                            <h4 class="text-white font-bold mb-3 flex items-center gap-1.5"><i data-lucide="sparkles"
+                                    class="w-4 h-4 text-brand-primary animate-pulse"></i> Key Deliverables (Click to
+                                View):</h4>
+                            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-slate-300">
+                                <li @click="activeDeliverableModal = 'lighthouse'"
+                                    class="flex items-center cursor-pointer hover:text-brand-primary transition-colors">
+                                    <i data-lucide="check-circle"
+                                        class="w-4 h-4 mr-2.5 text-brand-primary flex-shrink-0"></i> Lighthouse speed
+                                    benchmarks
+                                </li>
+                                <li @click="activeDeliverableModal = 'figma'"
+                                    class="flex items-center cursor-pointer hover:text-brand-primary transition-colors">
+                                    <i data-lucide="check-circle"
+                                        class="w-4 h-4 mr-2.5 text-brand-primary flex-shrink-0"></i> High-fidelity Figma
+                                    user journeys
+                                </li>
+                                <li @click="activeDeliverableModal = 'competitor'"
+                                    class="flex items-center cursor-pointer hover:text-brand-primary transition-colors">
+                                    <i data-lucide="check-circle"
+                                        class="w-4 h-4 mr-2.5 text-brand-primary flex-shrink-0"></i> Competitor
+                                    search-gap maps
+                                </li>
+                                <li @click="activeDeliverableModal = 'roi'"
+                                    class="flex items-center cursor-pointer hover:text-brand-primary transition-colors">
+                                    <i data-lucide="check-circle"
+                                        class="w-4 h-4 mr-2.5 text-brand-primary flex-shrink-0"></i> Direct ROI budget
+                                    blueprint
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Phase 2 Detail Content -->
+                        <div x-show="activePhase === 2" x-transition:enter="transition ease-out duration-300"
+                            x-transition:enter-start="opacity-0 translate-x-4"
+                            x-transition:enter-end="opacity-100 translate-x-0" x-cloak>
+                            <div class="flex justify-between items-center mb-6">
+                                <span
+                                    class="px-3 py-1 bg-brand-secondary/10 text-brand-secondary text-xs font-bold rounded-full uppercase tracking-wider">Timeline:
+                                    Weeks 3-6</span>
+                                <i data-lucide="code" class="text-brand-secondary w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-2xl md:text-3xl font-heading font-extrabold text-white mb-4">Velocity
+                                Engineering & Build</h3>
+                            <p class="text-slate-400 mb-6 leading-relaxed">Our master developers build blazing-fast
+                                websites and headless e-commerce checkouts, utilizing state-of-the-art styling
+                                frameworks to achieve 100/100 performance scores.</p>
+
+                            <h4 class="text-white font-bold mb-3 flex items-center gap-1.5"><i data-lucide="sparkles"
+                                    class="w-4 h-4 text-brand-secondary animate-pulse"></i> Key Deliverables (Click to
+                                View):</h4>
+                            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-slate-300">
+                                <li @click="activeDeliverableModal = 'nextjs'"
+                                    class="flex items-center cursor-pointer hover:text-brand-secondary transition-colors">
+                                    <i data-lucide="check-circle"
+                                        class="w-4 h-4 mr-2.5 text-brand-secondary flex-shrink-0"></i> Custom CSS &
+                                    Next.js builds
+                                </li>
+                                <li @click="activeDeliverableModal = 'stripe'"
+                                    class="flex items-center cursor-pointer hover:text-brand-secondary transition-colors">
+                                    <i data-lucide="check-circle"
+                                        class="w-4 h-4 mr-2.5 text-brand-secondary flex-shrink-0"></i> Tailored Stripe
+                                    payments integration
+                                </li>
+                                <li @click="activeDeliverableModal = 'cls'"
+                                    class="flex items-center cursor-pointer hover:text-brand-secondary transition-colors">
+                                    <i data-lucide="check-circle"
+                                        class="w-4 h-4 mr-2.5 text-brand-secondary flex-shrink-0"></i> Zero layout
+                                    shifts audit validation
+                                </li>
+                                <li @click="activeDeliverableModal = 'codebase'"
+                                    class="flex items-center cursor-pointer hover:text-brand-secondary transition-colors">
+                                    <i data-lucide="check-circle"
+                                        class="w-4 h-4 mr-2.5 text-brand-secondary flex-shrink-0"></i> Fully modular and
+                                    scalable code
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Phase 3 Detail Content -->
+                        <div x-show="activePhase === 3" x-transition:enter="transition ease-out duration-300"
+                            x-transition:enter-start="opacity-0 translate-x-4"
+                            x-transition:enter-end="opacity-100 translate-x-0" x-cloak>
+                            <div class="flex justify-between items-center mb-6">
+                                <span
+                                    class="px-3 py-1 bg-brand-accent/10 text-brand-accent text-xs font-bold rounded-full uppercase tracking-wider">Timeline:
+                                    Weeks 7-Ongoing</span>
+                                <i data-lucide="trending-up" class="text-brand-accent w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-2xl md:text-3xl font-heading font-extrabold text-white mb-4">Precision Ads &
+                                Growth Scaling</h3>
+                            <p class="text-slate-400 mb-6 leading-relaxed">We scale organic conversions with
+                                synchronized search campaigns, setting up robust retargeting flows that lower
+                                acquisition costs and elevate your return on ad spend.</p>
+
+                            <h4 class="text-white font-bold mb-3 flex items-center gap-1.5"><i data-lucide="sparkles"
+                                    class="w-4 h-4 text-brand-accent animate-pulse"></i> Key Deliverables (Click to
+                                View):</h4>
+                            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-slate-300">
+                                <li @click="activeDeliverableModal = 'ads'"
+                                    class="flex items-center cursor-pointer hover:text-brand-accent transition-colors">
+                                    <i data-lucide="check-circle"
+                                        class="w-4 h-4 mr-2.5 text-brand-accent flex-shrink-0"></i> Google & Meta ad
+                                    synchronizations
+                                </li>
+                                <li @click="activeDeliverableModal = 'dashboard'"
+                                    class="flex items-center cursor-pointer hover:text-brand-accent transition-colors">
+                                    <i data-lucide="check-circle"
+                                        class="w-4 h-4 mr-2.5 text-brand-accent flex-shrink-0"></i> Real-time tracking
+                                    funnel dashboards
+                                </li>
+                                <li @click="activeDeliverableModal = 'audience'"
+                                    class="flex items-center cursor-pointer hover:text-brand-accent transition-colors">
+                                    <i data-lucide="check-circle"
+                                        class="w-4 h-4 mr-2.5 text-brand-accent flex-shrink-0"></i> High-retention
+                                    lookalike audiences
+                                </li>
+                                <li @click="activeDeliverableModal = 'sweeps'"
+                                    class="flex items-center cursor-pointer hover:text-brand-accent transition-colors">
+                                    <i data-lucide="check-circle"
+                                        class="w-4 h-4 mr-2.5 text-brand-accent flex-shrink-0"></i> Bi-weekly conversion
+                                    rate sweeps
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Growth Simulator Section -->
+    <section class="py-24 relative overflow-hidden border-t border-white/5" x-data="{
+        velocity: 3,
+        croLevel: 60,
+        seoActive: true,
+        adsActive: true,
+        crmActive: false,
+        flywheelActive: false,
+        getSynergy() {
+            let base = (this.seoActive ? 30 : 0) + (this.adsActive ? 40 : 0) + (this.crmActive ? 30 : 0);
+            if (base === 0) return 0;
+            let ratio = this.croLevel / 100;
+            let multiplier = this.flywheelActive ? 1.3 : 1.0;
+            return Math.min(100, Math.round(base * ratio * multiplier));
+        },
+        getStatusMessage() {
+            if (!this.seoActive && !this.adsActive && !this.crmActive) {
+                return 'Engine standby. Integrate traffic channels to initiate intake flow.';
+            }
+            if (this.croLevel < 30) {
+                return 'CRITICAL LEAKAGE: High user friction detected. Increase Friction Reducer to prevent visitor exit.';
+            }
+            if (this.velocity >= 8 && this.croLevel >= 80 && this.flywheelActive) {
+                return 'SUPERCHARGED VELOCITY: Full omnichannel flywheel loop engaged. Peak scaling sequence active.';
+            }
+            if (this.croLevel >= 80) {
+                return 'EFFICIENT CONVERSIONS: Funnel leaks minimized. Pipeline running at optimal efficiency.';
+            }
+            return 'STABLE OPERATION: Flow rate active. Optimize friction controls to maximize synergy.';
+        }
+    }">
+        <style>
+            @keyframes flow-inward {
+                from { stroke-dashoffset: 80; }
+                to { stroke-dashoffset: 0; }
+            }
+            @keyframes flow-outward {
+                from { stroke-dashoffset: 0; }
+                to { stroke-dashoffset: 80; }
+            }
+            @keyframes pulse-glow {
+                0%, 100% { filter: drop-shadow(0 0 4px currentColor); opacity: 0.8; }
+                50% { filter: drop-shadow(0 0 12px currentColor); opacity: 1; }
+            }
+            .flow-line {
+                stroke-dasharray: 12, 20;
+                animation: flow-inward 5s linear infinite;
+            }
+            .leak-line {
+                stroke-dasharray: 8, 16;
+                animation: flow-outward 4s linear infinite;
+            }
+            .pulse-circle {
+                animation: pulse-glow 2s ease-in-out infinite;
+            }
+        </style>
+
+        <!-- Decorative background glow specifically for this section -->
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-primary/10 rounded-full blur-[120px] pointer-events-none -z-10">
+        </div>
+
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span
+                    class="inline-block px-4 py-1.5 mb-4 text-xs font-bold tracking-widest text-brand-secondary uppercase bg-brand-secondary/10 rounded-full border border-brand-secondary/20">
+                    Interactive Strategy Sandbox
+                </span>
+                <h2 class="text-4xl md:text-5xl font-heading font-extrabold text-white mb-4 spin-letters">Tune Your Growth Engine</h2>
+                <p class="text-slate-400 max-w-xl mx-auto">Optimize marketing channel speeds, minimize funnel friction, and engage the customer retention flywheel to visualize peak synergy.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-5 gap-12 items-center">
+                <!-- Left Input Controls Card -->
+                <div class="lg:col-span-3 glass border border-white/10 rounded-[32px] p-8 md:p-10 shadow-2xl"
+                    data-aos="fade-right">
+                    <h3 class="text-xl font-bold text-white mb-8 flex items-center gap-2">
+                        <i data-lucide="sliders" class="text-brand-secondary w-5 h-5"></i> Campaign Tuning Controls
+                    </h3>
+
+                    <!-- Parameter 1: Traffic Velocity -->
+                    <div class="mb-8">
+                        <div class="flex justify-between items-center mb-3">
+                            <label class="text-slate-300 font-semibold text-sm flex items-center gap-2">
+                                <i data-lucide="zap" class="text-brand-accent w-4 h-4"></i> Traffic Intake Velocity
+                            </label>
+                            <span class="text-brand-accent font-heading font-extrabold text-lg"
+                                x-text="velocity + 'x'">3x</span>
+                        </div>
+                        <input type="range" min="1" max="10" step="1" x-model="velocity"
+                            class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-brand-accent focus:outline-none">
+                        <div class="flex justify-between text-[10px] text-slate-500 font-bold uppercase mt-2">
+                            <span>Standard Flow</span>
+                            <span>Hyper-Velocity</span>
+                        </div>
+                    </div>
+
+                    <!-- Parameter 2: Integrated Channels -->
+                    <div class="mb-8">
+                        <label class="text-slate-300 font-semibold text-sm block mb-3 flex items-center gap-2">
+                            <i data-lucide="network" class="text-brand-secondary w-4 h-4"></i> Integrated Traffic Channels
+                        </label>
+                        <div class="grid grid-cols-3 gap-4">
+                            <!-- SEO Strategy -->
+                            <button @click="seoActive = !seoActive"
+                                class="py-4 px-3 rounded-2xl border text-center transition-all cursor-pointer font-bold text-xs sm:text-sm flex flex-col items-center gap-2"
+                                :class="seoActive ? 'border-brand-accent bg-brand-accent/10 text-white shadow-lg' : 'border-white/5 bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'">
+                                <i data-lucide="search" class="w-5 h-5"
+                                    :class="seoActive ? 'text-brand-accent' : 'text-slate-500'"></i>
+                                SEO Organic
+                            </button>
+                            <!-- Paid Campaigns -->
+                            <button @click="adsActive = !adsActive"
+                                class="py-4 px-3 rounded-2xl border text-center transition-all cursor-pointer font-bold text-xs sm:text-sm flex flex-col items-center gap-2"
+                                :class="adsActive ? 'border-brand-secondary bg-brand-secondary/10 text-white shadow-lg' : 'border-white/5 bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'">
+                                <i data-lucide="trending-up" class="w-5 h-5"
+                                    :class="adsActive ? 'text-brand-secondary' : 'text-slate-500'"></i>
+                                Paid Channels
+                            </button>
+                            <!-- CRM & Social -->
+                            <button @click="crmActive = !crmActive"
+                                class="py-4 px-3 rounded-2xl border text-center transition-all cursor-pointer font-bold text-xs sm:text-sm flex flex-col items-center gap-2"
+                                :class="crmActive ? 'border-brand-primary bg-brand-primary/10 text-white shadow-lg' : 'border-white/5 bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'">
+                                <i data-lucide="message-square" class="w-5 h-5"
+                                    :class="crmActive ? 'text-brand-primary' : 'text-slate-500'"></i>
+                                CRM & Social
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Parameter 3: Friction Reducer -->
+                    <div class="mb-8">
+                        <div class="flex justify-between items-center mb-3">
+                            <label class="text-slate-300 font-semibold text-sm flex items-center gap-2">
+                                <i data-lucide="activity" class="text-brand-primary w-4 h-4"></i> Friction Reducer (CRO)
+                            </label>
+                            <span class="text-brand-primary font-heading font-extrabold text-lg"
+                                x-text="croLevel + '%'">60%</span>
+                        </div>
+                        <input type="range" min="0" max="100" step="10" x-model="croLevel"
+                            class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-brand-primary focus:outline-none">
+                        <div class="flex justify-between text-[10px] text-slate-500 font-bold uppercase mt-2">
+                            <span>Unoptimized (Leaks)</span>
+                            <span>Frictionless (Max Yield)</span>
+                        </div>
+                    </div>
+
+                    <!-- Parameter 4: Retention Flywheel -->
+                    <div class="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5">
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="repeat" class="text-purple-400 w-5 h-5 mt-0.5 animate-spin-slow"></i>
+                            <div>
+                                <label class="text-white font-bold text-sm block">Retention Flywheel Feedback Loop</label>
+                                <span class="text-slate-400 text-xs block mt-0.5">Recycle successful conversions to feed top-of-funnel organic growth.</span>
+                            </div>
+                        </div>
+                        <button @click="flywheelActive = !flywheelActive"
+                            class="w-12 h-6 rounded-full p-1 transition-colors duration-300 focus:outline-none relative flex items-center cursor-pointer"
+                            :class="flywheelActive ? 'bg-purple-500' : 'bg-white/10'">
+                            <span class="w-4 h-4 rounded-full bg-white shadow-md transform transition-transform duration-300"
+                                :class="flywheelActive ? 'translate-x-6' : 'translate-x-0'"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Live Forecast Metrics Card -->
+                <div class="lg:col-span-2 glass border border-brand-secondary/30 rounded-[32px] p-8 md:p-10 shadow-2xl relative overflow-hidden"
+                    data-aos="fade-left">
+                    <div
+                        class="absolute -top-16 -right-16 w-32 h-32 bg-brand-secondary/20 rounded-full blur-3xl pointer-events-none">
+                    </div>
+
+                    <h3 class="text-xl font-bold text-white mb-6 flex justify-between items-center">
+                        <span class="flex items-center gap-2">
+                            <i data-lucide="cpu" class="text-brand-accent w-5 h-5 animate-pulse"></i> Live Flow Pipeline
+                        </span>
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider"
+                            :class="croLevel >= 80 ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-brand-secondary/20 text-brand-secondary border border-brand-secondary/30'"
+                            x-text="croLevel >= 80 ? 'Frictionless' : 'Active Flow'">
+                            Active Flow
+                        </span>
+                    </h3>
+
+                    <!-- SVG Pipeline Visualizer -->
+                    <div class="relative w-full h-[260px] bg-black/30 rounded-2xl overflow-hidden border border-white/5 mb-6 flex items-center justify-center">
+                        <svg viewBox="0 0 600 400" class="w-full h-full">
+                            <!-- Definitions of glows -->
+                            <defs>
+                                <filter id="glow-seo" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feGaussianBlur stdDeviation="3" result="blur" />
+                                    <feMerge>
+                                        <feMergeNode in="blur" />
+                                        <feMergeNode in="SourceGraphic" />
+                                    </feMerge>
+                                </filter>
+                                <filter id="glow-ads" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feGaussianBlur stdDeviation="3" result="blur" />
+                                    <feMerge>
+                                        <feMergeNode in="blur" />
+                                        <feMergeNode in="SourceGraphic" />
+                                    </feMerge>
+                                </filter>
+                                <filter id="glow-crm" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feGaussianBlur stdDeviation="3" result="blur" />
+                                    <feMerge>
+                                        <feMergeNode in="blur" />
+                                        <feMergeNode in="SourceGraphic" />
+                                    </feMerge>
+                                </filter>
+                                <filter id="glow-output" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feGaussianBlur stdDeviation="4" result="blur" />
+                                    <feMerge>
+                                        <feMergeNode in="blur" />
+                                        <feMergeNode in="SourceGraphic" />
+                                    </feMerge>
+                                </filter>
+                                <filter id="glow-flywheel" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feGaussianBlur stdDeviation="3" result="blur" />
+                                    <feMerge>
+                                        <feMergeNode in="blur" />
+                                        <feMergeNode in="SourceGraphic" />
+                                    </feMerge>
+                                </filter>
+                            </defs>
+
+                            <!-- STATIC PATH TRACKS (Subtle background paths) -->
+                            <!-- SEO Track -->
+                            <path d="M 100 60 C 100 130, 200 140, 260 180" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="4" stroke-linecap="round" />
+                            <!-- Paid Ads Track -->
+                            <path d="M 300 60 L 300 180" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="4" stroke-linecap="round" />
+                            <!-- CRM Track -->
+                            <path d="M 500 60 C 500 130, 400 140, 340 180" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="4" stroke-linecap="round" />
+                            <!-- Leak Tracks -->
+                            <path d="M 260 210 Q 220 210, 160 230" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="2" stroke-linecap="round" />
+                            <path d="M 340 210 Q 380 210, 440 230" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="2" stroke-linecap="round" />
+                            <!-- Output Track -->
+                            <path d="M 300 240 L 300 316" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="4" stroke-linecap="round" />
+                            <!-- Flywheel Loop Track -->
+                            <path d="M 276 340 C 20 340, 20 60, 80 60" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="3" stroke-linecap="round" />
+
+                            <!-- DYNAMIC ANIMATED SIGNAL FLOWS -->
+                            <!-- Flywheel Loop Signal -->
+                            <path d="M 276 340 C 20 340, 20 60, 80 60" fill="none" stroke="#a855f7" stroke-width="2.5" stroke-linecap="round" class="flow-line" filter="url(#glow-flywheel)"
+                                x-show="flywheelActive && (seoActive || adsActive || crmActive)" :style="{ animationDuration: (8 / velocity) + 's' }" x-cloak />
+
+                            <!-- SEO Flow Signal -->
+                            <path d="M 100 60 C 100 130, 200 140, 260 180" fill="none" stroke="#00f2fe" stroke-width="3" stroke-linecap="round" class="flow-line" filter="url(#glow-seo)"
+                                x-show="seoActive" :style="{ animationDuration: (10 / velocity) + 's' }" />
+                            <!-- Paid Ads Flow Signal -->
+                            <path d="M 300 60 L 300 180" fill="none" stroke="#ff6a00" stroke-width="3" stroke-linecap="round" class="flow-line" filter="url(#glow-ads)"
+                                x-show="adsActive" :style="{ animationDuration: (10 / velocity) + 's' }" />
+                            <!-- CRM Flow Signal -->
+                            <path d="M 500 60 C 500 130, 400 140, 340 180" fill="none" stroke="#ff2e93" stroke-width="3" stroke-linecap="round" class="flow-line" filter="url(#glow-crm)"
+                                x-show="crmActive" :style="{ animationDuration: (10 / velocity) + 's' }" />
+
+                            <!-- Friction Leak Flow Signals (Red dots leaking outward) -->
+                            <path d="M 260 210 Q 220 210, 160 230" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" class="leak-line"
+                                x-show="(seoActive || adsActive || crmActive)" :style="{ opacity: (100 - croLevel) / 100, animationDuration: (6 / velocity) + 's' }" />
+                            <path d="M 340 210 Q 380 210, 440 230" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" class="leak-line"
+                                x-show="(seoActive || adsActive || crmActive)" :style="{ opacity: (100 - croLevel) / 100, animationDuration: (6 / velocity) + 's' }" />
+
+                            <!-- Conversion Successful Output Flow Signal -->
+                            <path d="M 300 240 L 300 316" fill="none" stroke="#10b981" stroke-width="3.5" stroke-linecap="round" class="flow-line" filter="url(#glow-output)"
+                                x-show="(seoActive || adsActive || crmActive) && croLevel > 0" :style="{ animationDuration: (10 / velocity) + 's' }" />
+
+                            <!-- INLET / OUTLET NODES & LABELS -->
+                            <!-- SEO Node -->
+                            <g>
+                                <circle cx="100" cy="60" r="18" fill="#05020c" stroke="#00f2fe" stroke-width="1.5" :class="seoActive ? 'pulse-circle' : ''" :style="{ color: '#00f2fe' }" />
+                                <!-- Custom SVG Search Icon inside circle -->
+                                <g transform="translate(100, 60) scale(0.9)" stroke="#00f2fe" stroke-width="1.5" fill="none">
+                                    <circle cx="-1" cy="-1" r="3.5" />
+                                    <line x1="1.5" y1="1.5" x2="5" y2="5" />
+                                </g>
+                                <text x="100" y="94" fill="#b4b6d4" text-anchor="middle" font-size="9" font-family="Plus Jakarta Sans" font-weight="bold">SEO</text>
+                            </g>
+
+                            <!-- Paid Ads Node -->
+                            <g>
+                                <circle cx="300" cy="60" r="18" fill="#05020c" stroke="#ff6a00" stroke-width="1.5" :class="adsActive ? 'pulse-circle' : ''" :style="{ color: '#ff6a00' }" />
+                                <!-- Custom SVG Trending-Up Icon inside circle -->
+                                <g transform="translate(300, 60) scale(0.9)" stroke="#ff6a00" stroke-width="1.5" fill="none">
+                                    <path d="M -5,3 L -1,-1 L 2,2 L 6,-2 M 2,-2 H 6 V 2" />
+                                </g>
+                                <text x="300" y="94" fill="#b4b6d4" text-anchor="middle" font-size="9" font-family="Plus Jakarta Sans" font-weight="bold">PAID ADS</text>
+                            </g>
+
+                            <!-- CRM Node -->
+                            <g>
+                                <circle cx="500" cy="60" r="18" fill="#05020c" stroke="#ff2e93" stroke-width="1.5" :class="crmActive ? 'pulse-circle' : ''" :style="{ color: '#ff2e93' }" />
+                                <!-- Custom SVG Chat Icon inside circle -->
+                                <g transform="translate(500, 60) scale(0.85)" stroke="#ff2e93" stroke-width="1.5" fill="none">
+                                    <path d="M -5,-4 H 5 V 2 H -1 L -5,5 Z" />
+                                </g>
+                                <text x="500" y="94" fill="#b4b6d4" text-anchor="middle" font-size="9" font-family="Plus Jakarta Sans" font-weight="bold">CRM & SOCIAL</text>
+                            </g>
+
+                            <!-- Funnel polygon (Conversions Site Chamber) -->
+                            <g>
+                                <polygon points="240,180 360,180 320,240 280,240" fill="rgba(12, 6, 26, 0.85)" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1.5" />
+                                <text x="300" y="215" fill="#ffffff" text-anchor="middle" font-size="10" font-family="Plus Jakarta Sans" font-weight="extrabold" letter-spacing="1">FUNNEL</text>
+                            </g>
+
+                            <!-- Friction Leak Nodes (Escapes) -->
+                            <g x-show="(seoActive || adsActive || crmActive)" :style="{ opacity: (100 - croLevel) / 100 }">
+                                <circle cx="160" cy="230" r="6" fill="#ef4444" class="pulse-circle" :style="{ color: '#ef4444' }" />
+                                <text x="160" y="248" fill="#ef4444" text-anchor="middle" font-size="8" font-family="Plus Jakarta Sans" font-weight="bold">LEAK</text>
+
+                                <circle cx="440" cy="230" r="6" fill="#ef4444" class="pulse-circle" :style="{ color: '#ef4444' }" />
+                                <text x="440" y="248" fill="#ef4444" text-anchor="middle" font-size="8" font-family="Plus Jakarta Sans" font-weight="bold">LEAK</text>
+                            </g>
+
+                            <!-- Conversion Vault (Output) -->
+                            <g>
+                                <circle cx="300" cy="340" r="22" fill="#05020c" stroke="#10b981" stroke-width="2" class="pulse-circle" :style="{ color: '#10b981' }" />
+                                <!-- Custom SVG Star/Trophy Icon inside circle -->
+                                <g transform="translate(300, 340) scale(0.9)" stroke="#10b981" stroke-width="1.5" fill="none">
+                                    <polygon points="0,-6 2,-2 6,-2 3,1 4,5 0,3 -4,5 -3,1 -6,-2 -2,-2" />
+                                </g>
+                                <text x="300" y="380" fill="#10b981" text-anchor="middle" font-size="10" font-family="Plus Jakarta Sans" font-weight="extrabold">GROWTH YIELD</text>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <!-- PERFORMANCE METERS -->
+                    <div class="grid grid-cols-3 gap-3 mb-6">
+                        <!-- Metric 1: Velocity -->
+                        <div class="p-3 bg-white/5 rounded-2xl border border-white/5 text-center">
+                            <span class="text-[9px] text-slate-500 font-bold uppercase tracking-wider block">Intake</span>
+                            <span class="text-base font-heading font-extrabold text-brand-accent block mt-1" x-text="velocity + 'x'">3x</span>
+                        </div>
+                        <!-- Metric 2: Leaks -->
+                        <div class="p-3 bg-white/5 rounded-2xl border border-white/5 text-center">
+                            <span class="text-[9px] text-slate-500 font-bold uppercase tracking-wider block">Friction</span>
+                            <span class="text-base font-heading font-extrabold block mt-1"
+                                :class="croLevel >= 80 ? 'text-emerald-400' : croLevel <= 30 ? 'text-rose-500' : 'text-slate-300'"
+                                x-text="(100 - croLevel) + '%'">40%</span>
+                        </div>
+                        <!-- Metric 3: Synergy -->
+                        <div class="p-3 bg-white/5 rounded-2xl border border-white/5 text-center">
+                            <span class="text-[9px] text-slate-500 font-bold uppercase tracking-wider block">Synergy</span>
+                            <span class="text-base font-heading font-extrabold text-brand-secondary block mt-1" x-text="getSynergy() + '%'">60%</span>
+                        </div>
+                    </div>
+
+                    <!-- Live Console Log -->
+                    <div class="bg-black/40 border border-white/10 rounded-2xl p-4 font-mono text-xs text-slate-400 mb-6 relative overflow-hidden">
+                        <div class="absolute top-3 right-3 flex gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-red-500/60"></span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-yellow-500/60"></span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-500/60"></span>
+                        </div>
+                        <div class="text-[9px] text-slate-500 uppercase tracking-widest mb-1.5 font-bold flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brand-accent animate-ping"></span> Console Status
+                        </div>
+                        <p class="text-slate-300 leading-normal min-h-[36px]" x-text="getStatusMessage()"></p>
+                    </div>
+
+                    <!-- Lock in action -->
+                    <a :href="'contact.html?service=' + (seoActive ? 'ui-ux' : adsActive ? 'social-media' : 'advertising')"
+                        class="w-full py-4 bg-brand-secondary hover:bg-brand-secondary/80 text-brand-dark font-extrabold rounded-xl transition-all text-center block shadow-lg shadow-brand-secondary/20 cursor-pointer text-sm">
+                        Launch Campaign Stack
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Client Success Stories (Testimonials) Section -->
+    <section class="py-24 relative overflow-hidden border-t border-white/5">
+        <div
+            class="absolute top-10 right-10 w-96 h-96 bg-brand-accent/5 rounded-full blur-[100px] pointer-events-none -z-10">
+        </div>
+
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span
+                    class="inline-block px-4 py-1.5 mb-4 text-xs font-bold tracking-widest text-brand-accent uppercase bg-brand-accent/10 rounded-full border border-brand-accent/20">
+                    Success Stories
+                </span>
+                <h2 class="text-4xl md:text-5xl font-heading font-extrabold text-white mb-4">Loved by Visionary Teams
+                </h2>
+                <p class="text-slate-400 max-w-xl mx-auto">Read how we helped fast-growing brands achieve
+                    record-breaking scale and performance metrics.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div @click="activeSuccessModal = 'aura'"
+                    class="glass-card p-8 rounded-3xl relative overflow-hidden group border border-white/5 hover:border-brand-primary/20 transition-all shadow-xl cursor-pointer hover:scale-[1.02]"
+                    data-aos="fade-up" data-aos-delay="0">
+                    <div class="flex gap-1 text-brand-accent mb-6">
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    </div>
+                    <p class="text-slate-300 text-sm italic mb-8 leading-relaxed">
+                        "IKANTIK Agency completely transformed our storefront architecture. Our conversion rate
+                        increased
+                        by 220% in the first 30 days, and our load speeds became instant."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center border border-white/10 font-bold text-white uppercase text-sm">
+                            SL</div>
+                        <div>
+                            <h4 class="text-white font-bold text-base">Sophia Loren</h4>
+                            <p class="text-slate-500 text-xs uppercase tracking-wider font-bold">Founder, Aura Cosmetics
+                            </p>
+                        </div>
+                    </div>
+                    <span
+                        class="absolute top-4 right-4 px-3 py-1 bg-brand-primary/10 text-brand-primary text-[10px] font-extrabold rounded-full uppercase tracking-wider border border-brand-primary/20">
+                        +220% Conversions
+                    </span>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div @click="activeSuccessModal = 'apex'"
+                    class="glass-card p-8 rounded-3xl relative overflow-hidden group border border-white/5 hover:border-brand-secondary/20 transition-all shadow-xl cursor-pointer hover:scale-[1.02]"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex gap-1 text-brand-accent mb-6">
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    </div>
+                    <p class="text-slate-300 text-sm italic mb-8 leading-relaxed">
+                        "The paid channel strategy designed by their team delivered a consistent 8.4x ROAS on Meta. They
+                        are obsessive about the metrics that actually drive expansion."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center border border-white/10 font-bold text-white uppercase text-sm">
+                            LV</div>
+                        <div>
+                            <h4 class="text-white font-bold text-base">Liam Vance</h4>
+                            <p class="text-slate-500 text-xs uppercase tracking-wider font-bold">VP Growth, Apex
+                                Wearables</p>
+                        </div>
+                    </div>
+                    <span
+                        class="absolute top-4 right-4 px-3 py-1 bg-brand-secondary/10 text-brand-secondary text-[10px] font-extrabold rounded-full uppercase tracking-wider border border-brand-secondary/20">
+                        8.4x Meta ROAS
+                    </span>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div @click="activeSuccessModal = 'nexus'"
+                    class="glass-card p-8 rounded-3xl relative overflow-hidden group border border-white/5 hover:border-brand-accent/20 transition-all shadow-xl cursor-pointer hover:scale-[1.02]"
+                    data-aos="fade-up" data-aos-delay="400">
+                    <div class="flex gap-1 text-brand-accent mb-6">
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    </div>
+                    <p class="text-slate-300 text-sm italic mb-8 leading-relaxed">
+                        "Their Next.js custom architecture handles millions of hits without single-digit downtime.
+                        Scalability and security are truly built into their DNA."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center border border-white/10 font-bold text-white uppercase text-sm">
+                            AT</div>
+                        <div>
+                            <h4 class="text-white font-bold text-base">Aria Thorne</h4>
+                            <p class="text-slate-500 text-xs uppercase tracking-wider font-bold">COO, Nexus Networks</p>
+                        </div>
+                    </div>
+                    <span
+                        class="absolute top-4 right-4 px-3 py-1 bg-brand-accent/10 text-brand-accent text-[10px] font-extrabold rounded-full uppercase tracking-wider border border-brand-accent/20">
+                        99.99% Uptime
+                    </span>
+                </div>
+
+                <!-- Testimonial 4 -->
+                <div @click="activeSuccessModal = 'ventures'"
+                    class="glass-card p-8 rounded-3xl relative overflow-hidden group border border-white/5 hover:border-brand-secondary/20 transition-all shadow-xl cursor-pointer hover:scale-[1.02]"
+                    data-aos="fade-up" data-aos-delay="0">
+                    <div class="flex gap-1 text-brand-accent mb-6">
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    </div>
+                    <p class="text-slate-300 text-sm italic mb-8 leading-relaxed">
+                        "Their optimization sweeps lowered our acquisition costs by 45% in less than two months. The
+                        unified live analytics dashboard is an absolute game-changer."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center border border-white/10 font-bold text-white uppercase text-sm">
+                            EH</div>
+                        <div>
+                            <h4 class="text-white font-bold text-base">Ethan Hunt</h4>
+                            <p class="text-slate-500 text-xs uppercase tracking-wider font-bold">CEO, Apex Ventures</p>
+                        </div>
+                    </div>
+                    <span
+                        class="absolute top-4 right-4 px-3 py-1 bg-brand-secondary/10 text-brand-secondary text-[10px] font-extrabold rounded-full uppercase tracking-wider border border-brand-secondary/20">
+                        -45% CAC Reduction
+                    </span>
+                </div>
+
+                <!-- Testimonial 5 -->
+                <div @click="activeSuccessModal = 'flora'"
+                    class="glass-card p-8 rounded-3xl relative overflow-hidden group border border-white/5 hover:border-brand-primary/20 transition-all shadow-xl cursor-pointer hover:scale-[1.02]"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex gap-1 text-brand-accent mb-6">
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    </div>
+                    <p class="text-slate-300 text-sm italic mb-8 leading-relaxed">
+                        "IKANTIK Agency built a headless Shopify storefront that runs with zero layout shifts.
+                        High-fidelity micro-animations elevated our brand value instantly."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center border border-white/10 font-bold text-white uppercase text-sm">
+                            ML</div>
+                        <div>
+                            <h4 class="text-white font-bold text-base">Maya Lin</h4>
+                            <p class="text-slate-500 text-xs uppercase tracking-wider font-bold">Director, Flora
+                                Botanicals</p>
+                        </div>
+                    </div>
+                    <span
+                        class="absolute top-4 right-4 px-3 py-1 bg-brand-primary/10 text-brand-primary text-[10px] font-extrabold rounded-full uppercase tracking-wider border border-brand-primary/20">
+                        100/100 Speed Score
+                    </span>
+                </div>
+
+                <!-- Testimonial 6 -->
+                <div @click="activeSuccessModal = 'gearflow'"
+                    class="glass-card p-8 rounded-3xl relative overflow-hidden group border border-white/5 hover:border-brand-accent/20 transition-all shadow-xl cursor-pointer hover:scale-[1.02]"
+                    data-aos="fade-up" data-aos-delay="400">
+                    <div class="flex gap-1 text-brand-accent mb-6">
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    </div>
+                    <p class="text-slate-300 text-sm italic mb-8 leading-relaxed">
+                        "The Stripe payment system handled over $2M during our product launch with zero dropouts. Their
+                        attention to UX engineering is world-class."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center border border-white/10 font-bold text-white uppercase text-sm">
+                            LV</div>
+                        <div>
+                            <h4 class="text-white font-bold text-base">Lucas Vance</h4>
+                            <p class="text-slate-500 text-xs uppercase tracking-wider font-bold">Founder, GearFlow</p>
+                        </div>
+                    </div>
+                    <span
+                        class="absolute top-4 right-4 px-3 py-1 bg-brand-accent/10 text-brand-accent text-[10px] font-extrabold rounded-full uppercase tracking-wider border border-brand-accent/20">
+                        $2.4M Launch Volume
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Common Questions (FAQ) Section -->
+    <section class="py-24 relative overflow-hidden border-t border-white/5">
+        <div
+            class="absolute bottom-10 left-10 w-96 h-96 bg-brand-primary/5 rounded-full blur-[100px] pointer-events-none -z-10">
+        </div>
+
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span
+                    class="inline-block px-4 py-1.5 mb-4 text-xs font-bold tracking-widest text-brand-secondary uppercase bg-brand-secondary/10 rounded-full border border-brand-secondary/20">
+                    Instant Answers
+                </span>
+                <h2 class="text-4xl md:text-5xl font-heading font-extrabold text-white mb-4">Frequently Asked</h2>
+                <p class="text-slate-400 max-w-xl mx-auto">Quick answers to help you understand our methodology,
+                    pricing, and execution models.</p>
+            </div>
+
+            <!-- FAQ Accordion Container -->
+            <div class="space-y-4">
+                <!-- Question 1 -->
+                <div class="glass border border-white/5 rounded-3xl overflow-hidden transition-all duration-300"
+                    :class="activeFaq === 1 ? 'border-brand-primary/40 shadow-lg shadow-brand-primary/10' : ''"
+                    data-aos="fade-up">
+                    <button @click="activeFaq = activeFaq === 1 ? null : 1"
+                        class="w-full p-6 md:p-8 text-left flex justify-between items-center group cursor-pointer">
+                        <span
+                            class="text-lg md:text-xl font-bold text-white group-hover:text-brand-primary transition-colors pr-4">How
+                            soon do we see significant scaling impact?</span>
+                        <i data-lucide="plus" x-show="activeFaq !== 1" class="text-slate-500 w-5 h-5 flex-shrink-0"></i>
+                        <i data-lucide="minus" x-show="activeFaq === 1"
+                            class="text-brand-primary w-5 h-5 flex-shrink-0"></i>
+                    </button>
+                    <div x-show="activeFaq === 1" x-transition:enter="transition ease-out duration-200" x-cloak>
+                        <div class="px-6 md:px-8 pb-6 md:pb-8 text-slate-400 text-sm md:text-base leading-relaxed">
+                            For Paid Advertising and Social, impact shows as early as 30 days as we rapidly run campaign
+                            segments. For organic SEO loops, robust rankings typically settle in 90 days.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="glass border border-white/5 rounded-3xl overflow-hidden transition-all duration-300"
+                    :class="activeFaq === 2 ? 'border-brand-secondary/40 shadow-lg shadow-brand-secondary/10' : ''"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <button @click="activeFaq = activeFaq === 2 ? null : 2"
+                        class="w-full p-6 md:p-8 text-left flex justify-between items-center group cursor-pointer">
+                        <span
+                            class="text-lg md:text-xl font-bold text-white group-hover:text-brand-secondary transition-colors pr-4">Do
+                            you require long-term binding contracts?</span>
+                        <i data-lucide="plus" x-show="activeFaq !== 2" class="text-slate-500 w-5 h-5 flex-shrink-0"></i>
+                        <i data-lucide="minus" x-show="activeFaq === 2"
+                            class="text-brand-secondary w-5 h-5 flex-shrink-0"></i>
+                    </button>
+                    <div x-show="activeFaq === 2" x-transition:enter="transition ease-out duration-200" x-cloak>
+                        <div class="px-6 md:px-8 pb-6 md:pb-8 text-slate-400 text-sm md:text-base leading-relaxed">
+                            No binding contracts! Our services operate on a high-flexibility month-to-month basis with a
+                            standard 30-day exit notice. We win your partnership and deliver high returns every single
+                            month.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="glass border border-white/5 rounded-3xl overflow-hidden transition-all duration-300"
+                    :class="activeFaq === 3 ? 'border-brand-accent/40 shadow-lg shadow-brand-accent/10' : ''"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <button @click="activeFaq = activeFaq === 3 ? null : 3"
+                        class="w-full p-6 md:p-8 text-left flex justify-between items-center group cursor-pointer">
+                        <span
+                            class="text-lg md:text-xl font-bold text-white group-hover:text-brand-accent transition-colors pr-4">What
+                            is your pricing model for ad accounts?</span>
+                        <i data-lucide="plus" x-show="activeFaq !== 3" class="text-slate-500 w-5 h-5 flex-shrink-0"></i>
+                        <i data-lucide="minus" x-show="activeFaq === 3"
+                            class="text-brand-accent w-5 h-5 flex-shrink-0"></i>
+                    </button>
+                    <div x-show="activeFaq === 3" x-transition:enter="transition ease-out duration-200" x-cloak>
+                        <div class="px-6 md:px-8 pb-6 md:pb-8 text-slate-400 text-sm md:text-base leading-relaxed">
+                            We offer high-value flat management fee models or target performance splits depending on
+                            your budget size. We never lock you into bloated enterprise rates or hidden percentages.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="glass border border-white/5 rounded-3xl overflow-hidden transition-all duration-300"
+                    :class="activeFaq === 4 ? 'border-brand-primary/40 shadow-lg shadow-brand-primary/10' : ''"
+                    data-aos="fade-up" data-aos-delay="300">
+                    <button @click="activeFaq = activeFaq === 4 ? null : 4"
+                        class="w-full p-6 md:p-8 text-left flex justify-between items-center group cursor-pointer">
+                        <span
+                            class="text-lg md:text-xl font-bold text-white group-hover:text-brand-primary transition-colors pr-4">Do
+                            we get real-time dashboards to check returns?</span>
+                        <i data-lucide="plus" x-show="activeFaq !== 4" class="text-slate-500 w-5 h-5 flex-shrink-0"></i>
+                        <i data-lucide="minus" x-show="activeFaq === 4"
+                            class="text-brand-primary w-5 h-5 flex-shrink-0"></i>
+                    </button>
+                    <div x-show="activeFaq === 4" x-transition:enter="transition ease-out duration-200" x-cloak>
+                        <div class="px-6 md:px-8 pb-6 md:pb-8 text-slate-400 text-sm md:text-base leading-relaxed">
+                            Absolutely! You receive complete, transparent 24/7 access to our custom growth portal where
+                            you can see impressions, acquisitions, conversions, ad spend, and ROAS in real-time.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="glass border border-white/5 rounded-3xl overflow-hidden transition-all duration-300"
+                    :class="activeFaq === 5 ? 'border-brand-secondary/40 shadow-lg shadow-brand-secondary/10' : ''"
+                    data-aos="fade-up" data-aos-delay="400">
+                    <button @click="activeFaq = activeFaq === 5 ? null : 5"
+                        class="w-full p-6 md:p-8 text-left flex justify-between items-center group cursor-pointer">
+                        <span
+                            class="text-lg md:text-xl font-bold text-white group-hover:text-brand-secondary transition-colors pr-4">Can
+                            we migrate our existing legacy platform to your Next.js architecture?</span>
+                        <i data-lucide="plus" x-show="activeFaq !== 5" class="text-slate-500 w-5 h-5 flex-shrink-0"></i>
+                        <i data-lucide="minus" x-show="activeFaq === 5"
+                            class="text-brand-secondary w-5 h-5 flex-shrink-0"></i>
+                    </button>
+                    <div x-show="activeFaq === 5" x-transition:enter="transition ease-out duration-200" x-cloak>
+                        <div class="px-6 md:px-8 pb-6 md:pb-8 text-slate-400 text-sm md:text-base leading-relaxed">
+                            Absolutely! We specialize in zero-downtime database, asset, and design migrations from
+                            legacy setups like WordPress, Shopify, Magento, or Webflow into ultra-performant Custom
+                            Next.js architectures.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Bottom Contact Prompt -->
+            <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="500">
+                <p class="text-slate-500 text-sm mb-2">Still have questions?</p>
+                <a href="contact.html"
+                    class="inline-flex items-center gap-2 text-brand-primary hover:text-brand-secondary font-bold text-base transition-colors group cursor-pointer">
+                    Contact our support team <i data-lucide="message-square"
+                        class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 relative overflow-hidden" data-aos="zoom-in" data-aos-duration="1000">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="glass p-12 md:p-20 rounded-[40px] text-center border border-white/10 relative overflow-hidden">
+                <div
+                    class="absolute inset-0 bg-gradient-to-r from-brand-primary to-brand-secondary opacity-10 rounded-[40px] -z-10">
+                </div>
+                <h2 class="text-4xl md:text-6xl font-heading font-extrabold text-white mb-8 spin-letters">Ready to Scale?</h2>
+                <p class="text-xl text-slate-400 mb-12 max-w-xl mx-auto">Join visionary brands that have successfully
+                    launched and scaled
+                    their digital presence with IKANTIK Agency.</p>
+                <a href="contact.html"
+                    class="inline-flex items-center px-10 py-5 bg-white text-brand-dark font-extrabold rounded-xl hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,255,255,0.3)]">
+                    Start Your Project
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark/50 pt-20 pb-10 border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <a href="index.html" class="flex items-center space-x-3 mb-6 group">
+                        <div class="relative w-10 h-10 flex items-center justify-center">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-secondary rounded-xl rotate-6 group-hover:rotate-12 transition-transform duration-300 opacity-80">
+                            </div>
+                            <div
+                                class="absolute inset-0 bg-brand-dark rounded-xl border border-white/10 flex items-center justify-center shadow-lg shadow-brand-primary/20">
+                                <i data-lucide="orbit"
+                                    class="text-white w-5 h-5 group-hover:rotate-180 transition-transform duration-700"></i>
+                            </div>
+                        </div>
+                        <span class="text-2xl font-heading font-extrabold tracking-tight text-white"><span class="spin-letters">IKAN</span><span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">TIK</span></span>
+                    </a>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">
+                        The modern architecture for digital growth. We build web applications that stand the test of
+                        time and
+                        technology.
+                    </p>
+                                        <div class="flex space-x-4">
+                        <a href="https://www.instagram.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                        <a href="https://www.linkedin.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+                        <a href="https://wa.me/919586751109" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.864.002-2.637-1.023-5.116-2.887-6.98-1.865-1.864-4.343-2.887-6.982-2.889-5.44 0-9.863 4.42-9.867 9.865-.001 1.968.514 3.89 1.492 5.58l-.978 3.57 3.654-.959zM17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+                        </a>
+                        <a href="https://www.facebook.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                    </div>
+                </div>
+
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Company</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li><a href="about.html" class="hover:text-white">Our Story</a></li>
+                        <li><a href="process.html" class="hover:text-white">Process</a></li>
+                        <li><a href="portfolio.html" class="hover:text-white">Portfolio</a></li>
+                        <li><a href="blog.html" class="hover:text-white">Journal</a></li>
+                        <li><a href="faq.html" class="hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Expertise</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li><a href="services.html" class="hover:text-white">Website Development</a></li>
+                        <li><a href="services.html" class="hover:text-white">Meta Ads</a></li>
+                        <li><a href="services.html" class="hover:text-white">SEO Optimization</a></li>
+                        <li><a href="services.html" class="hover:text-white">All Services</a></li>
+                    </ul>
+                </div>
+
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Contact</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li class="flex items-center"><i data-lucide="mail" class="w-4 h-4 mr-2"></i> hello@ikantik.com
+                        </li>
+                        <li class="flex items-center"><i data-lucide="phone" class="w-4 h-4 mr-2"></i> +91 95867 51109
+                        </li>
+                        <li class="flex items-center"><i data-lucide="map-pin" class="w-4 h-4 mr-2"></i> Vesu, Surat</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-slate-500 text-xs text-center md:text-left">
+                <p>&copy; 2026 IKANTIK Agency. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Core Expertise Modals -->
+    <div x-show="activeServiceModal"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-brand-dark/90 backdrop-blur-lg"
+        x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+        @keydown.escape.window="activeServiceModal = null" x-cloak>
+
+        <!-- Modal Container -->
+        <div class="relative w-full max-w-2xl bg-slate-900 border border-white/10 rounded-[32px] p-8 md:p-10 shadow-2xl overflow-hidden glass"
+            @click.away="activeServiceModal = null" x-show="activeServiceModal"
+            x-transition:enter="transition ease-out duration-300 transform"
+            x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+            x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-200 transform"
+            x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+            x-transition:leave-end="opacity-0 scale-95 translate-y-4">
+
+            <!-- Glow Accents dynamically colored based on service -->
+            <div class="absolute -top-40 -right-40 w-80 h-80 rounded-full blur-[100px] opacity-25 pointer-events-none"
+                :class="{
+                     'bg-brand-primary': activeServiceModal === 'webdev' || activeServiceModal === 'landing',
+                     'bg-brand-secondary': activeServiceModal === 'metaads' || activeServiceModal === 'brand',
+                     'bg-brand-accent': activeServiceModal === 'seo' || activeServiceModal === 'growth'
+                 }"></div>
+
+            <!-- Close Button -->
+            <button @click="activeServiceModal = null"
+                class="absolute top-6 right-6 w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all cursor-pointer border border-white/5 z-10">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <!-- WEBDEV MODAL -->
+            <div x-show="activeServiceModal === 'webdev'">
+                <div class="flex items-center gap-4 mb-6">
+                    <div
+                        class="w-14 h-14 bg-brand-primary/20 rounded-2xl flex items-center justify-center border border-white/5 text-brand-primary">
+                        <i data-lucide="monitor" class="w-7 h-7"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-brand-primary tracking-widest uppercase">Service</span>
+                        <h3 class="text-2xl md:text-3xl font-heading font-extrabold text-white">Premium Website
+                            Development</h3>
+                    </div>
+                </div>
+                <p class="text-slate-400 mb-8 leading-relaxed">We build stunning, high-performance websites that are
+                    fast, responsive, and designed to convert. From custom-coded solutions to CMS-powered platforms,
+                    every site is engineered for results.</p>
+                <h4 class="text-white font-bold mb-4 flex items-center gap-2"><i data-lucide="sparkles"
+                        class="w-5 h-5 text-brand-primary animate-pulse"></i> What We Deliver:</h4>
+                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 text-slate-300">
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-primary"></i>Custom Responsive Websites</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-primary"></i>E-Commerce Storefronts</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 mr-3 text-brand-primary"></i>CMS
+                        Integration (WordPress)</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-primary"></i>100/100 Performance Scores</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-primary"></i>Mobile-First Development</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 mr-3 text-brand-primary"></i>SSL
+                        & Speed Optimization</li>
+                </ul>
+                <div class="flex flex-col sm:flex-row gap-4 pt-2 border-t border-white/5">
+                    <a href="contact.html?service=web-dev"
+                        class="px-6 py-4 bg-brand-primary hover:bg-brand-primary/80 text-white font-bold rounded-xl transition-all text-center flex-1 shadow-lg shadow-brand-primary/20">Get
+                        Started</a>
+                    <a href="services.html" @click="activeServiceModal = null"
+                        class="px-6 py-4 glass text-white font-bold rounded-xl hover:bg-white/10 transition-colors text-center flex-1">All
+                        Services</a>
+                </div>
+            </div>
+
+            <!-- META ADS MODAL -->
+            <div x-show="activeServiceModal === 'metaads'">
+                <div class="flex items-center gap-4 mb-6">
+                    <div
+                        class="w-14 h-14 bg-brand-secondary/20 rounded-2xl flex items-center justify-center border border-white/5 text-brand-secondary">
+                        <i data-lucide="megaphone" class="w-7 h-7"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-brand-secondary tracking-widest uppercase">Service</span>
+                        <h3 class="text-2xl md:text-3xl font-heading font-extrabold text-white">Meta Ads Management</h3>
+                    </div>
+                </div>
+                <p class="text-slate-400 mb-8 leading-relaxed">We create and manage high-performing Facebook & Instagram
+                    ad campaigns that deliver measurable ROI. From audience targeting to creative optimization, we
+                    handle every aspect of your Meta advertising.</p>
+                <h4 class="text-white font-bold mb-4 flex items-center gap-2"><i data-lucide="sparkles"
+                        class="w-5 h-5 text-brand-secondary animate-pulse"></i> What We Deliver:</h4>
+                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 text-slate-300">
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-secondary"></i>Facebook & Instagram Ads</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-secondary"></i>Audience Targeting & Lookalikes</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-secondary"></i>Ad Creative & Copywriting</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-secondary"></i>Retargeting & Funnel Campaigns</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-secondary"></i>A/B Testing & Optimization</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-secondary"></i>Monthly Performance Reports</li>
+                </ul>
+                <div class="flex flex-col sm:flex-row gap-4 pt-2 border-t border-white/5">
+                    <a href="contact.html?service=meta-ads"
+                        class="px-6 py-4 bg-brand-secondary hover:bg-brand-secondary/80 text-brand-dark font-extrabold rounded-xl transition-all text-center flex-1 shadow-lg shadow-brand-secondary/20">Get
+                        Started</a>
+                    <a href="services.html" @click="activeServiceModal = null"
+                        class="px-6 py-4 glass text-white font-bold rounded-xl hover:bg-white/10 transition-colors text-center flex-1">All
+                        Services</a>
+                </div>
+            </div>
+
+            <!-- SEO MODAL -->
+            <div x-show="activeServiceModal === 'seo'">
+                <div class="flex items-center gap-4 mb-6">
+                    <div
+                        class="w-14 h-14 bg-brand-accent/20 rounded-2xl flex items-center justify-center border border-white/5 text-brand-accent">
+                        <i data-lucide="search" class="w-7 h-7"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-brand-accent tracking-widest uppercase">Service</span>
+                        <h3 class="text-2xl md:text-3xl font-heading font-extrabold text-white">SEO Optimization</h3>
+                    </div>
+                </div>
+                <p class="text-slate-400 mb-8 leading-relaxed">We boost your organic visibility with proven SEO
+                    strategies. From technical audits to content optimization and link building, we help you rank higher
+                    and drive quality traffic.</p>
+                <h4 class="text-white font-bold mb-4 flex items-center gap-2"><i data-lucide="sparkles"
+                        class="w-5 h-5 text-brand-accent animate-pulse"></i> What We Deliver:</h4>
+                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 text-slate-300">
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-accent"></i>Technical SEO Audits</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-accent"></i>Keyword Research & Strategy</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-accent"></i>On-Page & Off-Page SEO</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-accent"></i>Content Strategy & Blogs</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-accent"></i>Local SEO & Google My Business</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-accent"></i>Monthly Ranking Reports</li>
+                </ul>
+                <div class="flex flex-col sm:flex-row gap-4 pt-2 border-t border-white/5">
+                    <a href="contact.html?service=seo"
+                        class="px-6 py-4 bg-brand-accent hover:bg-brand-accent/80 text-white font-bold rounded-xl transition-all text-center flex-1 shadow-lg shadow-brand-accent/20">Get
+                        Started</a>
+                    <a href="services.html" @click="activeServiceModal = null"
+                        class="px-6 py-4 glass text-white font-bold rounded-xl hover:bg-white/10 transition-colors text-center flex-1">All
+                        Services</a>
+                </div>
+            </div>
+
+            <!-- LANDING PAGE MODAL -->
+            <div x-show="activeServiceModal === 'landing'">
+                <div class="flex items-center gap-4 mb-6">
+                    <div
+                        class="w-14 h-14 bg-brand-primary/20 rounded-2xl flex items-center justify-center border border-white/5 text-brand-primary">
+                        <i data-lucide="layout" class="w-7 h-7"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-brand-primary tracking-widest uppercase">Service</span>
+                        <h3 class="text-2xl md:text-3xl font-heading font-extrabold text-white">Landing Page Design</h3>
+                    </div>
+                </div>
+                <p class="text-slate-400 mb-8 leading-relaxed">We design high-converting landing pages that capture
+                    attention and drive action. Every element is strategically placed to maximize conversions and reduce
+                    bounce rates.</p>
+                <h4 class="text-white font-bold mb-4 flex items-center gap-2"><i data-lucide="sparkles"
+                        class="w-5 h-5 text-brand-primary animate-pulse"></i> What We Deliver:</h4>
+                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 text-slate-300">
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-primary"></i>High-Converting Layouts</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-primary"></i>Persuasive Copywriting</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 mr-3 text-brand-primary"></i>A/B
+                        Testing Ready</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-primary"></i>Mobile-Optimized Design</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-primary"></i>Lead Capture Forms</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-primary"></i>Fast Load Speed</li>
+                </ul>
+                <div class="flex flex-col sm:flex-row gap-4 pt-2 border-t border-white/5">
+                    <a href="contact.html?service=landing"
+                        class="px-6 py-4 bg-brand-primary hover:bg-brand-primary/80 text-white font-bold rounded-xl transition-all text-center flex-1 shadow-lg shadow-brand-primary/20">Get
+                        Started</a>
+                    <a href="services.html" @click="activeServiceModal = null"
+                        class="px-6 py-4 glass text-white font-bold rounded-xl hover:bg-white/10 transition-colors text-center flex-1">All
+                        Services</a>
+                </div>
+            </div>
+
+            <!-- BRAND IDENTITY MODAL -->
+            <div x-show="activeServiceModal === 'brand'">
+                <div class="flex items-center gap-4 mb-6">
+                    <div
+                        class="w-14 h-14 bg-brand-secondary/20 rounded-2xl flex items-center justify-center border border-white/5 text-brand-secondary">
+                        <i data-lucide="palette" class="w-7 h-7"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-brand-secondary tracking-widest uppercase">Service</span>
+                        <h3 class="text-2xl md:text-3xl font-heading font-extrabold text-white">Brand Identity &
+                            Strategy</h3>
+                    </div>
+                </div>
+                <p class="text-slate-400 mb-8 leading-relaxed">We craft memorable brand identities that tell your story
+                    and build trust. From logo design to complete brand guidelines, we create visual systems that set
+                    you apart from the competition.</p>
+                <h4 class="text-white font-bold mb-4 flex items-center gap-2"><i data-lucide="sparkles"
+                        class="w-5 h-5 text-brand-secondary animate-pulse"></i> What We Deliver:</h4>
+                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 text-slate-300">
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-secondary"></i>Logo & Visual Identity</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-secondary"></i>Brand Style Guidelines</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-secondary"></i>Color & Typography System</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-secondary"></i>Social Media Branding</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-secondary"></i>Brand Voice & Messaging</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-secondary"></i>Competitor Analysis</li>
+                </ul>
+                <div class="flex flex-col sm:flex-row gap-4 pt-2 border-t border-white/5">
+                    <a href="contact.html?service=brand"
+                        class="px-6 py-4 bg-brand-secondary hover:bg-brand-secondary/80 text-brand-dark font-extrabold rounded-xl transition-all text-center flex-1 shadow-lg shadow-brand-secondary/20">Get
+                        Started</a>
+                    <a href="services.html" @click="activeServiceModal = null"
+                        class="px-6 py-4 glass text-white font-bold rounded-xl hover:bg-white/10 transition-colors text-center flex-1">All
+                        Services</a>
+                </div>
+            </div>
+
+            <!-- GROWTH STRATEGY MODAL -->
+            <div x-show="activeServiceModal === 'growth'">
+                <div class="flex items-center gap-4 mb-6">
+                    <div
+                        class="w-14 h-14 bg-brand-accent/20 rounded-2xl flex items-center justify-center border border-white/5 text-brand-accent">
+                        <i data-lucide="trending-up" class="w-7 h-7"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-brand-accent tracking-widest uppercase">Service</span>
+                        <h3 class="text-2xl md:text-3xl font-heading font-extrabold text-white">Growth-Focused Strategy
+                        </h3>
+                    </div>
+                </div>
+                <p class="text-slate-400 mb-8 leading-relaxed">We develop comprehensive growth strategies that align
+                    marketing, sales, and product for maximum impact. Data-driven decisions that accelerate your
+                    business growth at every stage.</p>
+                <h4 class="text-white font-bold mb-4 flex items-center gap-2"><i data-lucide="sparkles"
+                        class="w-5 h-5 text-brand-accent animate-pulse"></i> What We Deliver:</h4>
+                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 text-slate-300">
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-accent"></i>Full-Funnel Marketing Plans</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-accent"></i>Customer Journey Mapping</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-accent"></i>Revenue Growth Roadmaps</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 mr-3 text-brand-accent"></i>KPI
+                        Tracking & Analytics</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-accent"></i>Market & Competitor Research</li>
+                    <li class="flex items-center"><i data-lucide="check"
+                            class="w-5 h-5 mr-3 text-brand-accent"></i>Quarterly Strategy Reviews</li>
+                </ul>
+                <div class="flex flex-col sm:flex-row gap-4 pt-2 border-t border-white/5">
+                    <a href="contact.html?service=growth"
+                        class="px-6 py-4 bg-brand-accent hover:bg-brand-accent/80 text-white font-bold rounded-xl transition-all text-center flex-1 shadow-lg shadow-brand-accent/20">Get
+                        Started</a>
+                    <a href="services.html" @click="activeServiceModal = null"
+                        class="px-6 py-4 glass text-white font-bold rounded-xl hover:bg-white/10 transition-colors text-center flex-1">All
+                        Services</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Deliverable Showcase Modals -->
+    <div x-show="activeDeliverableModal"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-brand-dark/95 backdrop-blur-md"
+        x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+        @keydown.escape.window="activeDeliverableModal = null" x-cloak>
+
+        <!-- Modal Container -->
+        <div class="relative w-full max-w-xl bg-slate-900 border border-white/10 rounded-[32px] p-8 md:p-10 shadow-2xl overflow-hidden glass"
+            @click.away="activeDeliverableModal = null" x-show="activeDeliverableModal"
+            x-transition:enter="transition ease-out duration-300 transform"
+            x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+            x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-200 transform"
+            x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+            x-transition:leave-end="opacity-0 scale-95 translate-y-4">
+
+            <!-- Glowing decorative background dot -->
+            <div
+                class="absolute -top-32 -right-32 w-64 h-64 bg-brand-accent/20 rounded-full blur-[80px] pointer-events-none">
+            </div>
+
+            <!-- Close Button -->
+            <button @click="activeDeliverableModal = null"
+                class="absolute top-6 right-6 w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all cursor-pointer border border-white/5 z-10">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <!-- 1. LIGHTHOUSE MODAL -->
+            <div x-show="activeDeliverableModal === 'lighthouse'">
+                <div class="text-center py-6">
+                    <!-- Dynamic simulated lighthouse indicator -->
+                    <div
+                        class="inline-flex items-center justify-center w-28 h-28 rounded-full border-4 border-brand-primary/20 relative mb-6">
+                        <div
+                            class="absolute inset-2 rounded-full border-4 border-dashed border-brand-primary animate-spin">
+                        </div>
+                        <span class="text-3xl font-heading font-extrabold text-white animate-pulse">100</span>
+                    </div>
+                    <h3 class="text-2xl font-heading font-extrabold text-white mb-2">Lighthouse Speed Audit</h3>
+                    <span class="text-brand-primary font-bold text-xs uppercase tracking-wider">Performance Goal
+                        Achieved</span>
+                    <p class="text-slate-400 text-sm mt-4 leading-relaxed">
+                        We configure server-side compression, responsive WebP optimization, and zero layout shift
+                        metrics so your platform scores a flawless 100/100 performance marks on both desktop and mobile
+                        networks.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 2. FIGMA MODAL -->
+            <div x-show="activeDeliverableModal === 'figma'">
+                <div class="py-4">
+                    <div
+                        class="w-full h-32 bg-slate-800/80 rounded-2xl border border-white/5 mb-6 flex flex-col items-center justify-center text-brand-primary relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-r from-brand-primary/10 to-transparent"></div>
+                        <i data-lucide="figma" class="w-10 h-10 animate-bounce"></i>
+                        <span class="text-xs text-slate-400 mt-2">figma.com/file/ikantik-growth-canvas</span>
+                    </div>
+                    <h3 class="text-2xl font-heading font-extrabold text-white mb-2">High-Fidelity Figma Prototypes</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Explore stunning wireframes and live responsive user-flow canvas links before writing a single
+                        line of code. We align color scales, typography rules, and micro-interaction states.
+                    </p>
+                    <a href="contact.html?service=landing"
+                        class="w-full py-3 bg-brand-primary text-white text-center font-bold rounded-xl block hover:bg-brand-primary/80 transition-colors">Request
+                        a Figma Mockup</a>
+                </div>
+            </div>
+
+            <!-- 3. COMPETITOR MODAL -->
+            <div x-show="activeDeliverableModal === 'competitor'">
+                <div class="py-4">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-12 h-12 bg-brand-primary/20 rounded-xl flex items-center justify-center text-brand-primary">
+                            <i data-lucide="search" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-heading font-extrabold text-white">Competitor Search-Gap Map</h3>
+                            <span class="text-xs text-brand-primary font-bold">Strategic Keyword Diagnostics</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        We run exhaustive competitor sweeps to pinpoint high-volume keywords and content structural
+                        voids. We outline the exact roadmap to capture prime organic ranking loops.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 4. ROI MODAL -->
+            <div x-show="activeDeliverableModal === 'roi'">
+                <div class="py-4 text-center">
+                    <div class="text-4xl font-heading font-extrabold text-brand-secondary mb-4">+380% Avg ROI</div>
+                    <h3 class="text-2xl font-heading font-extrabold text-white mb-2">Direct ROI Budget Blueprint</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        We mathematically model customer acquisition costs (CAC) and customer lifetime value (LTV). You
+                        get a transparent ad spend projection showing target ROAS multipliers and revenue peaks.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 5. NEXTJS MODAL -->
+            <div x-show="activeDeliverableModal === 'nextjs'">
+                <div class="py-4">
+                    <h3 class="text-2xl font-heading font-extrabold text-white mb-2">Custom CSS & Next.js Builds</h3>
+                    <span class="text-brand-secondary font-bold text-xs uppercase tracking-wider">Next-Generation
+                        Engineering Stack</span>
+                    <p class="text-slate-400 text-sm mt-4 leading-relaxed mb-6">
+                        We engineer modern React/Next.js single page applications. Utilizing custom responsive CSS
+                        styles, your site loads in milliseconds, providing an incredibly premium browsing feel.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 6. STRIPE MODAL -->
+            <div x-show="activeDeliverableModal === 'stripe'">
+                <div class="py-4">
+                    <div
+                        class="w-full p-6 bg-slate-800 rounded-2xl border border-white/10 mb-6 relative overflow-hidden">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-slate-400 text-xs font-bold uppercase tracking-widest">Stripe Secure
+                                Pay</span>
+                            <i data-lucide="shield-check" class="text-brand-secondary w-5 h-5"></i>
+                        </div>
+                        <div class="h-10 bg-slate-900 rounded-lg mb-3 flex items-center px-3 text-slate-500 text-xs">
+                            â€¢â€¢â€¢â€¢ â€¢â€¢â€¢â€¢ â€¢â€¢â€¢â€¢ 4242</div>
+                        <div class="flex gap-3">
+                            <div
+                                class="h-10 bg-slate-900 rounded-lg flex-1 flex items-center px-3 text-slate-500 text-xs">
+                                MM/YY</div>
+                            <div
+                                class="h-10 bg-slate-900 rounded-lg w-20 flex items-center px-3 text-slate-500 text-xs">
+                                CVC</div>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-heading font-extrabold text-white mb-2">Tailored Stripe Checkout</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Secure, conversion-optimized checkout components that prevent checkout friction. Supports
+                        instant mobile wallets, multi-currency processing, and automatic tax calculations.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 7. CLS MODAL -->
+            <div x-show="activeDeliverableModal === 'cls'">
+                <div class="py-4 text-center">
+                    <div class="text-5xl font-heading font-extrabold text-brand-secondary mb-2">0.00 CLS</div>
+                    <h3 class="text-xl font-heading font-extrabold text-white mb-2">Zero Layout Shifts</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        We lock width/height aspect ratios and lazy-load asset elements using modern container
+                        placeholders. Your page content never jumps around, providing an elite reading experience.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 8. CODEBASE MODAL -->
+            <div x-show="activeDeliverableModal === 'codebase'">
+                <div class="py-4">
+                    <h3 class="text-2xl font-heading font-extrabold text-white mb-2">Fully Modular Architecture</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        We structure our code using robust folders and separation of concerns. Clean code means simple
+                        future maintenance and extremely easy visual additions.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 9. ADS MODAL -->
+            <div x-show="activeDeliverableModal === 'ads'">
+                <div class="py-4">
+                    <h3 class="text-2xl font-heading font-extrabold text-white mb-2">Google & Meta Syncs</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        We structure advertising retargeting pools that serve relevant campaign copies to visitors.
+                        Synchronize Google search leads with highly creative Meta carousel ads.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 10. DASHBOARD MODAL -->
+            <div x-show="activeDeliverableModal === 'dashboard'">
+                <div class="py-4">
+                    <h3 class="text-2xl font-heading font-extrabold text-white mb-2">Live Analytics Portal</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Get 24/7 transparent views on all spendings, lead counts, and return calculations. We sync
+                        analytics trackers directly into unified growth dashboards.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 11. AUDIENCE MODAL -->
+            <div x-show="activeDeliverableModal === 'audience'">
+                <div class="py-4">
+                    <h3 class="text-2xl font-heading font-extrabold text-white mb-2">Lookalike Demographics</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        We analyze your historical customer data, compiling custom lookalike lists that meta campaign
+                        algorithms target to drive high-intent purchases.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 12. SWEEPS MODAL -->
+            <div x-show="activeDeliverableModal === 'sweeps'">
+                <div class="py-4">
+                    <h3 class="text-2xl font-heading font-extrabold text-white mb-2">Bi-Weekly A/B Sweeps</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        We continuously test headers, button placements, and lead form questions. Small improvements
+                        build compounding sales increments over weeks.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Client Success Case Study Modals -->
+    <div x-show="activeSuccessModal"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-brand-dark/95 backdrop-blur-md"
+        x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+        @keydown.escape.window="activeSuccessModal = null" x-cloak>
+
+        <!-- Modal Container -->
+        <div class="relative w-full max-w-2xl bg-slate-900 border border-white/10 rounded-[32px] p-8 md:p-10 shadow-2xl overflow-y-auto max-h-[90vh] glass"
+            @click.away="activeSuccessModal = null" x-show="activeSuccessModal"
+            x-transition:enter="transition ease-out duration-300 transform"
+            x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+            x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-200 transform"
+            x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+            x-transition:leave-end="opacity-0 scale-95 translate-y-4">
+
+            <!-- Glowing decorative background dot -->
+            <div
+                class="absolute -top-32 -right-32 w-64 h-64 bg-brand-primary/20 rounded-full blur-[80px] pointer-events-none">
+            </div>
+
+            <!-- Close Button -->
+            <button @click="activeSuccessModal = null"
+                class="absolute top-6 right-6 w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all cursor-pointer border border-white/5 z-10">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <!-- 1. SOPHIA LOREN (AURA COSMETICS) CASE STUDY -->
+            <div x-show="activeSuccessModal === 'aura'">
+                <span
+                    class="inline-block px-3 py-1 bg-brand-primary/10 text-brand-primary text-xs font-bold rounded-full uppercase tracking-wider mb-4 border border-brand-primary/20">Case
+                    Study: E-Commerce</span>
+                <h3 class="text-3xl font-heading font-extrabold text-white mb-2">Aura Cosmetics</h3>
+                <p class="text-slate-400 text-sm mb-6">How headless Next.js custom checkout drove record sales growth.
+                </p>
+
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="p-4 bg-slate-800/50 border border-white/5 rounded-2xl">
+                        <div class="text-2xl font-bold text-brand-primary font-heading">+220%</div>
+                        <div class="text-xs text-slate-500 uppercase tracking-widest font-bold font-sans">Conversion
+                            Rate</div>
+                    </div>
+                    <div class="p-4 bg-slate-800/50 border border-white/5 rounded-2xl">
+                        <div class="text-2xl font-bold text-brand-primary font-heading">1.2s</div>
+                        <div class="text-xs text-slate-500 uppercase tracking-widest font-bold font-sans">Page Load
+                            Speed</div>
+                    </div>
+                </div>
+
+                <h4 class="text-white font-bold mb-2">The Challenge:</h4>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                    Aura Cosmetics was losing over 40% of their mobile checkout leads due to severe layout shifts and
+                    slow checkout page loading times on their legacy WooCommerce setup.
+                </p>
+
+                <h4 class="text-white font-bold mb-2">Our Solution:</h4>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    We engineered a blazing-fast, custom headless Next.js storefront with instant response metrics,
+                    styled with responsive custom CSS frameworks, and integrated a tailored Stripe secure payment
+                    checkout funnel.
+                </p>
+            </div>
+
+            <!-- 2. LIAM VANCE (APEX WEARABLES) CASE STUDY -->
+            <div x-show="activeSuccessModal === 'apex'">
+                <span
+                    class="inline-block px-3 py-1 bg-brand-secondary/10 text-brand-secondary text-xs font-bold rounded-full uppercase tracking-wider mb-4 border border-brand-secondary/20">Case
+                    Study: Paid Ads</span>
+                <h3 class="text-3xl font-heading font-extrabold text-white mb-2">Apex Wearables</h3>
+                <p class="text-slate-400 text-sm mb-6">Unlocking massive growth with automated ad sweeps.</p>
+
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="p-4 bg-slate-800/50 border border-white/5 rounded-2xl">
+                        <div class="text-2xl font-bold text-brand-secondary font-heading">8.4x</div>
+                        <div class="text-xs text-slate-500 uppercase tracking-widest font-bold font-sans">Meta Campaign
+                            ROAS</div>
+                    </div>
+                    <div class="p-4 bg-slate-800/50 border border-white/5 rounded-2xl">
+                        <div class="text-2xl font-bold text-brand-secondary font-heading">$420k+</div>
+                        <div class="text-xs text-slate-500 uppercase tracking-widest font-bold font-sans">Generated
+                            Revenue</div>
+                    </div>
+                </div>
+
+                <h4 class="text-white font-bold mb-2">The Challenge:</h4>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                    High customer acquisition costs (CAC) were eating up profit margins on paid Meta and Google
+                    marketing channels due to unoptimized target audiences and bad conversion loops.
+                </p>
+
+                <h4 class="text-white font-bold mb-2">Our Solution:</h4>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    We deployed continuous high-performance A/B landing page sweeps, rebuilt high-retention lookalike
+                    audiences using direct customer data inputs, and synced automated retargeting loops.
+                </p>
+            </div>
+
+            <!-- 3. ARIA THORNE (NEXUS NETWORKS) CASE STUDY -->
+            <div x-show="activeSuccessModal === 'nexus'">
+                <span
+                    class="inline-block px-3 py-1 bg-brand-accent/10 text-brand-accent text-xs font-bold rounded-full uppercase tracking-wider mb-4 border border-brand-accent/20">Case
+                    Study: Enterprise Dev</span>
+                <h3 class="text-3xl font-heading font-extrabold text-white mb-2">Nexus Networks</h3>
+                <p class="text-slate-400 text-sm mb-6">Building enterprise infrastructure with zero downtime.</p>
+
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="p-4 bg-slate-800/50 border border-white/5 rounded-2xl">
+                        <div class="text-2xl font-bold text-brand-accent font-heading">99.99%</div>
+                        <div class="text-xs text-slate-500 uppercase tracking-widest font-bold font-sans">System Uptime
+                        </div>
+                    </div>
+                    <div class="p-4 bg-slate-800/50 border border-white/5 rounded-2xl">
+                        <div class="text-2xl font-bold text-brand-accent font-heading">5M+</div>
+                        <div class="text-xs text-slate-500 uppercase tracking-widest font-bold font-sans">Monthly API
+                            Requests</div>
+                    </div>
+                </div>
+
+                <h4 class="text-white font-bold mb-2">The Challenge:</h4>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                    Their legacy system regularly failed under concurrency surges, resulting in hundreds of incomplete
+                    transactions and substantial backend database overhead.
+                </p>
+
+                <h4 class="text-white font-bold mb-2">Our Solution:</h4>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    We rebuilt their microservice endpoints inside high-concurrency Next.js APIs, backed by edge caching
+                    networks to secure instant, bulletproof performance.
+                </p>
+            </div>
+
+            <!-- 4. ETHAN HUNT (APEX VENTURES) CASE STUDY -->
+            <div x-show="activeSuccessModal === 'ventures'">
+                <span
+                    class="inline-block px-3 py-1 bg-brand-secondary/10 text-brand-secondary text-xs font-bold rounded-full uppercase tracking-wider mb-4 border border-brand-secondary/20">Case
+                    Study: Scaling & ROI</span>
+                <h3 class="text-3xl font-heading font-extrabold text-white mb-2">Apex Ventures</h3>
+                <p class="text-slate-400 text-sm mb-6">Maximizing investment margins with strategic audits.</p>
+
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="p-4 bg-slate-800/50 border border-white/5 rounded-2xl">
+                        <div class="text-2xl font-bold text-brand-secondary font-heading">-45%</div>
+                        <div class="text-xs text-slate-500 uppercase tracking-widest font-bold font-sans">CAC Reduction
+                        </div>
+                    </div>
+                    <div class="p-4 bg-slate-800/50 border border-white/5 rounded-2xl">
+                        <div class="text-2xl font-bold text-brand-secondary font-heading">+380%</div>
+                        <div class="text-xs text-slate-500 uppercase tracking-widest font-bold font-sans">Average Return
+                            (ROI)</div>
+                    </div>
+                </div>
+
+                <h4 class="text-white font-bold mb-2">The Challenge:</h4>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                    Apex Ventures faced extremely high lead acquisition costs due to unoptimized PPC strategies and
+                    low-intent landing layouts.
+                </p>
+
+                <h4 class="text-white font-bold mb-2">Our Solution:</h4>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    We implemented our custom growth timelines, launched strategic keyword sweep automations, and
+                    deployed an optimized high-retention live dashboard.
+                </p>
+            </div>
+
+            <!-- 5. MAYA LIN (FLORA BOTANICALS) CASE STUDY -->
+            <div x-show="activeSuccessModal === 'flora'">
+                <span
+                    class="inline-block px-3 py-1 bg-brand-primary/10 text-brand-primary text-xs font-bold rounded-full uppercase tracking-wider mb-4 border border-brand-primary/20">Case
+                    Study: Headless Shopify</span>
+                <h3 class="text-3xl font-heading font-extrabold text-white mb-2">Flora Botanicals</h3>
+                <p class="text-slate-400 text-sm mb-6">Achieving the ultimate speed performance marks.</p>
+
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="p-4 bg-slate-800/50 border border-white/5 rounded-2xl">
+                        <div class="text-2xl font-bold text-brand-primary font-heading">100/100</div>
+                        <div class="text-xs text-slate-500 uppercase tracking-widest font-bold font-sans">Lighthouse
+                            Speed</div>
+                    </div>
+                    <div class="p-4 bg-slate-800/50 border border-white/5 rounded-2xl">
+                        <div class="text-2xl font-bold text-brand-primary font-heading">0.00</div>
+                        <div class="text-xs text-slate-500 uppercase tracking-widest font-bold font-sans">Layout Shifts
+                            (CLS)</div>
+                    </div>
+                </div>
+
+                <h4 class="text-white font-bold mb-2">The Challenge:</h4>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                    Slow content rendering speeds were significantly hurting search engine indexing placements and
+                    dragging down online conversions.
+                </p>
+
+                <h4 class="text-white font-bold mb-2">Our Solution:</h4>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    We designed custom headless e-commerce modules, set up static page pre-generation, and compressed
+                    resource sizes to run with 100% Core Web Vital compliance.
+                </p>
+            </div>
+
+            <!-- 6. LUCAS VANCE (GEARFLOW) CASE STUDY -->
+            <div x-show="activeSuccessModal === 'gearflow'">
+                <span
+                    class="inline-block px-3 py-1 bg-brand-accent/10 text-brand-accent text-xs font-bold rounded-full uppercase tracking-wider mb-4 border border-brand-accent/20">Case
+                    Study: Stripe Checkout</span>
+                <h3 class="text-3xl font-heading font-extrabold text-white mb-2">GearFlow</h3>
+                <p class="text-slate-400 text-sm mb-6">Engineering checkouts to handle millions of transactions.</p>
+
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="p-4 bg-slate-800/50 border border-white/5 rounded-2xl">
+                        <div class="text-2xl font-bold text-brand-accent font-heading">$2.4M</div>
+                        <div class="text-xs text-slate-500 uppercase tracking-widest font-bold font-sans">Black Friday
+                            Volume</div>
+                    </div>
+                    <div class="p-4 bg-slate-800/50 border border-white/5 rounded-2xl">
+                        <div class="text-2xl font-bold text-brand-accent font-heading">0</div>
+                        <div class="text-xs text-slate-500 uppercase tracking-widest font-bold font-sans">Checkout
+                            Dropouts</div>
+                    </div>
+                </div>
+
+                <h4 class="text-white font-bold mb-2">The Challenge:</h4>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                    Standard checkouts experienced significant API connection failures during seasonal sales traffic
+                    spikes, causing substantial revenue loss.
+                </p>
+
+                <h4 class="text-white font-bold mb-2">Our Solution:</h4>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    We built custom asynchronous payment processor tunnels, completely bypassing queue congestion and
+                    handling over $2M checkout volume flawlessly.
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 50,
+            easing: 'ease-out-cubic'
+        });
+
+        // Initialize Lucide Icons
+        lucide.createIcons();
+    </script>
+
+
+</body>
+
+</html>
+

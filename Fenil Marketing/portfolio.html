@@ -1,0 +1,620 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        if (sessionStorage.getItem('preloader_shown') === 'true') {
+            document.documentElement.classList.add('preloader-skipped');
+        }
+    </script>
+    <style>
+        .preloader-skipped #preloader {
+            display: none !important;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | IKANTIK Agency</title>
+    <meta name="description" content="Explore our track record of success. See how IKANTIK has scaled brands across industries.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Scripts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#05020c',
+                            primary: '#ff2e93',
+                            secondary: '#ff6a00',
+                            accent: '#00f2fe',
+                            slate: '#b4b6d4'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        heading: ['Sora', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+<body x-data="{ mobileMenu: false, scrolled: false, filter: 'all', activeProject: null }" @scroll.window="scrolled = (window.pageYOffset > 20)">
+
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 bg-[#05020a] z-[99999] flex flex-col items-center justify-center transition-all duration-500 ease-in-out">
+        <div class="relative w-20 h-20 mb-6">
+            <div class="absolute inset-0 rounded-full border-2 border-brand-primary/10"></div>
+            <div class="absolute inset-0 rounded-full border-t-2 border-r-2 border-brand-primary animate-spin"></div>
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-brand-primary rounded-full shadow-[0_0_15px_#ff2e93] animate-pulse"></div>
+        </div>
+        <div class="flex items-center gap-1 font-heading text-lg font-bold text-white tracking-widest uppercase">
+            <span class="spin-letters">IKAN</span><span class="text-brand-primary">TIK</span>
+        </div>
+        <div class="mt-2 text-xs font-semibold text-slate-500 tracking-widest font-mono">Loading...</div>
+    </div>
+
+    <!-- Background Decoration -->
+    <div class="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden pointer-events-none">
+        <div class="cosmic-glow-1 top-[-10%] right-[-10%] opacity-20"></div>
+        <div class="cosmic-glow-2 bottom-[-10%] left-[-10%] opacity-15"></div>
+        <div class="absolute top-1/4 left-1/3 w-[450px] h-[450px] rounded-full bg-gradient-to-tr from-brand-primary/10 to-brand-accent/5 opacity-[0.03] blur-[100px] animate-pulse"></div>
+    </div>
+
+    <!-- Navigation (Replicated) -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300" 
+         :class="scrolled ? 'glass py-3' : 'py-6 bg-transparent'">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div class="relative w-10 h-10 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-secondary rounded-xl rotate-6 group-hover:rotate-12 transition-transform duration-300 opacity-80"></div>
+                    <div class="absolute inset-0 bg-brand-dark rounded-xl border border-white/10 flex items-center justify-center shadow-lg shadow-brand-primary/20">
+                        <i data-lucide="orbit" class="text-white w-5 h-5 group-hover:rotate-180 transition-transform duration-700"></i>
+                    </div>
+                </div>
+                <span class="text-2xl font-heading font-extrabold tracking-tight text-white"><span class="spin-letters">IKAN</span><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">TIK</span></span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-300">
+                <a href="index.html" class="hover:text-white transition-colors">Home</a>
+                <a href="services.html" class="hover:text-white transition-colors">Services</a>
+                <a href="process.html" class="hover:text-white transition-colors">Process</a>
+                <a href="portfolio.html" class="text-brand-primary">Portfolio</a>
+                <a href="about.html" class="hover:text-white transition-colors">About</a>
+                <a href="blog.html" class="hover:text-white transition-colors">Blog</a>
+                <a href="contact.html" class="px-5 py-2.5 bg-brand-primary text-white rounded-full hover:bg-brand-primary/80 transition-all shadow-lg shadow-brand-primary/20">Get Started</a>
+            </div>
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-white">
+                <i data-lucide="menu" x-show="!mobileMenu" class="w-8 h-8"></i>
+                <i data-lucide="x" x-show="mobileMenu" class="w-8 h-8"></i>
+            </button>
+        </div>
+        <div x-show="mobileMenu" class="absolute top-full left-0 w-full glass md:hidden pb-8 shadow-2xl" x-cloak>
+            <div class="flex flex-col space-y-4 px-6 pt-4 text-lg font-medium">
+                <a href="index.html" class="text-slate-300">Home</a>
+                <a href="services.html" class="text-slate-300">Services</a>
+                <a href="process.html" class="hover:text-white transition-colors">Process</a>
+                <a href="portfolio.html" class="text-brand-primary">Portfolio</a>
+                <a href="about.html" class="text-slate-300">About</a>
+                <a href="blog.html" class="text-slate-300">Blog</a>
+                <a href="contact.html" class="text-brand-primary font-bold">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="pt-32 pb-16 md:pt-48 md:pb-24">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-5xl md:text-7xl font-heading font-extrabold text-white mb-6">
+                <span class="spin-letters">Proven</span> <span class="cosmic-gradient-text">Results</span>
+            </h1>
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto">We don't just promise growth; we deliver it. Explore our recent successes across multiple digital channels.</p>
+        </div>
+    </section>
+
+    <!-- Automated Live Metrics Marquee -->
+    <div class="w-full border-y border-white/5 bg-brand-dark/50 backdrop-blur-md py-4 mb-12">
+        <div class="marquee-container w-full max-w-7xl mx-auto">
+            <div class="marquee-content flex items-center space-x-12 text-sm font-bold uppercase tracking-widest text-slate-400">
+                <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-brand-primary animate-pulse mr-2 shadow-[0_0_10px_#ff2e93]"></span> [LIVE] Global Reach: 4.2M+</span>
+                <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse mr-2 shadow-[0_0_10px_#00f2fe]"></span> Avg ROAS: 12.5x</span>
+                <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-brand-secondary animate-pulse mr-2 shadow-[0_0_10px_#ff6a00]"></span> Campaigns Active: 142</span>
+                <span class="flex items-center text-white"><i data-lucide="zap" class="w-4 h-4 text-brand-primary mr-2"></i> SYSTEM OPTIMAL</span>
+                <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-brand-primary animate-pulse mr-2 shadow-[0_0_10px_#ff2e93]"></span> Conversions: 18,409</span>
+                
+                <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-brand-primary animate-pulse mr-2 shadow-[0_0_10px_#ff2e93]"></span> [LIVE] Global Reach: 4.2M+</span>
+                <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse mr-2 shadow-[0_0_10px_#00f2fe]"></span> Avg ROAS: 12.5x</span>
+                <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-brand-secondary animate-pulse mr-2 shadow-[0_0_10px_#ff6a00]"></span> Campaigns Active: 142</span>
+                <span class="flex items-center text-white"><i data-lucide="zap" class="w-4 h-4 text-brand-primary mr-2"></i> SYSTEM OPTIMAL</span>
+                <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-brand-primary animate-pulse mr-2 shadow-[0_0_10px_#ff2e93]"></span> Conversions: 18,409</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Navigation -->
+    <section class="pb-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-wrap justify-center gap-4">
+                <button @click="filter = 'all'" 
+                        :class="filter === 'all' ? 'bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent text-white border-transparent shadow-[0_0_20px_rgba(255,46,147,0.35)]' : 'glass border border-white/5 text-slate-400 hover:text-white hover:border-white/20'"
+                        class="px-6 py-2 rounded-full font-bold transition-all duration-300 text-sm uppercase tracking-widest border">
+                    All Projects
+                </button>
+                <button @click="filter = 'seo'" 
+                        :class="filter === 'seo' ? 'bg-brand-primary text-white border-transparent shadow-[0_0_20px_rgba(255,46,147,0.45)]' : 'glass border border-white/5 text-slate-400 hover:text-white hover:border-white/20 hover:shadow-[0_0_15px_rgba(255,46,147,0.15)]'"
+                        class="px-6 py-2 rounded-full font-bold transition-all duration-300 text-sm uppercase tracking-widest border">
+                    SEO
+                </button>
+                <button @click="filter = 'social'" 
+                        :class="filter === 'social' ? 'bg-brand-secondary text-brand-dark border-transparent shadow-[0_0_20px_rgba(255,106,0,0.45)]' : 'glass border border-white/5 text-slate-400 hover:text-white hover:border-white/20 hover:shadow-[0_0_15px_rgba(255,106,0,0.15)]'"
+                        class="px-6 py-2 rounded-full font-bold transition-all duration-300 text-sm uppercase tracking-widest border">
+                    Social Media
+                </button>
+                <button @click="filter = 'ads'" 
+                        :class="filter === 'ads' ? 'bg-brand-accent text-brand-dark border-transparent shadow-[0_0_20px_rgba(0,242,254,0.45)]' : 'glass border border-white/5 text-slate-400 hover:text-white hover:border-white/20 hover:shadow-[0_0_15px_rgba(0,242,254,0.15)]'"
+                        class="px-6 py-2 rounded-full font-bold transition-all duration-300 text-sm uppercase tracking-widest border">
+                    Advertising
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Grid -->
+    <section class="pb-24">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project 1: SEO -->
+                <div x-show="filter === 'all' || filter === 'seo'" 
+                     x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 scale-90"
+                     x-transition:enter-end="opacity-100 scale-100"
+                     @click="activeProject = 'techstream'"
+                     class="glass-card hover-fuchsia group rounded-[40px] overflow-hidden cursor-pointer reveal-on-scroll">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=600" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-60"></div>
+                        <div class="absolute inset-0 bg-brand-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="glass px-6 py-2.5 rounded-full font-bold text-white border border-brand-primary/30 shadow-lg shadow-brand-primary/20 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Case Study</span>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <span class="text-brand-primary text-xs font-bold uppercase tracking-widest mb-2 block">SEO Domination</span>
+                        <h3 class="text-2xl font-bold text-white mb-4"><span class="spin-letters">TechStream SaaS</span></h3>
+                        <p class="text-slate-500 text-sm mb-6">Increased organic traffic by 450% in 6 months through technical overhaul and content clusters.</p>
+                        <div class="flex items-center justify-between pt-6 border-t border-white/5">
+                            <div class="text-white font-bold text-lg"><span class="text-brand-primary stat-counter">+450%</span> <span class="text-slate-500 font-normal text-xs ml-1">Traffic</span></div>
+                            <div class="text-white font-bold text-lg"><span class="text-brand-primary stat-counter">#1</span> <span class="text-slate-500 font-normal text-xs ml-1">Rankings</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Social -->
+                <div x-show="filter === 'all' || filter === 'social'" 
+                     x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 scale-90"
+                     x-transition:enter-end="opacity-100 scale-100"
+                     @click="activeProject = 'luxe'"
+                     class="glass-card hover-orange group rounded-[40px] overflow-hidden cursor-pointer reveal-on-scroll">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=600" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-60"></div>
+                        <div class="absolute inset-0 bg-brand-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="glass px-6 py-2.5 rounded-full font-bold text-white border border-brand-secondary/30 shadow-lg shadow-brand-secondary/20 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Case Study</span>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <span class="text-brand-secondary text-xs font-bold uppercase tracking-widest mb-2 block">Social Growth</span>
+                        <h3 class="text-2xl font-bold text-white mb-4"><span class="spin-letters">Luxe Lifestyle</span></h3>
+                        <p class="text-slate-500 text-sm mb-6">Built a community of 500k+ on Instagram with 8.5% engagement rate through Reel strategies.</p>
+                        <div class="flex items-center justify-between pt-6 border-t border-white/5">
+                            <div class="text-white font-bold text-lg"><span class="text-brand-secondary stat-counter">500k+</span> <span class="text-slate-500 font-normal text-xs ml-1">Followers</span></div>
+                            <div class="text-white font-bold text-lg"><span class="text-brand-secondary stat-counter">8.5%</span> <span class="text-slate-500 font-normal text-xs ml-1">Engagement</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: Ads -->
+                <div x-show="filter === 'all' || filter === 'ads'" 
+                     x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 scale-90"
+                     x-transition:enter-end="opacity-100 scale-100"
+                     @click="activeProject = 'volt'"
+                     class="glass-card hover-cyan group rounded-[40px] overflow-hidden cursor-pointer reveal-on-scroll">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="assets/volt_ads.png" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-60"></div>
+                        <div class="absolute inset-0 bg-brand-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="glass px-6 py-2.5 rounded-full font-bold text-white border border-brand-accent/30 shadow-lg shadow-brand-accent/20 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Case Study</span>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <span class="text-brand-accent text-xs font-bold uppercase tracking-widest mb-2 block">Paid Advertising</span>
+                        <h3 class="text-2xl font-bold text-white mb-4"><span class="spin-letters">Volt E-Commerce</span></h3>
+                        <p class="text-slate-500 text-sm mb-6">Scaled monthly revenue from $50k to $1.2M with a 12x ROAS on Meta and Google Ads.</p>
+                        <div class="flex items-center justify-between pt-6 border-t border-white/5">
+                            <div class="text-white font-bold text-lg"><span class="text-brand-accent stat-counter">12x</span> <span class="text-slate-500 font-normal text-xs ml-1">ROAS</span></div>
+                            <div class="text-white font-bold text-lg"><span class="text-brand-accent stat-counter">$1.2M</span> <span class="text-slate-500 font-normal text-xs ml-1">Rev/mo</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: SEO -->
+                <div x-show="filter === 'all' || filter === 'seo'" 
+                     x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 scale-90"
+                     x-transition:enter-end="opacity-100 scale-100"
+                     @click="activeProject = 'greenleaf'"
+                     class="glass-card hover-fuchsia group rounded-[40px] overflow-hidden cursor-pointer reveal-on-scroll">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1557838923-2985c318be48?auto=format&fit=crop&q=80&w=600" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-60"></div>
+                        <div class="absolute inset-0 bg-brand-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="glass px-6 py-2.5 rounded-full font-bold text-white border border-brand-primary/30 shadow-lg shadow-brand-primary/20 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Case Study</span>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <span class="text-brand-primary text-xs font-bold uppercase tracking-widest mb-2 block">SEO Domination</span>
+                        <h3 class="text-2xl font-bold text-white mb-4"><span class="spin-letters">GreenLeaf Real Estate</span></h3>
+                        <p class="text-slate-500 text-sm mb-6">Hyper-local SEO strategy that secured #1 spots for 15+ high-intent regional keywords.</p>
+                        <div class="flex items-center justify-between pt-6 border-t border-white/5">
+                            <div class="text-white font-bold text-lg"><span class="text-brand-primary stat-counter">15+</span> <span class="text-slate-500 font-normal text-xs ml-1">KW #1</span></div>
+                            <div class="text-white font-bold text-lg"><span class="text-brand-primary stat-counter">3.2x</span> <span class="text-slate-500 font-normal text-xs ml-1">Leads</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5: Social -->
+                <div x-show="filter === 'all' || filter === 'social'" 
+                     x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 scale-90"
+                     x-transition:enter-end="opacity-100 scale-100"
+                     @click="activeProject = 'aura'"
+                     class="glass-card hover-orange group rounded-[40px] overflow-hidden cursor-pointer reveal-on-scroll">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&q=80&w=600" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-60"></div>
+                        <div class="absolute inset-0 bg-brand-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="glass px-6 py-2.5 rounded-full font-bold text-white border border-brand-secondary/30 shadow-lg shadow-brand-secondary/20 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Case Study</span>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <span class="text-brand-secondary text-xs font-bold uppercase tracking-widest mb-2 block">Social Growth</span>
+                        <h3 class="text-2xl font-bold text-white mb-4"><span class="spin-letters">Aura Cosmetics</span></h3>
+                        <p class="text-slate-500 text-sm mb-6">Grew TikTok following from zero to 300k in 4 months using native-style user generated content.</p>
+                        <div class="flex items-center justify-between pt-6 border-t border-white/5">
+                            <div class="text-white font-bold text-lg"><span class="text-brand-secondary stat-counter">300k+</span> <span class="text-slate-500 font-normal text-xs ml-1">Followers</span></div>
+                            <div class="text-white font-bold text-lg"><span class="text-brand-secondary stat-counter">14.2%</span> <span class="text-slate-500 font-normal text-xs ml-1">Engagement</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6: Ads -->
+                <div x-show="filter === 'all' || filter === 'ads'" 
+                     x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 scale-90"
+                     x-transition:enter-end="opacity-100 scale-100"
+                     @click="activeProject = 'apex'"
+                     class="glass-card hover-cyan group rounded-[40px] overflow-hidden cursor-pointer reveal-on-scroll">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?auto=format&fit=crop&q=80&w=600" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-60"></div>
+                        <div class="absolute inset-0 bg-brand-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="glass px-6 py-2.5 rounded-full font-bold text-white border border-brand-accent/30 shadow-lg shadow-brand-accent/20 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Case Study</span>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <span class="text-brand-accent text-xs font-bold uppercase tracking-widest mb-2 block">Paid Advertising</span>
+                        <h3 class="text-2xl font-bold text-white mb-4"><span class="spin-letters">Apex Wearables</span></h3>
+                        <p class="text-slate-500 text-sm mb-6">Generated $2.4M in advertising-attributed sales for a new smart ring release utilizing Search and YouTube Ads.</p>
+                        <div class="flex items-center justify-between pt-6 border-t border-white/5">
+                            <div class="text-white font-bold text-lg"><span class="text-brand-accent stat-counter">8.4x</span> <span class="text-slate-500 font-normal text-xs ml-1">ROAS</span></div>
+                            <div class="text-white font-bold text-lg"><span class="text-brand-accent stat-counter">$2.4M</span> <span class="text-slate-500 font-normal text-xs ml-1">Rev/mo</span></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Replicated) -->
+    <footer class="bg-brand-dark/50 pt-20 pb-10 border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <a href="index.html" class="flex items-center space-x-3 mb-6 group">
+                        <div class="relative w-10 h-10 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-secondary rounded-xl rotate-6 group-hover:rotate-12 transition-transform duration-300 opacity-80"></div>
+                            <div class="absolute inset-0 bg-brand-dark rounded-xl border border-white/10 flex items-center justify-center shadow-lg shadow-brand-primary/20">
+                                <i data-lucide="orbit" class="text-white w-5 h-5 group-hover:rotate-180 transition-transform duration-700"></i>
+                            </div>
+                        </div>
+                        <span class="text-2xl font-heading font-extrabold tracking-tight text-white"><span class="spin-letters">IKAN</span><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">TIK</span></span>
+                    </a>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">
+                        The modern architecture for digital growth. We build brands that stand the test of time and technology.
+                    </p>
+                                        <div class="flex space-x-4">
+                        <a href="https://www.instagram.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                        <a href="https://www.linkedin.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+                        <a href="https://wa.me/919586751109" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.864.002-2.637-1.023-5.116-2.887-6.98-1.865-1.864-4.343-2.887-6.982-2.889-5.44 0-9.863 4.42-9.867 9.865-.001 1.968.514 3.89 1.492 5.58l-.978 3.57 3.654-.959zM17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+                        </a>
+                        <a href="https://www.facebook.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                    </div>
+                </div>
+                
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Company</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li><a href="about.html" class="hover:text-white">Our Story</a></li>
+                        <li><a href="process.html" class="hover:text-white">Process</a></li>
+                        <li><a href="portfolio.html" class="text-white font-bold">Portfolio</a></li>
+                        <li><a href="blog.html" class="hover:text-white">Blog</a></li>
+                        <li><a href="faq.html" class="hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Services</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li><a href="seo.html" class="hover:text-white">SEO Supremacy</a></li>
+                        <li><a href="social-media.html" class="hover:text-white">Social Growth</a></li>
+                        <li><a href="advertising.html" class="hover:text-white">Paid Advertising</a></li>
+                        <li><a href="services.html" class="hover:text-white">All Services</a></li>
+                    </ul>
+                </div>
+                
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Contact</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li class="flex items-center"><i data-lucide="mail" class="w-4 h-4 mr-2"></i> hello@ikantik.com</li>
+                        <li class="flex items-center"><i data-lucide="phone" class="w-4 h-4 mr-2"></i> +91 95867 51109</li>
+                        <li class="flex items-center"><i data-lucide="map-pin" class="w-4 h-4 mr-2"></i> Vesu, Surat, Gujarat 395007</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-slate-500 text-xs text-center md:text-left">
+                <p>&copy; 2026 IKANTIK Agency. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Dynamic Case Study Details Modals -->
+    <div x-show="activeProject"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-brand-dark/95 backdrop-blur-xl"
+        x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+        @keydown.escape.window="activeProject = null" x-cloak>
+
+        <!-- Modal Container -->
+        <div class="relative w-full max-w-3xl bg-slate-900 border rounded-[32px] p-8 md:p-10 shadow-2xl max-h-[85vh] overflow-y-auto glass scrollbar-thin transition-all duration-500"
+            :class="{
+                'border-brand-primary/30 shadow-brand-primary/10': activeProject === 'techstream' || activeProject === 'greenleaf',
+                'border-brand-secondary/30 shadow-brand-secondary/10': activeProject === 'luxe' || activeProject === 'aura',
+                'border-brand-accent/30 shadow-brand-accent/10': activeProject === 'volt' || activeProject === 'apex'
+            }"
+            @click.away="activeProject = null" x-show="activeProject"
+            x-transition:enter="transition ease-out duration-300 transform"
+            x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+            x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-200 transform"
+            x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+            x-transition:leave-end="opacity-0 scale-95 translate-y-4">
+
+            <!-- Glowing Accent Backgrounds based on service -->
+            <div class="absolute -top-40 -right-40 w-[350px] h-[350px] rounded-full blur-[100px] opacity-20 pointer-events-none"
+                :class="{
+                     'bg-brand-primary': activeProject === 'techstream' || activeProject === 'greenleaf',
+                     'bg-brand-secondary': activeProject === 'luxe' || activeProject === 'aura',
+                     'bg-brand-accent': activeProject === 'volt' || activeProject === 'apex'
+                 }"></div>
+
+            <!-- Close Button -->
+            <button @click="activeProject = null"
+                class="absolute top-6 right-6 w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all cursor-pointer border border-white/5 z-10 magnetic">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <!-- Case Study Content Injection -->
+            <div>
+                <!-- Header -->
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 rounded-2xl flex items-center justify-center border border-white/5"
+                        :class="{
+                            'bg-brand-primary/20 text-brand-primary': activeProject === 'techstream' || activeProject === 'greenleaf',
+                            'bg-brand-secondary/20 text-brand-secondary': activeProject === 'luxe' || activeProject === 'aura',
+                            'bg-brand-accent/20 text-brand-accent': activeProject === 'volt' || activeProject === 'apex'
+                        }">
+                        <i data-lucide="trending-up" class="w-7 h-7"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold tracking-widest uppercase"
+                            :class="{
+                                'text-brand-primary': activeProject === 'techstream' || activeProject === 'greenleaf',
+                                'text-brand-secondary': activeProject === 'luxe' || activeProject === 'aura',
+                                'text-brand-accent': activeProject === 'volt' || activeProject === 'apex'
+                            }"
+                            x-text="
+                                activeProject === 'techstream' || activeProject === 'greenleaf' ? 'SEO Domination' :
+                                activeProject === 'luxe' || activeProject === 'aura' ? 'Social Growth' : 'Paid Advertising'
+                            ">
+                        </span>
+                        <h3 class="text-2xl md:text-3xl font-heading font-extrabold text-white"
+                            :class="{
+                                'text-transparent bg-clip-text bg-gradient-to-r from-white to-brand-primary': activeProject === 'techstream' || activeProject === 'greenleaf',
+                                'text-transparent bg-clip-text bg-gradient-to-r from-white to-brand-secondary': activeProject === 'luxe' || activeProject === 'aura',
+                                'text-transparent bg-clip-text bg-gradient-to-r from-white to-brand-accent': activeProject === 'volt' || activeProject === 'apex'
+                            }"
+                            x-text="
+                                activeProject === 'techstream' ? 'TechStream SaaS Case Study' :
+                                activeProject === 'luxe' ? 'Luxe Lifestyle Instagram Launch' :
+                                activeProject === 'volt' ? 'Volt E-Commerce Scale' :
+                                activeProject === 'greenleaf' ? 'GreenLeaf Real Estate Hyper-Local SEO' :
+                                activeProject === 'aura' ? 'Aura Cosmetics UGC Viral Strategy' : 'Apex Wearables Smart Ring Campaign'
+                            ">
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <!-- Left: Details -->
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="text-white font-bold text-base mb-2">The Challenge</h4>
+                            <p class="text-sm text-slate-400 leading-relaxed"
+                                x-text="
+                                    activeProject === 'techstream' ? 'The client was suffering from zero organic search engine visibility, paying heavily for direct ads, and struggling to acquire high-value B2B enterprise clients.' :
+                                    activeProject === 'luxe' ? 'Luxe Lifestyle wanted to launch a premium product line but had zero organic community and no strategy for creating viral organic video reach.' :
+                                    activeProject === 'volt' ? 'Volt E-Commerce was stuck at a plateued monthly run rate of $50k with escalating ad acquisition costs and declining profit margins.' :
+                                    activeProject === 'greenleaf' ? 'A real estate group struggling to appear in highly competitive regional search result lists dominated by huge national directory aggregators.' :
+                                    activeProject === 'aura' ? 'A cosmetics startup needing to establish immediate brand trust, generate massive product awareness, and convert cold audiences on social feeds without high expenses.' :
+                                    'A premium health wearables brand seeking to secure pre-orders for their cutting-edge smart ring release in an extremely crowded hardware sector.'
+                                ">
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-base mb-2">Our Execution & Strategy</h4>
+                            <p class="text-sm text-slate-400 leading-relaxed"
+                                x-text="
+                                    activeProject === 'techstream' ? 'We performed a thorough technical crawl to resolve indexation bottlenecks. Following that, we deployed advanced content clusters targeting long-tail commercial intent keywords.' :
+                                    activeProject === 'luxe' ? 'We created high-end cinematic Reel scripts, deployed smart hashtags, and optimized the profile layout for conversion, establishing a highly loyal brand following.' :
+                                    activeProject === 'volt' ? 'We rebuilt their entire Google Ads structure, updated Meta lookalike lists, implemented smart dynamic product retargeting ads, and set up dynamic catalog overlays.' :
+                                    activeProject === 'greenleaf' ? 'We audited and updated local Google Business profiles, generated specialized location landing pages, and established authority through high-quality localized backlinks.' :
+                                    activeProject === 'aura' ? 'We collaborated with micro-influencers to seed native video content. Deployed high-volume user generated reviews and TikTok Spark Ads to maximize social proof.' :
+                                    'We designed a multi-step pre-order landing funnel, implemented high-converting YouTube video demo ads, and optimized Google search campaigns to target high-intent product interest.'
+                                ">
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right: Results Grid -->
+                    <div class="space-y-6">
+                        <h4 class="text-white font-bold text-base border-b border-white/5 pb-2">Key Accomplishments</h4>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
+                                <div class="text-2xl font-extrabold text-white font-mono"
+                                    x-text="
+                                        activeProject === 'techstream' ? '+450%' :
+                                        activeProject === 'luxe' ? '500k+' :
+                                        activeProject === 'volt' ? '12x' :
+                                        activeProject === 'greenleaf' ? '15+' :
+                                        activeProject === 'aura' ? '300k+' : '8.4x'
+                                    ">
+                                </div>
+                                <div class="text-[10px] text-slate-500 uppercase tracking-widest mt-1"
+                                    x-text="
+                                        activeProject === 'techstream' ? 'Traffic Increase' :
+                                        activeProject === 'luxe' ? 'New Followers' :
+                                        activeProject === 'volt' ? 'Ad ROAS' :
+                                        activeProject === 'greenleaf' ? 'Top 1 keywords' :
+                                        activeProject === 'aura' ? 'TikTok followers' : 'Google/YT ROAS'
+                                    ">
+                                </div>
+                            </div>
+                            <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
+                                <div class="text-2xl font-extrabold text-white font-mono"
+                                    x-text="
+                                        activeProject === 'techstream' ? '#1 Rank' :
+                                        activeProject === 'luxe' ? '8.5%' :
+                                        activeProject === 'volt' ? '$1.2M' :
+                                        activeProject === 'greenleaf' ? '3.2x' :
+                                        activeProject === 'aura' ? '14.2%' : '$2.4M'
+                                    ">
+                                </div>
+                                <div class="text-[10px] text-slate-500 uppercase tracking-widest mt-1"
+                                    x-text="
+                                        activeProject === 'techstream' ? 'On Core Terms' :
+                                        activeProject === 'luxe' ? 'Engagement' :
+                                        activeProject === 'volt' ? 'Rev per month' :
+                                        activeProject === 'greenleaf' ? 'Lead growth' :
+                                        activeProject === 'aura' ? 'Video engagement' : 'Pre-order revenue'
+                                    ">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-5 bg-white/5 border border-white/5 rounded-2xl">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-3">Campaign Impact</span>
+                            <ul class="space-y-3 text-xs text-slate-300">
+                                <li class="flex items-start service-list-item">
+                                    <i data-lucide="check" class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0 transition-transform duration-550"
+                                       :class="{
+                                           'text-brand-primary': activeProject === 'techstream' || activeProject === 'greenleaf',
+                                           'text-brand-secondary': activeProject === 'luxe' || activeProject === 'aura',
+                                           'text-brand-accent': activeProject === 'volt' || activeProject === 'apex'
+                                       }"></i>
+                                    <span>Scaled ROI by over 200% year-over-year</span>
+                                </li>
+                                <li class="flex items-start service-list-item">
+                                    <i data-lucide="check" class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0 transition-transform duration-550"
+                                       :class="{
+                                           'text-brand-primary': activeProject === 'techstream' || activeProject === 'greenleaf',
+                                           'text-brand-secondary': activeProject === 'luxe' || activeProject === 'aura',
+                                           'text-brand-accent': activeProject === 'volt' || activeProject === 'apex'
+                                       }"></i>
+                                    <span>Dramatically lowered Customer Acquisition Cost</span>
+                                </li>
+                                <li class="flex items-start service-list-item">
+                                    <i data-lucide="check" class="w-4 h-4 mr-2 mt-0.5 flex-shrink-0 transition-transform duration-550"
+                                       :class="{
+                                           'text-brand-primary': activeProject === 'techstream' || activeProject === 'greenleaf',
+                                           'text-brand-secondary': activeProject === 'luxe' || activeProject === 'aura',
+                                           'text-brand-accent': activeProject === 'volt' || activeProject === 'apex'
+                                       }"></i>
+                                    <span>Enhanced overall organic brand search authority</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 pt-4 border-t border-white/5">
+                    <a href="contact.html" class="px-6 py-4 text-white font-bold rounded-xl transition-all text-center flex-1 flex items-center justify-center gap-2 magnetic magnetic-btn shadow-lg"
+                        :class="{
+                            'bg-brand-primary text-white shadow-brand-primary/20 hover:bg-brand-primary/80': activeProject === 'techstream' || activeProject === 'greenleaf',
+                            'bg-brand-secondary text-brand-dark shadow-brand-secondary/20 hover:bg-brand-secondary/80': activeProject === 'luxe' || activeProject === 'aura',
+                            'bg-brand-accent text-brand-dark shadow-brand-accent/20 hover:bg-brand-accent/80': activeProject === 'volt' || activeProject === 'apex'
+                        }">
+                        <span>Scale My Brand Like This</span> <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <script>
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.classList.add('preloader-hidden');
+                setTimeout(() => preloader.remove(), 600);
+            }
+        });
+    </script>
+</body>
+</html>
+
+

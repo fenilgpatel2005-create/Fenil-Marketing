@@ -1,0 +1,466 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        if (sessionStorage.getItem('preloader_shown') === 'true') {
+            document.documentElement.classList.add('preloader-skipped');
+        }
+    </script>
+    <style>
+        .preloader-skipped #preloader {
+            display: none !important;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | IKANTIK Agency</title>
+    <meta name="description" content="Discover the mission, values, and team behind IKANTIK's record-breaking growth strategies.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Scripts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#05020c',
+                            primary: '#ff2e93',
+                            secondary: '#ff6a00',
+                            accent: '#00f2fe',
+                            slate: '#b4b6d4'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        heading: ['Sora', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+<body x-data="{ mobileMenu: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 20)">
+
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 bg-[#05020a] z-[99999] flex flex-col items-center justify-center transition-all duration-500 ease-in-out">
+        <div class="relative w-20 h-20 mb-6">
+            <div class="absolute inset-0 rounded-full border-2 border-brand-primary/10"></div>
+            <div class="absolute inset-0 rounded-full border-t-2 border-r-2 border-brand-primary animate-spin"></div>
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-brand-primary rounded-full shadow-[0_0_15px_#ff2e93] animate-pulse"></div>
+        </div>
+        <div class="flex items-center gap-1 font-heading text-lg font-bold text-white tracking-widest uppercase">
+            <span class="spin-letters">IKAN</span><span class="text-brand-primary">TIK</span>
+        </div>
+        <div class="mt-2 text-xs font-semibold text-slate-500 tracking-widest font-mono">Loading...</div>
+    </div>
+
+    <!-- Ambient Cosmic Background -->
+    <div class="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden pointer-events-none">
+        <div class="absolute inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none"></div>
+        <div class="cosmic-glow-1 top-[-10%] right-[-10%] opacity-20"></div>
+        <div class="cosmic-glow-2 bottom-[-10%] left-[-10%] opacity-15"></div>
+    </div>
+
+    <!-- Navigation (Replicated) -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300" 
+         :class="scrolled ? 'glass py-3' : 'py-6 bg-transparent'">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div class="relative w-10 h-10 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-secondary rounded-xl rotate-6 group-hover:rotate-12 transition-transform duration-300 opacity-80"></div>
+                    <div class="absolute inset-0 bg-brand-dark rounded-xl border border-white/10 flex items-center justify-center shadow-lg shadow-brand-primary/20">
+                        <i data-lucide="orbit" class="text-white w-5 h-5 group-hover:rotate-180 transition-transform duration-700"></i>
+                    </div>
+                </div>
+                <span class="text-2xl font-heading font-extrabold tracking-tight text-white"><span class="spin-letters">IKAN</span><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">TIK</span></span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-300">
+                <a href="index.html" class="hover:text-white transition-colors">Home</a>
+                <a href="services.html" class="hover:text-white transition-colors">Services</a>
+                <a href="process.html" class="hover:text-white transition-colors">Process</a>
+                <a href="portfolio.html" class="hover:text-white transition-colors">Portfolio</a>
+                <a href="about.html" class="text-brand-primary">About</a>
+                <a href="blog.html" class="hover:text-white transition-colors">Blog</a>
+                <a href="contact.html" class="px-5 py-2.5 bg-brand-primary text-white rounded-full hover:bg-brand-primary/80 transition-all shadow-lg shadow-brand-primary/20">Get Started</a>
+            </div>
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-white">
+                <i data-lucide="menu" x-show="!mobileMenu" class="w-8 h-8"></i>
+                <i data-lucide="x" x-show="mobileMenu" class="w-8 h-8"></i>
+            </button>
+        </div>
+        <div x-show="mobileMenu" class="absolute top-full left-0 w-full glass md:hidden pb-8 shadow-2xl" x-cloak>
+            <div class="flex flex-col space-y-4 px-6 pt-4 text-lg font-medium">
+                <a href="index.html" class="text-slate-300">Home</a>
+                <a href="services.html" class="text-slate-300">Services</a>
+                <a href="process.html" class="hover:text-white transition-colors">Process</a>
+                <a href="portfolio.html" class="text-slate-300">Portfolio</a>
+                <a href="about.html" class="text-brand-primary">About</a>
+                <a href="blog.html" class="text-slate-300">Blog</a>
+                <a href="contact.html" class="text-brand-primary font-bold">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="pt-32 pb-16 md:pt-48 md:pb-24 overflow-hidden relative">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="reveal-on-scroll">
+                    <span class="text-brand-primary font-bold tracking-widest uppercase text-xs mb-4 block">Our Origin Story</span>
+                    <h1 class="text-5xl md:text-7xl font-heading font-extrabold text-white mb-8">
+                        <span class="spin-letters">Architects of </span><span class="cosmic-gradient-text">Growth.</span>
+                    </h1>
+                    <p class="text-xl text-slate-400 mb-8 leading-relaxed">
+                        IKANTIK was founded on a simple realization: the digital landscape is littered with "best practices" that no longer work. We built this agency to challenge the status quo and deliver results that matter.
+                    </p>
+                    
+                    <!-- Premium Glass Badges with Counting Animations -->
+                    <div class="flex gap-6">
+                        <div class="glass-card p-6 rounded-2xl flex-1 border border-white/5 shadow-lg">
+                            <h4 class="text-3xl font-extrabold text-white mb-1 stat-counter text-brand-primary">2018</h4>
+                            <p class="text-slate-500 text-xs uppercase tracking-wider font-semibold">Founded</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl flex-1 border border-white/5 shadow-lg">
+                            <h4 class="text-3xl font-extrabold text-white mb-1 stat-counter text-brand-accent">50+</h4>
+                            <p class="text-slate-500 text-xs uppercase tracking-wider font-semibold">Designers & Specialists</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative reveal-on-scroll group cursor-pointer glass-card p-2 rounded-[32px] hover-fuchsia overflow-hidden shadow-2xl">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10 pointer-events-none"></div>
+                    <div class="relative rounded-[24px] overflow-hidden h-[400px]">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-all duration-700">
+                        <!-- Dark mask overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-60"></div>
+                    </div>
+                    <!-- Founder's quote card overlay -->
+                    <div class="absolute -bottom-6 -left-6 glass p-6 rounded-2xl hidden lg:block border border-white/10 shadow-[0_15px_40px_rgba(0,0,0,0.8)] z-20 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-500">
+                        <p class="text-brand-secondary font-bold text-xl mb-1 font-heading italic">"Vision over visibility."</p>
+                        <p class="text-slate-500 text-xs uppercase tracking-wider font-semibold">- OUR FOUNDER</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="py-24 relative overflow-hidden border-y border-white/5 bg-brand-dark/20">
+        <div class="absolute inset-0 bg-grid-pattern opacity-[0.01] pointer-events-none"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-20 reveal-on-scroll">
+                <span class="text-brand-primary font-bold tracking-widest uppercase text-xs mb-4 block">Our Philosophy</span>
+                <h2 class="text-4xl font-heading font-extrabold text-white mb-4">
+                    <span class="spin-letters">Values That </span><span class="cosmic-gradient-text">Drive Us</span>
+                </h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">The core principles behind every campaign we launch.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-12 text-center">
+                <!-- Value 1: Radical Integrity -->
+                <div class="glass-card hover-fuchsia p-8 rounded-[32px] reveal-on-scroll group cursor-pointer">
+                    <div class="w-16 h-16 bg-brand-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-brand-primary/20 group-hover:rotate-12 group-hover:scale-110 transition-all duration-500 shadow-[0_0_15px_rgba(255,46,147,0.1)]">
+                        <i data-lucide="shield-check" class="text-brand-primary w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-heading font-extrabold text-white mb-4 spin-letters">Radical Integrity</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">We are honest about what works and even more honest about what doesn't. Transparency is our baseline.</p>
+                </div>
+                
+                <!-- Value 2: Relentless Agility -->
+                <div class="glass-card hover-orange p-8 rounded-[32px] reveal-on-scroll group cursor-pointer" style="transition-delay: 100ms;">
+                    <div class="w-16 h-16 bg-brand-secondary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-brand-secondary/20 group-hover:-rotate-12 group-hover:scale-110 transition-all duration-500 shadow-[0_0_15px_rgba(255,106,0,0.1)]">
+                        <i data-lucide="zap" class="text-brand-secondary w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-heading font-extrabold text-white mb-4 spin-letters">Relentless Agility</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Algorithms change daily; so do we. We pivot with precision to keep your brand ahead of the curve.</p>
+                </div>
+                
+                <!-- Value 3: Obsessive ROI -->
+                <div class="glass-card hover-cyan p-8 rounded-[32px] reveal-on-scroll group cursor-pointer" style="transition-delay: 200ms;">
+                    <div class="w-16 h-16 bg-brand-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-brand-accent/20 group-hover:rotate-12 group-hover:scale-110 transition-all duration-500 shadow-[0_0_15px_rgba(0,242,254,0.1)]">
+                        <i data-lucide="target" class="text-brand-accent w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-heading font-extrabold text-white mb-4 spin-letters">Obsessive ROI</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Vanity metrics are for hobbyists. We focus exclusively on the metrics that impact your bottom line.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cosmic Growth Ecosystem Infographic -->
+    <section class="py-24 relative overflow-hidden border-b border-white/5">
+        <div class="absolute inset-0 bg-grid-pattern opacity-[0.02] pointer-events-none"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <span class="text-brand-primary font-bold tracking-widest uppercase text-xs mb-4 block">Visualized Synergy</span>
+                <h2 class="text-4xl font-heading font-extrabold text-white mb-4">
+                    <span class="spin-letters">Our </span><span class="cosmic-gradient-text">Growth Ecosystem</span>
+                </h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">How our multi-disciplinary forces align around your brand to drive exponential results.</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Left: Orbital Infographic (Pure SVG & CSS animations) -->
+                <div class="relative flex items-center justify-center h-[450px] reveal-on-scroll">
+                    <!-- Rotating Orbital Rings -->
+                    <div class="absolute w-[360px] h-[360px] rounded-full border border-white/5 animate-[spin_50s_linear_infinite]"></div>
+                    <div class="absolute w-[280px] h-[280px] rounded-full border border-dashed border-white/10 animate-[spin_30s_linear_infinite_reverse]"></div>
+                    <div class="absolute w-[180px] h-[180px] rounded-full border border-brand-primary/10 animate-[spin_20s_linear_infinite]"></div>
+                    
+                    <!-- Center Hub: CLIENT BRAND -->
+                    <div class="relative z-10 w-24 h-24 rounded-full bg-gradient-to-tr from-brand-primary to-brand-secondary p-0.5 shadow-[0_0_50px_rgba(255,46,147,0.3)] animate-float">
+                        <div class="w-full h-full bg-[#05020c] rounded-full flex flex-col items-center justify-center text-center p-2 border border-white/10">
+                            <i data-lucide="orbit" class="text-brand-primary w-6 h-6 mb-1 animate-spin" style="animation-duration: 10s"></i>
+                            <span class="text-[10px] font-heading font-extrabold uppercase tracking-widest text-white leading-none">YOUR<br>BRAND</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Orbit Node 1: SEO Supremacy (Fuchsia) -->
+                    <div class="absolute top-[12%] left-[22%] z-20 group cursor-pointer" style="animation: float 6s ease-in-out infinite;">
+                        <div class="w-14 h-14 bg-brand-primary/10 rounded-full flex items-center justify-center border border-brand-primary/30 group-hover:border-brand-primary transition-all duration-300 shadow-[0_0_20px_rgba(255,46,147,0.1)] group-hover:shadow-[0_0_30px_rgba(255,46,147,0.4)]">
+                            <i data-lucide="search" class="text-brand-primary w-6 h-6 group-hover:scale-110 duration-300"></i>
+                        </div>
+                        <div class="absolute top-1/2 left-full -translate-y-1/2 ml-3 bg-brand-dark/95 border border-brand-primary/20 py-1.5 px-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-lg">
+                            <span class="text-xs font-bold text-white uppercase tracking-wider">SEO Supremacy</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Orbit Node 2: Social Growth (Orange) -->
+                    <div class="absolute top-[22%] right-[17%] z-20 group cursor-pointer" style="animation: float 7s ease-in-out infinite 1s;">
+                        <div class="w-14 h-14 bg-brand-secondary/10 rounded-full flex items-center justify-center border border-brand-secondary/30 group-hover:border-brand-secondary transition-all duration-300 shadow-[0_0_20px_rgba(255,106,0,0.1)] group-hover:shadow-[0_0_30px_rgba(255,106,0,0.4)]">
+                            <i data-lucide="trending-up" class="text-brand-secondary w-6 h-6 group-hover:scale-110 duration-300"></i>
+                        </div>
+                        <div class="absolute top-1/2 right-full -translate-y-1/2 mr-3 bg-brand-dark/95 border border-brand-secondary/20 py-1.5 px-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-lg">
+                            <span class="text-xs font-bold text-white uppercase tracking-wider">Social Growth</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Orbit Node 3: Paid Advertising (Cyan) -->
+                    <div class="absolute bottom-[17%] left-[27%] z-20 group cursor-pointer" style="animation: float 8s ease-in-out infinite 2s;">
+                        <div class="w-14 h-14 bg-brand-accent/10 rounded-full flex items-center justify-center border border-brand-accent/30 group-hover:border-brand-accent transition-all duration-300 shadow-[0_0_20px_rgba(0,242,254,0.1)] group-hover:shadow-[0_0_30px_rgba(0,242,254,0.4)]">
+                            <i data-lucide="zap" class="text-brand-accent w-6 h-6 group-hover:scale-110 duration-300"></i>
+                        </div>
+                        <div class="absolute top-1/2 left-full -translate-y-1/2 ml-3 bg-brand-dark/95 border border-brand-accent/20 py-1.5 px-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-lg">
+                            <span class="text-xs font-bold text-white uppercase tracking-wider">Paid Ads</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Orbit Node 4: Creative Studio (Fuchsia-Orange) -->
+                    <div class="absolute bottom-[22%] right-[22%] z-20 group cursor-pointer" style="animation: float 9s ease-in-out infinite 3s;">
+                        <div class="w-14 h-14 bg-white/5 rounded-full flex items-center justify-center border border-white/10 group-hover:border-brand-primary transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.05)] group-hover:shadow-[0_0_30px_rgba(255,46,147,0.3)]">
+                            <i data-lucide="layers" class="text-white w-6 h-6 group-hover:text-brand-primary group-hover:scale-110 duration-300"></i>
+                        </div>
+                        <div class="absolute top-1/2 right-full -translate-y-1/2 mr-3 bg-brand-dark/95 border border-white/10 group-hover:border-brand-primary/20 py-1.5 px-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-lg">
+                            <span class="text-xs font-bold text-white uppercase tracking-wider">Creative Studio</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right: Explanatory highlights -->
+                <div class="space-y-6 reveal-on-scroll">
+                    <h3 class="text-3xl font-heading font-bold text-white">How We Synchronize For Scale</h3>
+                    <p class="text-slate-400">
+                        Growth doesn't happen in a vacuum. By synchronizing paid media, organic visibility, and content creativity, we generate a high-velocity feedback loop that continuously drives down customer acquisition costs.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4 p-4 rounded-2xl glass border border-white/5">
+                            <div class="w-10 h-10 rounded-xl bg-brand-primary/10 flex items-center justify-center flex-shrink-0 border border-brand-primary/20">
+                                <i data-lucide="shield-check" class="text-brand-primary w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">Unified Command</h4>
+                                <p class="text-slate-500 text-sm leading-relaxed">Every campaign asset is synchronized through centralized strategy managers to ensure maximum brand consistency.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4 p-4 rounded-2xl glass border border-white/5">
+                            <div class="w-10 h-10 rounded-xl bg-brand-accent/10 flex items-center justify-center flex-shrink-0 border border-brand-accent/20">
+                                <i data-lucide="cpu" class="text-brand-accent w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">Algorithmic Advantage</h4>
+                                <p class="text-slate-500 text-sm leading-relaxed">We pool performance data across all search and social channels to build a superior predictive targeting engine.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <h2 class="text-4xl font-heading font-extrabold text-white mb-16 text-center reveal-on-scroll">
+                <span class="spin-letters">Meet the </span><span class="cosmic-gradient-text">Specialists</span>
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Team Member 1 -->
+                <div x-data="{ open: false }" class="glass-card hover-fuchsia rounded-[32px] overflow-hidden group reveal-on-scroll relative shadow-2xl flex flex-col justify-between cursor-pointer">
+                    <div>
+                        <!-- Picture Aspect-Ratio Cover with Scale Zoom -->
+                        <div class="relative h-80 overflow-hidden m-4 rounded-[24px] group/img">
+                            <img src="assets/marcus_strategy.jpg" class="absolute inset-0 w-full h-full object-cover group-hover/img:scale-110 group-hover/img:rotate-1 transition-all duration-700">
+                            <!-- Overlay dark mask -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/95 via-transparent to-transparent opacity-65"></div>
+                        </div>
+                        <div class="p-6 pt-2">
+                            <h4 class="text-2xl font-heading font-extrabold text-white mb-1 spin-letters">Harsh Kanoje</h4>
+                            <p class="text-brand-primary font-bold text-xs mb-4 uppercase tracking-wider font-mono">Head of Strategy</p>
+                            <button @click="open = !open" class="text-slate-400 hover:text-white flex items-center gap-2 transition-colors magnetic py-1 px-2 -ml-2 rounded-lg glass border border-white/0 hover:border-white/5 shadow-sm">
+                                <span x-text="open ? 'Close Bio' : 'Read Bio'" class="text-xs font-semibold uppercase tracking-wider"></span>
+                                <i data-lucide="chevron-down" :class="open ? 'rotate-180 text-brand-primary' : ''" class="w-4 h-4 transition-transform duration-300"></i>
+                            </button>
+                            <div x-show="open" x-collapse class="mt-4 text-slate-500 text-sm leading-relaxed border-t border-white/5 pt-4" x-cloak>
+                                Marcus has led growth for three Fortune 500 companies before joining IKANTIK. He specializes in market expansion and high-level funnel architecture.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div x-data="{ open: false }" class="glass-card hover-orange rounded-[32px] overflow-hidden group reveal-on-scroll relative shadow-2xl flex flex-col justify-between cursor-pointer" style="transition-delay: 100ms;">
+                    <div>
+                        <!-- Picture Aspect-Ratio Cover with Scale Zoom -->
+                        <div class="relative h-80 overflow-hidden m-4 rounded-[24px] group/img">
+                            <img src="assets/elena_specialist.jpg" class="absolute inset-0 w-full h-full object-cover group-hover/img:scale-110 group-hover/img:rotate-1 transition-all duration-700">
+                            <!-- Overlay dark mask -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/95 via-transparent to-transparent opacity-65"></div>
+                        </div>
+                        <div class="p-6 pt-2">
+                            <h4 class="text-2xl font-heading font-extrabold text-white mb-1 spin-letters">Ankit Baid</h4>
+                            <p class="text-brand-secondary font-bold text-xs mb-4 uppercase tracking-wider font-mono">Creative Director</p>
+                            <button @click="open = !open" class="text-slate-400 hover:text-white flex items-center gap-2 transition-colors magnetic py-1 px-2 -ml-2 rounded-lg glass border border-white/0 hover:border-white/5 shadow-sm">
+                                <span x-text="open ? 'Close Bio' : 'Read Bio'" class="text-xs font-semibold uppercase tracking-wider"></span>
+                                <i data-lucide="chevron-down" :class="open ? 'rotate-180 text-brand-secondary' : ''" class="w-4 h-4 transition-transform duration-300"></i>
+                            </button>
+                            <div x-show="open" x-collapse class="mt-4 text-slate-500 text-sm leading-relaxed border-t border-white/5 pt-4" x-cloak>
+                                Elena ensures that every piece of content that leaves our office is not just effective, but breathtaking. Her work has won multiple Webby awards.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div x-data="{ open: false }" class="glass-card hover-cyan rounded-[32px] overflow-hidden group reveal-on-scroll relative shadow-2xl flex flex-col justify-between cursor-pointer" style="transition-delay: 200ms;">
+                    <div>
+                        <!-- Picture Aspect-Ratio Cover with Scale Zoom -->
+                        <div class="relative h-80 overflow-hidden m-4 rounded-[24px] group/img">
+                            <img src="assets/david_seo.jpg" class="absolute inset-0 w-full h-full object-cover group-hover/img:scale-110 group-hover/img:rotate-1 transition-all duration-700">
+                            <!-- Overlay dark mask -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/95 via-transparent to-transparent opacity-65"></div>
+                        </div>
+                        <div class="p-6 pt-2">
+                            <h4 class="text-2xl font-heading font-extrabold text-white mb-1 spin-letters">Fenil Patel</h4>
+                            <p class="text-brand-accent font-bold text-xs mb-4 uppercase tracking-wider font-mono">SEO Architect</p>
+                            <button @click="open = !open" class="text-slate-400 hover:text-white flex items-center gap-2 transition-colors magnetic py-1 px-2 -ml-2 rounded-lg glass border border-white/0 hover:border-white/5 shadow-sm">
+                                <span x-text="open ? 'Close Bio' : 'Read Bio'" class="text-xs font-semibold uppercase tracking-wider"></span>
+                                <i data-lucide="chevron-down" :class="open ? 'rotate-180 text-brand-accent' : ''" class="w-4 h-4 transition-transform duration-300"></i>
+                            </button>
+                            <div x-show="open" x-collapse class="mt-4 text-slate-500 text-sm leading-relaxed border-t border-white/5 pt-4" x-cloak>
+                                David lives and breathes algorithms. He has a track record of securing #1 rankings for some of the most competitive keywords on the web.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Replicated) -->
+    <footer class="bg-brand-dark/50 pt-20 pb-10 border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <a href="index.html" class="flex items-center space-x-3 mb-6 group">
+                        <div class="relative w-10 h-10 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-secondary rounded-xl rotate-6 group-hover:rotate-12 transition-transform duration-300 opacity-80"></div>
+                            <div class="absolute inset-0 bg-brand-dark rounded-xl border border-white/10 flex items-center justify-center shadow-lg shadow-brand-primary/20">
+                                <i data-lucide="orbit" class="text-white w-5 h-5 group-hover:rotate-180 transition-transform duration-700"></i>
+                            </div>
+                        </div>
+                        <span class="text-2xl font-heading font-extrabold tracking-tight text-white"><span class="spin-letters">IKAN</span><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">TIK</span></span>
+                    </a>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">
+                        The modern architecture for digital growth. We build brands that stand the test of time and technology.
+                    </p>
+                                        <div class="flex space-x-4">
+                        <a href="https://www.instagram.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                        <a href="https://www.linkedin.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+                        <a href="https://wa.me/919586751109" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.864.002-2.637-1.023-5.116-2.887-6.98-1.865-1.864-4.343-2.887-6.982-2.889-5.44 0-9.863 4.42-9.867 9.865-.001 1.968.514 3.89 1.492 5.58l-.978 3.57 3.654-.959zM17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+                        </a>
+                        <a href="https://www.facebook.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                    </div>
+                </div>
+                
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Company</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li><a href="about.html" class="text-white font-bold">Our Story</a></li>
+                        <li><a href="process.html" class="hover:text-white">Process</a></li>
+                        <li><a href="portfolio.html" class="hover:text-white">Portfolio</a></li>
+                        <li><a href="blog.html" class="hover:text-white">Blog</a></li>
+                        <li><a href="faq.html" class="hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Services</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li><a href="seo.html" class="hover:text-white">SEO Supremacy</a></li>
+                        <li><a href="social-media.html" class="hover:text-white">Social Growth</a></li>
+                        <li><a href="advertising.html" class="hover:text-white">Paid Advertising</a></li>
+                        <li><a href="services.html" class="hover:text-white">All Services</a></li>
+                    </ul>
+                </div>
+                
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Contact</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li class="flex items-center"><i data-lucide="mail" class="w-4 h-4 mr-2"></i> hello@ikantik.com</li>
+                        <li class="flex items-center"><i data-lucide="phone" class="w-4 h-4 mr-2"></i> +91 95867 51109</li>
+                        <li class="flex items-center"><i data-lucide="map-pin" class="w-4 h-4 mr-2"></i> Vesu, Surat, Gujarat 395007</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-slate-500 text-xs text-center md:text-left">
+                <p>&copy; 2026 IKANTIK Agency. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <script>
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.classList.add('preloader-hidden');
+                setTimeout(() => preloader.remove(), 600);
+            }
+        });
+    </script>
+</body>
+</html>
+
+

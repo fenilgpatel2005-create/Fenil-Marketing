@@ -1,0 +1,500 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        if (sessionStorage.getItem('preloader_shown') === 'true') {
+            document.documentElement.classList.add('preloader-skipped');
+        }
+    </script>
+    <style>
+        .preloader-skipped #preloader {
+            display: none !important;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Process | IKANTIK Agency</title>
+    <meta name="description" content="Discover the science of scale. See how IKANTIK architects exponential growth through our 5-phase methodology.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Scripts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#05020c',
+                            primary: '#ff2e93',
+                            secondary: '#ff6a00',
+                            accent: '#00f2fe',
+                            slate: '#b4b6d4'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        heading: ['Sora', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+<body x-data="{ mobileMenu: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 20)">
+
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 bg-[#05020a] z-[99999] flex flex-col items-center justify-center transition-all duration-500 ease-in-out">
+        <div class="relative w-20 h-20 mb-6">
+            <div class="absolute inset-0 rounded-full border-2 border-brand-primary/10"></div>
+            <div class="absolute inset-0 rounded-full border-t-2 border-r-2 border-brand-primary animate-spin"></div>
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-brand-primary rounded-full shadow-[0_0_15px_#ff2e93] animate-pulse"></div>
+        </div>
+        <div class="flex items-center gap-1 font-heading text-lg font-bold text-white tracking-widest uppercase">
+            <span class="spin-letters">IKAN</span><span class="text-brand-primary">TIK</span>
+        </div>
+        <div class="mt-2 text-xs font-semibold text-slate-500 tracking-widest font-mono">Loading...</div>
+    </div>
+
+    <!-- Ambient Cosmic Background -->
+    <div class="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden pointer-events-none">
+        <div class="absolute inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none"></div>
+        <div class="cosmic-glow-1 top-[-10%] right-[-10%] opacity-20"></div>
+        <div class="cosmic-glow-2 bottom-[-10%] left-[-10%] opacity-15"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300" 
+         :class="scrolled ? 'glass py-3' : 'py-6 bg-transparent'">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div class="relative w-10 h-10 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-secondary rounded-xl rotate-6 group-hover:rotate-12 transition-transform duration-300 opacity-80"></div>
+                    <div class="absolute inset-0 bg-brand-dark rounded-xl border border-white/10 flex items-center justify-center shadow-lg shadow-brand-primary/20">
+                        <i data-lucide="orbit" class="text-white w-5 h-5 group-hover:rotate-180 transition-transform duration-700"></i>
+                    </div>
+                </div>
+                <span class="text-2xl font-heading font-extrabold tracking-tight text-white"><span class="spin-letters">IKAN</span><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">TIK</span></span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-300">
+                <a href="index.html" class="hover:text-white transition-colors">Home</a>
+                <a href="services.html" class="hover:text-white transition-colors">Services</a>
+                <a href="process.html" class="text-brand-primary transition-colors">Process</a>
+                <a href="portfolio.html" class="hover:text-white transition-colors">Portfolio</a>
+                <a href="about.html" class="hover:text-white transition-colors">About</a>
+                <a href="blog.html" class="hover:text-white transition-colors">Blog</a>
+                <a href="contact.html" class="px-5 py-2.5 bg-brand-primary text-white rounded-full hover:bg-brand-primary/80 transition-all shadow-lg shadow-brand-primary/20">Get Started</a>
+            </div>
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-white">
+                <i data-lucide="menu" x-show="!mobileMenu" class="w-8 h-8"></i>
+                <i data-lucide="x" x-show="mobileMenu" class="w-8 h-8"></i>
+            </button>
+        </div>
+        <div x-show="mobileMenu" class="absolute top-full left-0 w-full glass md:hidden pb-8 shadow-2xl" x-cloak>
+            <div class="flex flex-col space-y-4 px-6 pt-4 text-lg font-medium">
+                <a href="index.html" class="text-slate-300">Home</a>
+                <a href="services.html" class="text-slate-300">Services</a>
+                <a href="process.html" class="text-brand-primary font-bold">Process</a>
+                <a href="portfolio.html" class="text-slate-300">Portfolio</a>
+                <a href="about.html" class="text-slate-300">About</a>
+                <a href="blog.html" class="text-slate-300">Blog</a>
+                <a href="contact.html" class="text-brand-primary font-bold">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="pt-32 pb-16 md:pt-48 md:pb-24 overflow-hidden relative">
+        <div class="container mx-auto px-6 text-center reveal-on-scroll">
+            <span class="text-brand-primary font-bold tracking-widest uppercase text-xs mb-4 block">Our Methodology</span>
+            <h1 class="text-5xl md:text-7xl font-heading font-extrabold text-white mb-8">
+                <span class="spin-letters">The Science of </span><span class="cosmic-gradient-text">Scale.</span>
+            </h1>
+            <p class="text-xl text-slate-400 mb-8 max-w-3xl mx-auto leading-relaxed">
+                We don't rely on guesswork. Our multi-phased growth architecture is engineered to transform uncertainty into calculated, exponential velocity.
+            </p>
+        </div>
+    </section>
+
+    <!-- Process Timeline Section -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <!-- Center Vertical Line -->
+            <div class="absolute left-[24px] md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-brand-primary/0 via-brand-secondary/50 to-brand-accent/0 -translate-x-1/2 hidden md:block"></div>
+            
+            <div class="space-y-32">
+                
+                <!-- Step 1: Discovery -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between gap-12 group">
+                    <div class="md:w-1/2 md:pr-16 text-right md:text-right text-left w-full reveal-on-scroll">
+                        <div class="md:hidden w-12 h-12 bg-brand-primary/10 rounded-full flex items-center justify-center border border-brand-primary/30 mb-6 shadow-[0_0_20px_rgba(255,46,147,0.2)]">
+                            <span class="text-brand-primary font-bold font-mono">01</span>
+                        </div>
+                        <h3 class="text-4xl font-heading font-extrabold text-white mb-4 spin-letters">Phase 01: Discovery</h3>
+                        <p class="text-brand-primary font-bold text-sm uppercase tracking-wider mb-4 font-mono">Mapping The Territory</p>
+                        <p class="text-slate-400 leading-relaxed text-lg">Understanding the client’s brand, goals, audience, and market position. Before we execute, we dissect your brand's DNA to identify high-leverage opportunities that others miss.</p>
+                    </div>
+                    <!-- Center Node -->
+                    <div class="absolute left-[24px] md:left-1/2 w-12 h-12 bg-[#05020c] rounded-full border border-brand-primary flex items-center justify-center -translate-x-1/2 z-20 shadow-[0_0_20px_rgba(255,46,147,0.4)] group-hover:scale-125 transition-transform duration-500 hidden md:flex">
+                        <span class="text-brand-primary font-bold font-mono text-lg">01</span>
+                    </div>
+                    <div class="md:w-1/2 md:pl-16 w-full reveal-on-scroll">
+                        <div class="glass-card p-1 hover-fuchsia rounded-[32px] shadow-2xl relative cursor-pointer">
+                            <div class="absolute inset-0 bg-gradient-to-br from-brand-primary/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-[32px] pointer-events-none"></div>
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800" class="rounded-[28px] object-cover h-64 w-full">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Strategy -->
+                <div class="relative flex flex-col md:flex-row-reverse items-center justify-between gap-12 group">
+                    <div class="md:w-1/2 md:pl-16 text-left w-full reveal-on-scroll">
+                        <div class="md:hidden w-12 h-12 bg-brand-secondary/10 rounded-full flex items-center justify-center border border-brand-secondary/30 mb-6 shadow-[0_0_20px_rgba(255,106,0,0.2)]">
+                            <span class="text-brand-secondary font-bold font-mono">02</span>
+                        </div>
+                        <h3 class="text-4xl font-heading font-extrabold text-white mb-4 spin-letters">Phase 02: Strategy</h3>
+                        <p class="text-brand-secondary font-bold text-sm uppercase tracking-wider mb-4 font-mono">Architecting The Blueprint</p>
+                        <p class="text-slate-400 leading-relaxed text-lg">Creating a tailored marketing and growth strategy with clear direction and positioning. We engineer a multi-channel blueprint designed to penetrate the noise and dominate your niche.</p>
+                    </div>
+                    <!-- Center Node -->
+                    <div class="absolute left-[24px] md:left-1/2 w-12 h-12 bg-[#05020c] rounded-full border border-brand-secondary flex items-center justify-center -translate-x-1/2 z-20 shadow-[0_0_20px_rgba(255,106,0,0.4)] group-hover:scale-125 transition-transform duration-500 hidden md:flex">
+                        <span class="text-brand-secondary font-bold font-mono text-lg">02</span>
+                    </div>
+                    <div class="md:w-1/2 md:pr-16 w-full reveal-on-scroll">
+                        <div class="glass-card p-1 hover-orange rounded-[32px] shadow-2xl relative cursor-pointer">
+                            <div class="absolute inset-0 bg-gradient-to-br from-brand-secondary/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-[32px] pointer-events-none"></div>
+                            <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=800" class="rounded-[28px] object-cover h-64 w-full">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Execution -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between gap-12 group">
+                    <div class="md:w-1/2 md:pr-16 text-right md:text-right text-left w-full reveal-on-scroll">
+                        <div class="md:hidden w-12 h-12 bg-brand-accent/10 rounded-full flex items-center justify-center border border-brand-accent/30 mb-6 shadow-[0_0_20px_rgba(0,242,254,0.2)]">
+                            <span class="text-brand-accent font-bold font-mono">03</span>
+                        </div>
+                        <h3 class="text-4xl font-heading font-extrabold text-white mb-4 spin-letters">Phase 03: Execution</h3>
+                        <p class="text-brand-accent font-bold text-sm uppercase tracking-wider mb-4 font-mono">Precision Implementation</p>
+                        <p class="text-slate-400 leading-relaxed text-lg">Design, development, campaigns, content, and implementation with precision. Our multidisciplinary team launches pixel-perfect creative assets and technically flawless systems that drive action.</p>
+                    </div>
+                    <!-- Center Node -->
+                    <div class="absolute left-[24px] md:left-1/2 w-12 h-12 bg-[#05020c] rounded-full border border-brand-accent flex items-center justify-center -translate-x-1/2 z-20 shadow-[0_0_20px_rgba(0,242,254,0.4)] group-hover:scale-125 transition-transform duration-500 hidden md:flex">
+                        <span class="text-brand-accent font-bold font-mono text-lg">03</span>
+                    </div>
+                    <div class="md:w-1/2 md:pl-16 w-full reveal-on-scroll">
+                        <div class="glass-card p-1 hover-cyan rounded-[32px] shadow-2xl relative cursor-pointer">
+                            <div class="absolute inset-0 bg-gradient-to-br from-brand-accent/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-[32px] pointer-events-none"></div>
+                            <img src="https://images.unsplash.com/photo-1581287053822-fd7bf4f4bfec?auto=format&fit=crop&q=80&w=800" class="rounded-[28px] object-cover h-64 w-full">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Optimization -->
+                <div class="relative flex flex-col md:flex-row-reverse items-center justify-between gap-12 group">
+                    <div class="md:w-1/2 md:pl-16 text-left w-full reveal-on-scroll">
+                        <div class="md:hidden w-12 h-12 bg-purple-500/10 rounded-full flex items-center justify-center border border-purple-500/30 mb-6 shadow-[0_0_20px_rgba(168,85,247,0.2)]">
+                            <span class="text-purple-400 font-bold font-mono">04</span>
+                        </div>
+                        <h3 class="text-4xl font-heading font-extrabold text-white mb-4 spin-letters">Phase 04: Optimization</h3>
+                        <p class="text-purple-400 font-bold text-sm uppercase tracking-wider mb-4 font-mono">Algorithmic Refinement</p>
+                        <p class="text-slate-400 leading-relaxed text-lg">Tracking performance, improving conversion, refining campaigns, and scaling results. We rapidly iterate to strip away inefficiencies and extract maximum ROI from every channel.</p>
+                    </div>
+                    <!-- Center Node -->
+                    <div class="absolute left-[24px] md:left-1/2 w-12 h-12 bg-[#05020c] rounded-full border border-purple-500 flex items-center justify-center -translate-x-1/2 z-20 shadow-[0_0_20px_rgba(168,85,247,0.4)] group-hover:scale-125 transition-transform duration-500 hidden md:flex">
+                        <span class="text-purple-400 font-bold font-mono text-lg">04</span>
+                    </div>
+                    <div class="md:w-1/2 md:pr-16 w-full reveal-on-scroll">
+                        <div class="glass-card p-1 hover-fuchsia rounded-[32px] shadow-2xl relative cursor-pointer" style="border-color: rgba(168,85,247,0.2);">
+                            <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-[32px] pointer-events-none"></div>
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800" class="rounded-[28px] object-cover h-64 w-full">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5: Scaling -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between gap-12 group">
+                    <div class="md:w-1/2 md:pr-16 text-right md:text-right text-left w-full reveal-on-scroll">
+                        <div class="md:hidden w-12 h-12 bg-emerald-400/10 rounded-full flex items-center justify-center border border-emerald-400/30 mb-6 shadow-[0_0_20px_rgba(52,211,153,0.2)]">
+                            <span class="text-emerald-400 font-bold font-mono">05</span>
+                        </div>
+                        <h3 class="text-4xl font-heading font-extrabold text-white mb-4 spin-letters">Phase 05: Scaling</h3>
+                        <p class="text-emerald-400 font-bold text-sm uppercase tracking-wider mb-4 font-mono">Exponential Expansion</p>
+                        <p class="text-slate-400 leading-relaxed text-lg">Long-term growth, brand authority, and expansion through data-driven decisions. Once we establish a profitable baseline, we pour fuel on the fire for sustainable compounding growth.</p>
+                    </div>
+                    <!-- Center Node -->
+                    <div class="absolute left-[24px] md:left-1/2 w-12 h-12 bg-[#05020c] rounded-full border border-emerald-400 flex items-center justify-center -translate-x-1/2 z-20 shadow-[0_0_20px_rgba(52,211,153,0.4)] group-hover:scale-125 transition-transform duration-500 hidden md:flex">
+                        <span class="text-emerald-400 font-bold font-mono text-lg">05</span>
+                    </div>
+                    <div class="md:w-1/2 md:pl-16 w-full reveal-on-scroll">
+                        <div class="glass-card p-1 hover-cyan rounded-[32px] shadow-2xl relative cursor-pointer" style="border-color: rgba(52,211,153,0.2);">
+                            <div class="absolute inset-0 bg-gradient-to-br from-emerald-400/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-[32px] pointer-events-none"></div>
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" class="rounded-[28px] object-cover h-64 w-full">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Visualization Section -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-brand-primary/5 blur-[120px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-1/2 pointer-events-none"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <!-- NOTE: No glass-card class here — avoid initCardTilt() 3D perspective that breaks fixed modal -->
+            <div id="video-thumb-wrapper" class="relative rounded-[40px] overflow-hidden p-2 group reveal-on-scroll cursor-pointer"
+                 style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 0 50px rgba(255,46,147,0.15); transition: box-shadow 0.4s ease;"
+                 onmouseenter="this.style.boxShadow='0 0 80px rgba(255,46,147,0.3)'"
+                 onmouseleave="this.style.boxShadow='0 0 50px rgba(255,46,147,0.15)'"
+                 onclick="openVideoModal()">
+
+                <!-- Aspect ratio wrapper -->
+                <div class="relative w-full rounded-[32px] overflow-hidden bg-[#05020c]" style="aspect-ratio: 16/9;">
+
+                    <!-- Background looping video -->
+                    <video autoplay loop muted playsinline
+                           poster="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=1280"
+                           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.6;transition:opacity 0.7s, transform 0.7s;"
+                           onmouseenter="this.style.opacity='0.35';this.style.transform='scale(1.04)'"
+                           onmouseleave="this.style.opacity='0.6';this.style.transform='scale(1)'">
+                        <source src="https://www.pexels.com/video/3193028/download/?h=720" type="video/mp4">
+                        <!-- Fallback: poster image shows if video fails to load -->
+                    </video>
+
+                    <!-- Gradient overlays -->
+                    <div style="position:absolute;inset:0;background:linear-gradient(to top, #05020c 0%, transparent 50%, rgba(5,2,12,0.5) 100%);pointer-events:none;"></div>
+                    <div style="position:absolute;inset:0;background:rgba(255,46,147,0.08);mix-blend-mode:overlay;pointer-events:none;"></div>
+
+                    <!-- Play button (no magnetic class to avoid interference) -->
+                    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:10;pointer-events:none;">
+                        <div class="play-btn-wrapper" style="position:relative;width:96px;height:96px;display:flex;align-items:center;justify-content:center;">
+                            <!-- Animated rings -->
+                            <div style="position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,46,147,0.5);animation:ping 1.5s cubic-bezier(0,0,0.2,1) infinite;"></div>
+                            <div style="position:absolute;inset:-10px;border-radius:50%;border:1px solid rgba(0,242,254,0.3);animation:spin 4s linear infinite;"></div>
+                            <div style="position:absolute;inset:-20px;border-radius:50%;border:1px solid rgba(255,106,0,0.2);animation:spin 6s linear infinite reverse;"></div>
+                            <!-- Glass circle -->
+                            <div style="position:absolute;inset:0;border-radius:50%;background:rgba(5,2,12,0.5);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;box-shadow:0 0 30px rgba(255,46,147,0.5);overflow:hidden;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" style="width:32px;height:32px;margin-left:6px;filter:drop-shadow(0 0 8px rgba(255,255,255,0.8));"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text overlay -->
+                    <div style="position:absolute;bottom:40px;left:40px;z-index:10;pointer-events:none;">
+                        <span style="color:#00f2fe;font-family:monospace;font-size:13px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;display:block;margin-bottom:8px;text-shadow:0 0 10px rgba(0,242,254,0.5);">Behind The Scenes</span>
+                        <h3 style="font-family:'Sora',sans-serif;font-size:clamp(1.5rem,4vw,3rem);font-weight:800;color:white;text-shadow:0 4px 20px rgba(0,0,0,0.8);margin:0;">Our Process In Action.</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 relative overflow-hidden border-y border-white/5 bg-brand-dark/20">
+        <div class="absolute inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center reveal-on-scroll">
+            <h2 class="text-4xl md:text-5xl font-heading font-extrabold text-white mb-6">
+                Ready to Initiate the <span class="cosmic-gradient-text">Sequence?</span>
+            </h2>
+            <p class="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">Skip the guesswork and partner with an agency engineered for undeniable results.</p>
+            <a href="contact.html" class="inline-flex items-center gap-3 px-8 py-4 bg-brand-primary text-white font-bold rounded-full hover:scale-105 hover:bg-brand-primary/90 transition-all shadow-[0_0_30px_rgba(255,46,147,0.3)]">
+                Start the Process <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark/50 pt-20 pb-10 border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <a href="index.html" class="flex items-center space-x-3 mb-6 group">
+                        <div class="relative w-10 h-10 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-secondary rounded-xl rotate-6 group-hover:rotate-12 transition-transform duration-300 opacity-80"></div>
+                            <div class="absolute inset-0 bg-brand-dark rounded-xl border border-white/10 flex items-center justify-center shadow-lg shadow-brand-primary/20">
+                                <i data-lucide="orbit" class="text-white w-5 h-5 group-hover:rotate-180 transition-transform duration-700"></i>
+                            </div>
+                        </div>
+                        <span class="text-2xl font-heading font-extrabold tracking-tight text-white"><span class="spin-letters">IKAN</span><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">TIK</span></span>
+                    </a>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">
+                        The modern architecture for digital growth. We build brands that stand the test of time and technology.
+                    </p>
+                                        <div class="flex space-x-4">
+                        <a href="https://www.instagram.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                        <a href="https://www.linkedin.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+                        <a href="https://wa.me/919586751109" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.864.002-2.637-1.023-5.116-2.887-6.98-1.865-1.864-4.343-2.887-6.982-2.889-5.44 0-9.863 4.42-9.867 9.865-.001 1.968.514 3.89 1.492 5.58l-.978 3.57 3.654-.959zM17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+                        </a>
+                        <a href="https://www.facebook.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                    </div>
+                </div>
+                
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Company</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li><a href="about.html" class="hover:text-white">Our Story</a></li>
+                        <li><a href="process.html" class="text-white font-bold">Process</a></li>
+                        <li><a href="portfolio.html" class="hover:text-white">Portfolio</a></li>
+                        <li><a href="blog.html" class="hover:text-white">Blog</a></li>
+                        <li><a href="faq.html" class="hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Services</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li><a href="seo.html" class="hover:text-white">SEO Supremacy</a></li>
+                        <li><a href="social-media.html" class="hover:text-white">Social Growth</a></li>
+                        <li><a href="advertising.html" class="hover:text-white">Paid Advertising</a></li>
+                        <li><a href="services.html" class="hover:text-white">All Services</a></li>
+                    </ul>
+                </div>
+                
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Contact</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li class="flex items-center"><i data-lucide="mail" class="w-4 h-4 mr-2"></i> hello@ikantik.com</li>
+                        <li class="flex items-center"><i data-lucide="phone" class="w-4 h-4 mr-2"></i> +91 95867 51109</li>
+                        <li class="flex items-center"><i data-lucide="map-pin" class="w-4 h-4 mr-2"></i> Vesu, Surat, Gujarat 395007</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-slate-500 text-xs text-center md:text-left">
+                <p>&copy; 2026 IKANTIK Agency. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <script>
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                setTimeout(() => {
+                    preloader.style.opacity = '0';
+                    setTimeout(() => preloader.remove(), 300);
+                }, 400);
+            }
+        });
+    </script>
+
+    <!-- Pure JS Video Modal — appended to body to avoid ANY stacking context from parent transforms -->
+    <div id="process-video-modal"
+         style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:2147483647;
+                background:rgba(0,0,0,0.96);backdrop-filter:blur(24px);
+                align-items:center;justify-content:center;opacity:0;
+                transition:opacity 0.35s ease;">
+
+        <!-- Close button -->
+        <button onclick="closeVideoModal()"
+                style="position:absolute;top:28px;right:28px;
+                       width:48px;height:48px;border-radius:50%;
+                       background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.18);
+                       color:rgba(255,255,255,0.65);cursor:pointer;
+                       display:flex;align-items:center;justify-content:center;
+                       font-size:20px;z-index:10;
+                       box-shadow:0 0 18px rgba(255,46,147,0.45);
+                       transition:all 0.2s ease;"
+                onmouseenter="this.style.color='white';this.style.background='rgba(255,46,147,0.25)';"
+                onmouseleave="this.style.color='rgba(255,255,255,0.65)';this.style.background='rgba(255,255,255,0.06)';">
+            &#x2715;
+        </button>
+
+        <!-- Label -->
+        <div style="position:absolute;top:32px;left:50%;transform:translateX(-50%);text-align:center;pointer-events:none;">
+            <span style="color:#00f2fe;font-family:monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;">Our Process &mdash; Behind The Scenes</span>
+        </div>
+
+        <!-- YouTube iframe container -->
+        <div style="width:88%;max-width:1080px;aspect-ratio:16/9;position:relative;
+                    border-radius:18px;overflow:hidden;
+                    box-shadow:0 0 70px rgba(0,242,254,0.2),0 0 120px rgba(255,46,147,0.1);
+                    outline:1px solid rgba(255,255,255,0.08);">
+            <video id="process-modal-video"
+                   width="100%" height="100%"
+                   controls
+                   playsinline
+                   style="display:block;border:none;width:100%;height:100%;object-fit:cover;"
+                   data-src="assets/process-video.mp4">
+            </video>
+        </div>
+
+        <!-- 30-second hint -->
+        <div style="position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+                    display:flex;align-items:center;gap:8px;pointer-events:none;">
+            <div style="width:8px;height:8px;border-radius:50%;background:#ff2e93;animation:ping 1.5s ease infinite;"></div>
+            <span style="color:rgba(255,255,255,0.4);font-family:monospace;font-size:12px;letter-spacing:0.15em;">
+                ~30 SECOND AGENCY OVERVIEW &nbsp;&bull;&nbsp; PRESS ESC TO CLOSE
+            </span>
+        </div>
+    </div>
+
+    <script>
+        function openVideoModal() {
+            var modal = document.getElementById('process-video-modal');
+            var video = document.getElementById('process-modal-video');
+            if (modal && video) {
+                if (!video.src || video.src === window.location.href || video.src === '') {
+                    var dataSrc = video.getAttribute('data-src');
+                    if (dataSrc) {
+                        video.src = dataSrc;
+                    }
+                }
+                modal.style.display = 'flex';
+                requestAnimationFrame(function() {
+                    requestAnimationFrame(function() {
+                        modal.style.opacity = '1';
+                        video.currentTime = 0; // reset video to start
+                        video.play().catch(function(err) {
+                            console.log('Autoplay blocked:', err);
+                        });
+                    });
+                });
+                document.body.style.overflow = 'hidden';
+                modal.onclick = function(e) {
+                    if (e.target === modal) closeVideoModal();
+                };
+            }
+        }
+
+        function closeVideoModal() {
+            var modal = document.getElementById('process-video-modal');
+            var video = document.getElementById('process-modal-video');
+            if (modal && video) {
+                modal.style.opacity = '0';
+                video.pause(); // pause playback immediately
+                video.currentTime = 0; // reset video currentTime for memory/state cleanup
+                video.src = ''; // clear video source to free up network/memory
+                video.load(); // force garbage collection of media resources
+                setTimeout(function() {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = '';
+                }, 350);
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeVideoModal();
+        });
+    </script>
+</body>
+</html>

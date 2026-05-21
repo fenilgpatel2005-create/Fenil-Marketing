@@ -1,0 +1,323 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script>
+        if (sessionStorage.getItem('preloader_shown') === 'true') {
+            document.documentElement.classList.add('preloader-skipped');
+        }
+    </script>
+    <style>
+        .preloader-skipped #preloader {
+            display: none !important;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paid Advertising | IKANTIK Agency</title>
+    <meta name="description"
+        content="Maximize your ROI with high-performance PPC, Meta, and Google Ads campaigns designed by IKANTIK.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Scripts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#05020c',
+                            primary: '#ff2e93',
+                            secondary: '#ff6a00',
+                            accent: '#00f2fe',
+                            slate: '#b4b6d4'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        heading: ['Sora', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+
+<body x-data="{ mobileMenu: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 20)">
+
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 bg-[#05020a] z-[99999] flex flex-col items-center justify-center transition-all duration-500 ease-in-out">
+        <div class="relative w-20 h-20 mb-6">
+            <div class="absolute inset-0 rounded-full border-2 border-brand-primary/10"></div>
+            <div class="absolute inset-0 rounded-full border-t-2 border-r-2 border-brand-primary animate-spin"></div>
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-brand-primary rounded-full shadow-[0_0_15px_#ff2e93] animate-pulse"></div>
+        </div>
+        <div class="flex items-center gap-1 font-heading text-lg font-bold text-white tracking-widest uppercase">
+            <span class="spin-letters">IKAN</span><span class="text-brand-primary">TIK</span>
+        </div>
+        <div class="mt-2 text-xs font-semibold text-slate-500 tracking-widest font-mono">Loading...</div>
+    </div>
+
+    <!-- Background Decoration -->
+    <div class="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden pointer-events-none text-brand-accent opacity-5">
+        <i data-lucide="bar-chart-3" class="absolute bottom-[10%] left-[5%] w-[400px] h-[400px]"></i>
+    </div>
+
+    <!-- Navigation (Replicated) -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300"
+        :class="scrolled ? 'glass py-3' : 'py-6 bg-transparent'">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div class="relative w-10 h-10 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-secondary rounded-xl rotate-6 group-hover:rotate-12 transition-transform duration-300 opacity-80"></div>
+                    <div class="absolute inset-0 bg-brand-dark rounded-xl border border-white/10 flex items-center justify-center shadow-lg shadow-brand-primary/20">
+                        <i data-lucide="orbit" class="text-white w-5 h-5 group-hover:rotate-180 transition-transform duration-700"></i>
+                    </div>
+                </div>
+                <span class="text-2xl font-heading font-extrabold tracking-tight text-white"><span class="spin-letters">IKAN</span><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">TIK</span></span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-300">
+                <a href="index.html" class="hover:text-white transition-colors">Home</a>
+                <a href="services.html" class="text-brand-primary">Services</a>
+                <a href="process.html" class="hover:text-white transition-colors">Process</a>
+                <a href="portfolio.html" class="hover:text-white transition-colors">Portfolio</a>
+                <a href="about.html" class="hover:text-white transition-colors">About</a>
+                <a href="blog.html" class="hover:text-white transition-colors">Blog</a>
+                <a href="contact.html"
+                    class="px-5 py-2.5 bg-brand-primary text-white rounded-full hover:bg-brand-primary/80 transition-all shadow-lg shadow-brand-primary/20">Get
+                    Started</a>
+            </div>
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-white">
+                <i data-lucide="menu" x-show="!mobileMenu" class="w-8 h-8"></i>
+                <i data-lucide="x" x-show="mobileMenu" class="w-8 h-8"></i>
+            </button>
+        </div>
+        <div x-show="mobileMenu" class="absolute top-full left-0 w-full glass md:hidden pb-8 shadow-2xl" x-cloak>
+            <div class="flex flex-col space-y-4 px-6 pt-4 text-lg font-medium">
+                <a href="index.html" class="text-slate-300">Home</a>
+                <a href="services.html" class="text-brand-primary">Services</a>
+                <a href="process.html" class="hover:text-white transition-colors">Process</a>
+                <a href="portfolio.html" class="text-slate-300">Portfolio</a>
+                <a href="about.html" class="text-slate-300">About</a>
+                <a href="blog.html" class="text-slate-300">Blog</a>
+                <a href="contact.html" class="text-brand-primary font-bold">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="pt-32 pb-16 md:pt-48 md:pb-24">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl">
+                <span
+                    class="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-brand-accent uppercase bg-brand-accent/10 rounded-full border border-brand-accent/20">Performance
+                    Driven</span>
+                <h1 class="text-5xl md:text-8xl font-heading font-extrabold text-white mb-8"><span class="spin-letters">Paid </span><br><span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent via-brand-primary to-brand-secondary">Advertising</span>
+                </h1>
+                <p class="text-xl text-slate-400 mb-10 leading-relaxed font-medium max-w-2xl">
+                    We don't just buy traffic; we engineer conversion funnels. Our data-first approach ensures every
+                    cent of your budget is working toward a measurable objective.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advertising Channels -->
+    <section class="pb-24">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-card p-10 rounded-3xl border-t-4 border-t-[#4285F4]">
+                    <div class="w-12 h-12 mb-6 flex items-center justify-center bg-[#4285F4]/10 rounded-xl">
+                        <i data-lucide="search" class="text-[#4285F4] w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Google Search</h3>
+                    <p class="text-slate-500 mb-6">Capture high-intent customers exactly when they are looking for your
+                        solution.</p>
+                    <ul class="text-slate-400 text-sm space-y-2">
+                        <li>â€¢ Keyword Dominance</li>
+                        <li>â€¢ Local Service Ads</li>
+                        <li>â€¢ YouTube Discovery</li>
+                    </ul>
+                </div>
+                <div class="glass-card p-10 rounded-3xl border-t-4 border-t-[#0668E1]">
+                    <div class="w-12 h-12 mb-6 flex items-center justify-center bg-[#0668E1]/10 rounded-xl">
+                        <i data-lucide="facebook" class="text-[#0668E1] w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Meta Ads</h3>
+                    <p class="text-slate-500 mb-6">Disrupt the feed with high-impact creative and advanced audience
+                        targeting.</p>
+                    <ul class="text-slate-400 text-sm space-y-2">
+                        <li>â€¢ Lookalike Audiences</li>
+                        <li>â€¢ Dynamic Retargeting</li>
+                        <li>â€¢ Reel-First Creative</li>
+                    </ul>
+                </div>
+                <div class="glass-card p-10 rounded-3xl border-t-4 border-t-brand-primary">
+                    <div class="w-12 h-12 mb-6 flex items-center justify-center bg-brand-primary/10 rounded-xl">
+                        <i data-lucide="briefcase" class="text-brand-primary w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Account Based</h3>
+                    <p class="text-slate-500 mb-6">Laser-focused LinkedIn campaigns targeting key decision-makers in
+                        B2B.</p>
+                    <ul class="text-slate-400 text-sm space-y-2">
+                        <li>â€¢ Targeted Outreach</li>
+                        <li>â€¢ Employee-Advocacy</li>
+                        <li>â€¢ Enterprise Funnels</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Calculator -->
+    <section class="py-24 glass">
+        <div class="container mx-auto px-6">
+            <div class="max-w-5xl mx-auto glass p-12 rounded-[50px] border-brand-accent/20">
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h2 class="text-4xl font-heading font-extrabold text-white mb-6">Project Your <span
+                                class="text-brand-accent">Success</span></h2>
+                        <p class="text-slate-400 mb-8">Use our performance calculator to see how a small optimization in
+                            your ad funnel can exponentially grow your revenue.</p>
+
+                        <div x-data="{ adSpend: 5000, conversion: 2, avgValue: 1500 }">
+                            <div class="space-y-6">
+                                <div>
+                                    <label
+                                        class="block text-slate-500 text-sm font-bold uppercase tracking-wider mb-2">Monthly
+                                        Ad Spend ($)</label>
+                                    <input type="range" min="1000" max="50000" step="1000" x-model="adSpend"
+                                        class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-brand-accent">
+                                    <div class="text-right text-white font-bold mt-2"
+                                        x-text="'$' + parseInt(adSpend).toLocaleString()"></div>
+                                </div>
+                                <div>
+                                    <label
+                                        class="block text-slate-500 text-sm font-bold uppercase tracking-wider mb-2">Conversion
+                                        Rate (%)</label>
+                                    <input type="range" min="0.5" max="10" step="0.5" x-model="conversion"
+                                        class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-brand-accent">
+                                    <div class="text-right text-white font-bold mt-2" x-text="conversion + '%'"></div>
+                                </div>
+                            </div>
+
+                            <div class="mt-12 p-8 bg-brand-accent/10 rounded-3xl border border-brand-accent/20">
+                                <p class="text-slate-400 text-sm uppercase font-bold tracking-widest mb-2">Est. Monthly
+                                    Revenue</p>
+                                <h3 class="text-5xl font-heading font-extrabold text-white"
+                                    x-text="'$' + Math.round((adSpend / 2) * (conversion / 100) * avgValue).toLocaleString()">
+                                </h3>
+                                <p class="text-brand-accent text-sm mt-4 font-bold">*Based on average cost per click of
+                                    $2.00</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative hidden md:block">
+                        <img src="assets/volt_ads.png" class="rounded-[40px] shadow-2xl skew-y-3">
+                        <div class="absolute inset-0 bg-brand-accent/20 rounded-[40px] mix-blend-overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Replicated) -->
+    <footer class="bg-brand-dark/50 pt-20 pb-10 border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <a href="index.html" class="flex items-center space-x-3 mb-6 group">
+                        <div class="relative w-10 h-10 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-secondary rounded-xl rotate-6 group-hover:rotate-12 transition-transform duration-300 opacity-80"></div>
+                            <div class="absolute inset-0 bg-brand-dark rounded-xl border border-white/10 flex items-center justify-center shadow-lg shadow-brand-primary/20">
+                                <i data-lucide="orbit" class="text-white w-5 h-5 group-hover:rotate-180 transition-transform duration-700"></i>
+                            </div>
+                        </div>
+                        <span class="text-2xl font-heading font-extrabold tracking-tight text-white"><span class="spin-letters">IKAN</span><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">TIK</span></span>
+                    </a>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">
+                        The modern architecture for digital growth. We build brands that stand the test of time and
+                        technology.
+                    </p>
+                                        <div class="flex space-x-4">
+                        <a href="https://www.instagram.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                        <a href="https://www.linkedin.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+                        <a href="https://wa.me/919586751109" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.864.002-2.637-1.023-5.116-2.887-6.98-1.865-1.864-4.343-2.887-6.982-2.889-5.44 0-9.863 4.42-9.867 9.865-.001 1.968.514 3.89 1.492 5.58l-.978 3.57 3.654-.959zM17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+                        </a>
+                        <a href="https://www.facebook.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                    </div>
+                </div>
+
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Company</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li><a href="about.html" class="hover:text-white">Our Story</a></li>
+                        <li><a href="process.html" class="hover:text-white">Process</a></li>
+                        <li><a href="portfolio.html" class="hover:text-white">Portfolio</a></li>
+                        <li><a href="blog.html" class="hover:text-white">Blog</a></li>
+                        <li><a href="faq.html" class="hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Services</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li><a href="seo.html" class="hover:text-white">SEO Supremacy</a></li>
+                        <li><a href="social-media.html" class="hover:text-white">Social Growth</a></li>
+                        <li><a href="advertising.html" class="text-white font-bold">Paid Advertising</a></li>
+                        <li><a href="services.html" class="hover:text-white">All Services</a></li>
+                    </ul>
+                </div>
+
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Contact</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li class="flex items-center"><i data-lucide="mail" class="w-4 h-4 mr-2"></i> hello@ikantik.com
+                        </li>
+                        <li class="flex items-center"><i data-lucide="phone" class="w-4 h-4 mr-2"></i> +91 95867 51109
+                        </li>
+                        <li class="flex items-center"><i data-lucide="map-pin" class="w-4 h-4 mr-2"></i> Vesu, Surat</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-slate-500 text-xs text-center md:text-left">
+                <p>&copy; 2026 IKANTIK Agency. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <script>
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.classList.add('preloader-hidden');
+                setTimeout(() => preloader.remove(), 600);
+            }
+        });
+    </script>
+</body>
+
+</html>
+
