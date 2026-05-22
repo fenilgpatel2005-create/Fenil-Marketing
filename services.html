@@ -1,0 +1,658 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        if (sessionStorage.getItem('preloader_shown') === 'true') {
+            document.documentElement.classList.add('preloader-skipped');
+        }
+    </script>
+    <style>
+        .preloader-skipped #preloader {
+            display: none !important;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | IKANTIK Agency</title>
+    <meta name="description" content="Explore our full suite of web development services, from UI/UX and Custom Development to Enterprise Architecture.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Scripts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#05020c',
+                            primary: '#ff2e93',
+                            secondary: '#ff6a00',
+                            accent: '#00f2fe',
+                            slate: '#b4b6d4'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        heading: ['Sora', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+<body x-data="{ mobileMenu: false, scrolled: false, activeDetailsModal: null }" @scroll.window="scrolled = (window.pageYOffset > 20)">
+
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 bg-[#05020a] z-[99999] flex flex-col items-center justify-center transition-all duration-500 ease-in-out">
+        <div class="relative w-20 h-20 mb-6">
+            <div class="absolute inset-0 rounded-full border-2 border-brand-primary/10"></div>
+            <div class="absolute inset-0 rounded-full border-t-2 border-r-2 border-brand-primary animate-spin"></div>
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-brand-primary rounded-full shadow-[0_0_15px_#ff2e93] animate-pulse"></div>
+        </div>
+        <div class="flex items-center gap-1 font-heading text-lg font-bold text-white tracking-widest uppercase">
+            <span class="spin-letters">IKAN</span><span class="text-brand-primary">TIK</span>
+        </div>
+        <div class="mt-2 text-xs font-semibold text-slate-500 tracking-widest font-mono">Loading...</div>
+    </div>
+
+    <!-- Background Decoration -->
+    <div class="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden pointer-events-none">
+        <div class="cosmic-glow-1 top-[-10%] right-[-10%] opacity-20"></div>
+        <div class="cosmic-glow-2 bottom-[-10%] left-[-10%] opacity-15"></div>
+        <div class="absolute top-1/4 left-1/3 w-[450px] h-[450px] rounded-full bg-gradient-to-tr from-brand-primary/10 to-brand-accent/5 opacity-[0.03] blur-[100px] animate-pulse"></div>
+    </div>
+
+    <!-- Navigation (Replicated) -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300" 
+         :class="scrolled ? 'glass py-3' : 'py-6 bg-transparent'">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div class="relative w-10 h-10 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-secondary rounded-xl rotate-6 group-hover:rotate-12 transition-transform duration-300 opacity-80"></div>
+                    <div class="absolute inset-0 bg-brand-dark rounded-xl border border-white/10 flex items-center justify-center shadow-lg shadow-brand-primary/20">
+                        <i data-lucide="orbit" class="text-white w-5 h-5 group-hover:rotate-180 transition-transform duration-700"></i>
+                    </div>
+                </div>
+                <span class="text-2xl font-heading font-extrabold tracking-tight text-white"><span class="spin-letters">IKAN</span><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">TIK</span></span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-300">
+                <a href="index.html" class="hover:text-white transition-colors">Home</a>
+                <a href="services.html" class="text-brand-primary">Services</a>
+                <a href="process.html" class="hover:text-white transition-colors">Process</a>
+                <a href="portfolio.html" class="hover:text-white transition-colors">Portfolio</a>
+                <a href="about.html" class="hover:text-white transition-colors">About</a>
+                <a href="blog.html" class="hover:text-white transition-colors">Blog</a>
+                <a href="contact.html" class="px-5 py-2.5 bg-brand-primary text-white rounded-full hover:bg-brand-primary/80 transition-all shadow-lg shadow-brand-primary/20">Get Started</a>
+            </div>
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-white">
+                <i data-lucide="menu" x-show="!mobileMenu" class="w-8 h-8"></i>
+                <i data-lucide="x" x-show="mobileMenu" class="w-8 h-8"></i>
+            </button>
+        </div>
+        <div x-show="mobileMenu" class="absolute top-full left-0 w-full glass md:hidden pb-8 shadow-2xl" x-cloak>
+            <div class="flex flex-col space-y-4 px-6 pt-4 text-lg font-medium">
+                <a href="index.html" class="text-slate-300">Home</a>
+                <a href="services.html" class="text-brand-primary">Services</a>
+                <a href="process.html" class="hover:text-white transition-colors">Process</a>
+                <a href="portfolio.html" class="text-slate-300">Portfolio</a>
+                <a href="about.html" class="text-slate-300">About</a>
+                <a href="blog.html" class="text-slate-300">Blog</a>
+                <a href="contact.html" class="text-brand-primary font-bold">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="pt-32 pb-16 md:pt-48 md:pb-24">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-5xl md:text-7xl font-heading font-extrabold text-white mb-6">
+                <span class="spin-letters">Our</span> <span class="cosmic-gradient-text">Expertise</span>
+            </h1>
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto">Precision-engineered web solutions designed to scale your digital presence and deliver measurable impact.</p>
+        </div>
+    </section>
+
+    <!-- Detailed Services -->
+    <section class="pb-24">
+        <div class="container mx-auto px-6 space-y-20">
+
+            <!-- Service 1: Premium Website Development (Image Left) -->
+            <div class="glass-card hover-fuchsia rounded-[40px] overflow-hidden group reveal-on-scroll" @click="activeDetailsModal = 'webdev'">
+                <div class="flex flex-col md:flex-row items-stretch cursor-pointer md:min-h-[500px]">
+                    <div class="md:w-1/2 relative overflow-hidden h-64 md:h-auto min-h-[250px] md:min-h-full">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" alt="Premium Website Development" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute bottom-6 right-6 glass px-4 py-2 rounded-xl flex items-center gap-2">
+                            <i data-lucide="zap" class="text-brand-primary w-4 h-4"></i>
+                            <span class="text-white text-sm font-bold">Page Speed 99/100</span>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                        <div class="w-12 h-12 bg-brand-primary/20 rounded-xl flex items-center justify-center mb-5 border border-white/5">
+                            <i data-lucide="monitor" class="text-brand-primary w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-3xl font-heading font-extrabold text-white mb-4 spin-letters">Premium Website Development</h3>
+                        <p class="text-slate-400 mb-6 leading-relaxed text-sm">Your website is your most valuable digital real estate. We build blazing-fast, mobile-optimized, and aesthetically luxurious websites designed specifically to convert traffic into revenue.</p>
+                        <ul class="space-y-3 mb-8 text-slate-300 text-sm">
+                            <li class="flex items-start service-list-item"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 mt-0.5 text-brand-primary flex-shrink-0"></i><span>Custom UI/UX Design (No generic templates)</span></li>
+                            <li class="flex items-start service-list-item"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 mt-0.5 text-brand-primary flex-shrink-0"></i><span>High-converting landing pages for ad campaigns</span></li>
+                            <li class="flex items-start service-list-item"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 mt-0.5 text-brand-primary flex-shrink-0"></i><span>Flawless mobile-first responsiveness</span></li>
+                        </ul>
+                        <a href="contact.html?service=web-dev" @click.stop class="inline-flex items-center px-6 py-3 bg-brand-primary/10 border border-brand-primary/30 text-brand-primary font-bold rounded-full hover:bg-brand-primary hover:text-white transition-all w-fit magnetic magnetic-btn">
+                            Discuss This Project <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 2: Meta Ads Management (Image Right) -->
+            <div class="glass-card hover-orange rounded-[40px] overflow-hidden group reveal-on-scroll" @click="activeDetailsModal = 'metaads'">
+                <div class="flex flex-col md:flex-row-reverse items-stretch cursor-pointer md:min-h-[500px]">
+                    <div class="md:w-1/2 relative overflow-hidden h-64 md:h-auto min-h-[250px] md:min-h-full">
+                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=800" alt="Meta Ads Management" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute bottom-6 left-6 glass px-4 py-2 rounded-xl flex items-center gap-2">
+                            <i data-lucide="trending-up" class="text-brand-secondary w-4 h-4"></i>
+                            <span class="text-white text-sm font-bold">Avg. 5.8x ROAS</span>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                        <div class="w-12 h-12 bg-brand-secondary/20 rounded-xl flex items-center justify-center mb-5 border border-white/5">
+                            <i data-lucide="megaphone" class="text-brand-secondary w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-3xl font-heading font-extrabold text-white mb-4 spin-letters">Meta Ads Management</h3>
+                        <p class="text-slate-400 mb-6 leading-relaxed text-sm">Stop wasting budget on boosted posts. We engineer highly profitable Facebook and Instagram advertising campaigns leveraging advanced targeting, psychological ad copy, and compelling creatives.</p>
+                        <ul class="space-y-3 mb-8 text-slate-300 text-sm">
+                            <li class="flex items-start service-list-item"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 mt-0.5 text-brand-secondary flex-shrink-0"></i><span>Audience research & lookalike targeting</span></li>
+                            <li class="flex items-start service-list-item"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 mt-0.5 text-brand-secondary flex-shrink-0"></i><span>High-converting ad creative & copywriting</span></li>
+                            <li class="flex items-start service-list-item"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 mt-0.5 text-brand-secondary flex-shrink-0"></i><span>Retargeting & funnel optimization</span></li>
+                        </ul>
+                        <a href="contact.html?service=meta-ads" @click.stop class="inline-flex items-center px-6 py-3 bg-brand-secondary/10 border border-brand-secondary/30 text-brand-secondary font-bold rounded-full hover:bg-brand-secondary hover:text-brand-dark transition-all w-fit magnetic magnetic-btn">
+                            Discuss This Project <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 3: SEO Optimization (Image Left) -->
+            <div class="glass-card hover-cyan rounded-[40px] overflow-hidden group reveal-on-scroll" @click="activeDetailsModal = 'seo'">
+                <div class="flex flex-col md:flex-row items-stretch cursor-pointer md:min-h-[500px]">
+                    <div class="md:w-1/2 relative overflow-hidden h-64 md:h-auto min-h-[250px] md:min-h-full">
+                        <img src="https://images.unsplash.com/photo-1562577309-4932fdd64cd1?auto=format&fit=crop&q=80&w=800" alt="SEO Optimization" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute bottom-6 right-6 glass px-4 py-2 rounded-xl flex items-center gap-2">
+                            <i data-lucide="search" class="text-brand-accent w-4 h-4"></i>
+                            <span class="text-white text-sm font-bold">#1 Rankings</span>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                        <div class="w-12 h-12 bg-brand-accent/20 rounded-xl flex items-center justify-center mb-5 border border-white/5">
+                            <i data-lucide="search" class="text-brand-accent w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-3xl font-heading font-extrabold text-white mb-4 spin-letters">SEO Optimization</h3>
+                        <p class="text-slate-400 mb-6 leading-relaxed text-sm">Dominate Google search results with our proven SEO strategies. We combine technical optimization, content engineering, and authority-building backlinks to drive consistent organic traffic.</p>
+                        <ul class="space-y-3 mb-8 text-slate-300 text-sm">
+                            <li class="flex items-start service-list-item"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 mt-0.5 text-brand-accent flex-shrink-0"></i><span>Technical SEO audits & fixes</span></li>
+                            <li class="flex items-start service-list-item"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 mt-0.5 text-brand-accent flex-shrink-0"></i><span>Keyword research & content strategy</span></li>
+                            <li class="flex items-start service-list-item"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 mt-0.5 text-brand-accent flex-shrink-0"></i><span>Local SEO & Google My Business</span></li>
+                        </ul>
+                        <a href="contact.html?service=seo" @click.stop class="inline-flex items-center px-6 py-3 bg-brand-accent/10 border border-brand-accent/30 text-brand-accent font-bold rounded-full hover:bg-brand-accent hover:text-white transition-all w-fit magnetic magnetic-btn">
+                            Discuss This Project <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 4: Landing Page Design (Image Right) -->
+            <div class="glass-card hover-fuchsia rounded-[40px] overflow-hidden group reveal-on-scroll" @click="activeDetailsModal = 'landing'">
+                <div class="flex flex-col md:flex-row-reverse items-stretch cursor-pointer md:min-h-[500px]">
+                    <div class="md:w-1/2 relative overflow-hidden h-64 md:h-auto min-h-[250px] md:min-h-full">
+                        <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800" alt="Landing Page Design" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute bottom-6 left-6 glass px-4 py-2 rounded-xl flex items-center gap-2">
+                            <i data-lucide="mouse-pointer-click" class="text-brand-primary w-4 h-4"></i>
+                            <span class="text-white text-sm font-bold">+180% Conversions</span>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                        <div class="w-12 h-12 bg-brand-primary/20 rounded-xl flex items-center justify-center mb-5 border border-white/5">
+                            <i data-lucide="layout" class="text-brand-primary w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-3xl font-heading font-extrabold text-white mb-4 spin-letters">Landing Page Design</h3>
+                        <p class="text-slate-400 mb-6 leading-relaxed text-sm">Every ad campaign needs a killer landing page. We design conversion-optimized pages with persuasive copy, strategic layouts, and lead capture forms that turn visitors into paying customers.</p>
+                        <ul class="space-y-3 mb-8 text-slate-300 text-sm">
+                            <li class="flex items-start service-list-item"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 mt-0.5 text-brand-primary flex-shrink-0"></i><span>High-converting page layouts</span></li>
+                            <li class="flex items-start service-list-item"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 mt-0.5 text-brand-primary flex-shrink-0"></i><span>Persuasive copywriting & CTA design</span></li>
+                            <li class="flex items-start service-list-item"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 mt-0.5 text-brand-primary flex-shrink-0"></i><span>A/B testing & analytics ready</span></li>
+                        </ul>
+                        <a href="contact.html?service=landing" @click.stop class="inline-flex items-center px-6 py-3 bg-brand-primary/10 border border-brand-primary/30 text-brand-primary font-bold rounded-full hover:bg-brand-primary hover:text-white transition-all w-fit magnetic magnetic-btn">
+                            Discuss This Project <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 5: Brand Identity & Strategy (Image Left) -->
+            <div class="glass-card hover-orange rounded-[40px] overflow-hidden group reveal-on-scroll" @click="activeDetailsModal = 'brand'">
+                <div class="flex flex-col md:flex-row items-stretch cursor-pointer md:min-h-[500px]">
+                    <div class="md:w-1/2 relative overflow-hidden h-64 md:h-auto min-h-[250px] md:min-h-full">
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=800" alt="Brand Identity & Strategy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute bottom-6 right-6 glass px-4 py-2 rounded-xl flex items-center gap-2">
+                            <i data-lucide="palette" class="text-brand-secondary w-4 h-4"></i>
+                            <span class="text-white text-sm font-bold">Brand Systems</span>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                        <div class="w-12 h-12 bg-brand-secondary/20 rounded-xl flex items-center justify-center mb-5 border border-white/5">
+                            <i data-lucide="palette" class="text-brand-secondary w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-3xl font-heading font-extrabold text-white mb-4 spin-letters">Brand Identity & Strategy</h3>
+                        <p class="text-slate-400 mb-6 leading-relaxed text-sm">Your brand is more than a logo. We craft complete brand identity systems including visual guidelines, color palettes, typography, and messaging that build trust and recognition.</p>
+                        <ul class="space-y-3 mb-8 text-slate-300 text-sm">
+                            <li class="flex items-start service-list-item"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 mt-0.5 text-brand-secondary flex-shrink-0"></i><span>Logo & visual identity design</span></li>
+                            <li class="flex items-start service-list-item"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 mt-0.5 text-brand-secondary flex-shrink-0"></i><span>Complete brand style guidelines</span></li>
+                            <li class="flex items-start service-list-item"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 mt-0.5 text-brand-secondary flex-shrink-0"></i><span>Social media branding & assets</span></li>
+                        </ul>
+                        <a href="contact.html?service=brand" @click.stop class="inline-flex items-center px-6 py-3 bg-brand-secondary/10 border border-brand-secondary/30 text-brand-secondary font-bold rounded-full hover:bg-brand-secondary hover:text-brand-dark transition-all w-fit magnetic magnetic-btn">
+                            Discuss This Project <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 6: Growth-Focused Strategy (Image Right) -->
+            <div class="glass-card hover-cyan rounded-[40px] overflow-hidden group reveal-on-scroll" @click="activeDetailsModal = 'growth'">
+                <div class="flex flex-col md:flex-row-reverse items-stretch cursor-pointer md:min-h-[500px]">
+                    <div class="md:w-1/2 relative overflow-hidden h-64 md:h-auto min-h-[250px] md:min-h-full">
+                        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&q=80&w=800" alt="Growth-Focused Strategy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute bottom-6 left-6 glass px-4 py-2 rounded-xl flex items-center gap-2">
+                            <i data-lucide="trending-up" class="text-brand-accent w-4 h-4"></i>
+                            <span class="text-white text-sm font-bold">Scale Fast</span>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                        <div class="w-12 h-12 bg-brand-accent/20 rounded-xl flex items-center justify-center mb-5 border border-white/5">
+                            <i data-lucide="trending-up" class="text-brand-accent w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-3xl font-heading font-extrabold text-white mb-4 spin-letters">Growth-Focused Strategy</h3>
+                        <p class="text-slate-400 mb-6 leading-relaxed text-sm">We don't just run campaigns â€” we build growth engines. Our data-driven strategies align marketing, sales, and product to accelerate your revenue and scale your business systematically.</p>
+                        <ul class="space-y-3 mb-8 text-slate-300 text-sm">
+                            <li class="flex items-start service-list-item"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 mt-0.5 text-brand-accent flex-shrink-0"></i><span>Full-funnel marketing strategies</span></li>
+                            <li class="flex items-start service-list-item"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 mt-0.5 text-brand-accent flex-shrink-0"></i><span>Customer journey mapping & analytics</span></li>
+                            <li class="flex items-start service-list-item"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 mt-0.5 text-brand-accent flex-shrink-0"></i><span>Revenue growth roadmaps & KPIs</span></li>
+                        </ul>
+                        <a href="contact.html?service=growth" @click.stop class="inline-flex items-center px-6 py-3 bg-brand-accent/10 border border-brand-accent/30 text-brand-accent font-bold rounded-full hover:bg-brand-accent hover:text-white transition-all w-fit magnetic magnetic-btn">
+                            Discuss This Project <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <!-- The Methodology Section -->
+    <section class="py-24 relative overflow-hidden border-t border-white/5 bg-brand-dark/20">
+        <!-- Subtle Grid Pattern in Methodology -->
+        <div class="absolute inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none"></div>
+        
+        <!-- Floating Cosmic Background Mesh Glowing Blobs inside Methodology -->
+        <div class="absolute top-1/4 left-1/4 -translate-y-1/2 cosmic-glow-1 opacity-20 pointer-events-none z-0"></div>
+        <div class="absolute bottom-1/4 right-1/4 translate-y-1/2 cosmic-glow-2 opacity-15 pointer-events-none z-0"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-heading font-extrabold text-white mb-4">
+                    <span class="spin-letters">Our</span> <span class="spin-letters text-brand-primary glow-text">Methodology</span>
+                </h2>
+                <p class="text-slate-400">A rigorous, repeatable process for digital growth.</p>
+            </div>
+
+            <!-- Interactive Infinity Loop SVG Illustration -->
+            <div class="relative w-full max-w-[800px] h-[120px] mx-auto mb-16 hidden md:block select-none pointer-events-none z-0">
+                <svg class="w-full h-full overflow-visible" viewBox="0 0 800 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <!-- Gradient definitions for glowing pathway -->
+                        <linearGradient id="infinity-glow-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="var(--accent-fuchsia)" />
+                            <stop offset="33%" stop-color="var(--accent-orange)" />
+                            <stop offset="66%" stop-color="var(--accent-cyan)" />
+                            <stop offset="100%" stop-color="var(--accent-fuchsia)" />
+                        </linearGradient>
+                        <filter id="svg-neon-glow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="6" result="blur" />
+                            <feMerge>
+                                <feMergeNode in="blur" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    
+                    <!-- Dotted/Dashed connecting path -->
+                    <path d="M 100 50 C 225 -10, 375 110, 500 50 C 600 10, 675 30, 700 50" stroke="rgba(255, 255, 255, 0.05)" stroke-width="3" stroke-dasharray="8 8" fill="none" />
+                    
+                    <!-- Glowing neon pathway -->
+                    <path class="glow-path-flow" d="M 100 50 C 225 -10, 375 110, 500 50 C 600 10, 675 30, 700 50" stroke="url(#infinity-glow-grad)" stroke-width="3" stroke-linecap="round" stroke-dasharray="100 400" fill="none" filter="url(#svg-neon-glow)" />
+                    
+                    <!-- Floating orbital nodes matching step cores -->
+                    <circle class="animate-pulse" cx="100" cy="50" r="6" fill="var(--accent-fuchsia)" filter="url(#svg-neon-glow)" />
+                    <circle class="animate-pulse" cx="300" cy="52" r="6" fill="var(--accent-orange)" filter="url(#svg-neon-glow)" />
+                    <circle class="animate-pulse" cx="500" cy="50" r="6" fill="var(--accent-cyan)" filter="url(#svg-neon-glow)" />
+                    <circle class="animate-pulse" cx="700" cy="50" r="6" fill="var(--accent-fuchsia)" filter="url(#svg-neon-glow)" />
+                </svg>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Step 1 -->
+                <div class="glass-card hover-fuchsia methodology-card rounded-3xl p-8 text-center flex flex-col justify-between relative z-10">
+                    <div>
+                        <div class="relative w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+                            <!-- Pulsing glow ring -->
+                            <div class="absolute inset-0 bg-brand-primary/20 rounded-full animate-ping opacity-75"></div>
+                            <!-- Rotating outer dashed border -->
+                            <div class="absolute inset-0 border-2 border-dashed border-brand-primary/45 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                            <!-- Inner solid core -->
+                            <div class="w-12 h-12 bg-gradient-to-tr from-brand-primary to-brand-primary/50 text-white rounded-full flex items-center justify-center text-lg font-heading font-extrabold italic shadow-[0_0_20px_var(--primary-glow)] border border-white/10 relative z-10 magnetic">1</div>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-4 spin-letters">Discovery & Audit</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">Auditing your current marketing channels, competitor positioning, and website performance.</p>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="glass-card hover-orange methodology-card rounded-3xl p-8 text-center flex flex-col justify-between relative z-10">
+                    <div>
+                        <div class="relative w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+                            <!-- Pulsing glow ring -->
+                            <div class="absolute inset-0 bg-brand-secondary/20 rounded-full animate-ping opacity-75"></div>
+                            <!-- Rotating outer dashed border -->
+                            <div class="absolute inset-0 border-2 border-dashed border-brand-secondary/45 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                            <!-- Inner solid core -->
+                            <div class="w-12 h-12 bg-gradient-to-tr from-brand-secondary to-brand-secondary/50 text-white rounded-full flex items-center justify-center text-lg font-heading font-extrabold italic shadow-[0_0_20px_rgba(255,106,0,0.4)] border border-white/10 relative z-10 magnetic">2</div>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-4 spin-letters">Strategy & Assets</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">Designing high-converting UI layouts, copy-writing, and engineering campaign structures.</p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="glass-card hover-cyan methodology-card rounded-3xl p-8 text-center flex flex-col justify-between relative z-10">
+                    <div>
+                        <div class="relative w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+                            <!-- Pulsing glow ring -->
+                            <div class="absolute inset-0 bg-brand-accent/20 rounded-full animate-ping opacity-75"></div>
+                            <!-- Rotating outer dashed border -->
+                            <div class="absolute inset-0 border-2 border-dashed border-brand-accent/45 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                            <!-- Inner solid core -->
+                            <div class="w-12 h-12 bg-gradient-to-tr from-brand-accent to-brand-accent/50 text-brand-dark rounded-full flex items-center justify-center text-lg font-heading font-extrabold italic shadow-[0_0_20px_rgba(0,242,254,0.4)] border border-white/10 relative z-10 magnetic">3</div>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-4 spin-letters">Launch & Execute</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">Deploying premium website code, activating Meta Ads, and initiating SEO sequences.</p>
+                    </div>
+                </div>
+                <!-- Step 4 -->
+                <div class="glass-card hover-fuchsia methodology-card rounded-3xl p-8 text-center flex flex-col justify-between relative z-10">
+                    <div>
+                        <div class="relative w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+                            <!-- Pulsing glow ring -->
+                            <div class="absolute inset-0 bg-brand-primary/20 rounded-full animate-ping opacity-75"></div>
+                            <!-- Rotating outer dashed border -->
+                            <div class="absolute inset-0 border-2 border-dashed border-brand-secondary/45 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                            <!-- Inner solid core -->
+                            <div class="w-12 h-12 bg-gradient-to-tr from-brand-primary to-brand-secondary text-white rounded-full flex items-center justify-center text-lg font-heading font-extrabold italic shadow-[0_0_20px_rgba(255,46,147,0.4)] border border-white/10 relative z-10 magnetic">4</div>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-4 spin-letters">Analyze & Scale</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">Reviewing analytics, testing creatives, and scaling budgets to drive sustainable revenue growth.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Replicated) -->
+    <footer class="bg-brand-dark/50 pt-20 pb-10 border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <a href="index.html" class="flex items-center space-x-3 mb-6 group">
+                        <div class="relative w-10 h-10 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-secondary rounded-xl rotate-6 group-hover:rotate-12 transition-transform duration-300 opacity-80"></div>
+                            <div class="absolute inset-0 bg-brand-dark rounded-xl border border-white/10 flex items-center justify-center shadow-lg shadow-brand-primary/20">
+                                <i data-lucide="orbit" class="text-white w-5 h-5 group-hover:rotate-180 transition-transform duration-700"></i>
+                            </div>
+                        </div>
+                        <span class="text-2xl font-heading font-extrabold tracking-tight text-white"><span class="spin-letters">IKAN</span><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">TIK</span></span>
+                    </a>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">
+                        The modern architecture for digital growth. We build web applications that stand the test of time and technology.
+                    </p>
+                                        <div class="flex space-x-4">
+                        <a href="https://www.instagram.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                        <a href="https://www.linkedin.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+                        <a href="https://wa.me/918849178176" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.864.002-2.637-1.023-5.116-2.887-6.98-1.865-1.864-4.343-2.887-6.982-2.889-5.44 0-9.863 4.42-9.867 9.865-.001 1.968.514 3.89 1.492 5.58l-.978 3.57 3.654-.959zM17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+                        </a>
+                        <a href="https://www.facebook.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                    </div>
+                </div>
+                
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Company</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li><a href="about.html" class="hover:text-white">Our Story</a></li>
+                        <li><a href="process.html" class="hover:text-white">Process</a></li>
+                        <li><a href="portfolio.html" class="hover:text-white">Portfolio</a></li>
+                        <li><a href="blog.html" class="hover:text-white">Journal</a></li>
+                        <li><a href="faq.html" class="hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Expertise</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li><a href="services.html" class="hover:text-white">Website Development</a></li>
+                        <li><a href="services.html" class="hover:text-white">Meta Ads</a></li>
+                        <li><a href="services.html" class="hover:text-white">SEO Optimization</a></li>
+                        <li><a href="services.html" class="text-white font-bold">All Services</a></li>
+                    </ul>
+                </div>
+                
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Contact</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li class="flex items-center"><i data-lucide="mail" class="w-4 h-4 mr-2"></i> hello@ikantik.com</li>
+                        <li class="flex items-center"><i data-lucide="phone" class="w-4 h-4 mr-2"></i> +91 88491 78176</li>
+                        <li class="flex items-center"><i data-lucide="map-pin" class="w-4 h-4 mr-2"></i> Vesu, Surat, Gujarat 395007</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-slate-500 text-xs text-center md:text-left">
+                <p>&copy; 2026 IKANTIK Agency. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Service Details Modals -->
+    <div x-show="activeDetailsModal"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-brand-dark/95 backdrop-blur-xl"
+        x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+        @keydown.escape.window="activeDetailsModal = null" x-cloak>
+
+        <div class="relative w-full max-w-2xl bg-slate-900 border border-white/10 rounded-[32px] p-8 md:p-10 shadow-2xl max-h-[85vh] overflow-y-auto glass"
+            @click.away="activeDetailsModal = null" x-show="activeDetailsModal"
+            x-transition:enter="transition ease-out duration-300 transform"
+            x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+            x-transition:enter-end="opacity-100 scale-100 translate-y-0">
+
+            <div class="absolute -top-40 -right-40 w-80 h-80 rounded-full blur-[100px] opacity-20 pointer-events-none"
+                :class="{
+                    'bg-brand-primary': activeDetailsModal === 'webdev' || activeDetailsModal === 'landing',
+                    'bg-brand-secondary': activeDetailsModal === 'metaads' || activeDetailsModal === 'brand',
+                    'bg-brand-accent': activeDetailsModal === 'seo' || activeDetailsModal === 'growth'
+                }"></div>
+
+            <button @click="activeDetailsModal = null"
+                class="absolute top-6 right-6 w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all cursor-pointer border border-white/5 z-10 magnetic">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <!-- WEBDEV -->
+            <div x-show="activeDetailsModal === 'webdev'">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 bg-brand-primary/20 rounded-2xl flex items-center justify-center border border-white/5 text-brand-primary"><i data-lucide="monitor" class="w-7 h-7"></i></div>
+                    <div>
+                        <span class="text-xs font-bold text-brand-primary tracking-widest uppercase">Service</span>
+                        <h3 class="text-2xl font-heading font-extrabold text-white spin-letters">Premium Website Development</h3>
+                    </div>
+                </div>
+                <p class="text-slate-400 mb-6 leading-relaxed">We build stunning, high-performance websites that are fast, responsive, and designed to convert visitors into customers.</p>
+                <ul class="grid grid-cols-2 gap-3 mb-8 text-slate-300 text-sm">
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-primary"></i>Custom Responsive Sites</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-primary"></i>E-Commerce Storefronts</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-primary"></i>CMS Integration</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-primary"></i>100/100 Speed Scores</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-primary"></i>Mobile-First Dev</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-primary"></i>SSL & Security</li>
+                </ul>
+                <a href="contact.html?service=web-dev" class="w-full py-4 bg-brand-primary hover:bg-brand-primary/80 text-white font-bold rounded-xl text-center block magnetic magnetic-btn">Get Started</a>
+            </div>
+
+            <!-- META ADS -->
+            <div x-show="activeDetailsModal === 'metaads'">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 bg-brand-secondary/20 rounded-2xl flex items-center justify-center border border-white/5 text-brand-secondary"><i data-lucide="megaphone" class="w-7 h-7"></i></div>
+                    <div>
+                        <span class="text-xs font-bold text-brand-secondary tracking-widest uppercase">Service</span>
+                        <h3 class="text-2xl font-heading font-extrabold text-white spin-letters">Meta Ads Management</h3>
+                    </div>
+                </div>
+                <p class="text-slate-400 mb-6 leading-relaxed">We create and manage high-performing Facebook & Instagram ad campaigns that deliver measurable ROI and scale profitably.</p>
+                <ul class="grid grid-cols-2 gap-3 mb-8 text-slate-300 text-sm">
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-secondary"></i>FB & Instagram Ads</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-secondary"></i>Audience Targeting</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-secondary"></i>Ad Creative Design</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-secondary"></i>Retargeting Funnels</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-secondary"></i>A/B Testing</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-secondary"></i>Monthly Reports</li>
+                </ul>
+                <a href="contact.html?service=meta-ads" class="w-full py-4 bg-brand-secondary hover:bg-brand-secondary/80 text-brand-dark font-extrabold rounded-xl text-center block magnetic magnetic-btn">Get Started</a>
+            </div>
+
+            <!-- SEO -->
+            <div x-show="activeDetailsModal === 'seo'">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 bg-brand-accent/20 rounded-2xl flex items-center justify-center border border-white/5 text-brand-accent"><i data-lucide="search" class="w-7 h-7"></i></div>
+                    <div>
+                        <span class="text-xs font-bold text-brand-accent tracking-widest uppercase">Service</span>
+                        <h3 class="text-2xl font-heading font-extrabold text-white spin-letters">SEO Optimization</h3>
+                    </div>
+                </div>
+                <p class="text-slate-400 mb-6 leading-relaxed">We boost your organic visibility with proven SEO strategies, technical audits, and authority-building backlinks.</p>
+                <ul class="grid grid-cols-2 gap-3 mb-8 text-slate-300 text-sm">
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-accent"></i>Technical SEO Audits</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-accent"></i>Keyword Research</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-accent"></i>On-Page & Off-Page</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-accent"></i>Content Strategy</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-accent"></i>Local SEO & GMB</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-accent"></i>Ranking Reports</li>
+                </ul>
+                <a href="contact.html?service=seo" class="w-full py-4 bg-brand-accent hover:bg-brand-accent/80 text-white font-bold rounded-xl text-center block magnetic magnetic-btn">Get Started</a>
+            </div>
+
+            <!-- LANDING -->
+            <div x-show="activeDetailsModal === 'landing'">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 bg-brand-primary/20 rounded-2xl flex items-center justify-center border border-white/5 text-brand-primary"><i data-lucide="layout" class="w-7 h-7"></i></div>
+                    <div>
+                        <span class="text-xs font-bold text-brand-primary tracking-widest uppercase">Service</span>
+                        <h3 class="text-2xl font-heading font-extrabold text-white spin-letters">Landing Page Design</h3>
+                    </div>
+                </div>
+                <p class="text-slate-400 mb-6 leading-relaxed">We design high-converting landing pages that capture attention and drive action with persuasive copy and strategic layouts.</p>
+                <ul class="grid grid-cols-2 gap-3 mb-8 text-slate-300 text-sm">
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-primary"></i>Converting Layouts</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-primary"></i>Persuasive Copy</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-primary"></i>A/B Testing Ready</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-primary"></i>Mobile-Optimized</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-primary"></i>Lead Capture</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-primary"></i>Fast Load Speed</li>
+                </ul>
+                <a href="contact.html?service=landing" class="w-full py-4 bg-brand-primary hover:bg-brand-primary/80 text-white font-bold rounded-xl text-center block magnetic magnetic-btn">Get Started</a>
+            </div>
+
+            <!-- BRAND -->
+            <div x-show="activeDetailsModal === 'brand'">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 bg-brand-secondary/20 rounded-2xl flex items-center justify-center border border-white/5 text-brand-secondary"><i data-lucide="palette" class="w-7 h-7"></i></div>
+                    <div>
+                        <span class="text-xs font-bold text-brand-secondary tracking-widest uppercase">Service</span>
+                        <h3 class="text-2xl font-heading font-extrabold text-white spin-letters">Brand Identity & Strategy</h3>
+                    </div>
+                </div>
+                <p class="text-slate-400 mb-6 leading-relaxed">We craft memorable brand identities with logos, color systems, and visual guidelines that tell your story and build trust.</p>
+                <ul class="grid grid-cols-2 gap-3 mb-8 text-slate-300 text-sm">
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-secondary"></i>Logo Design</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-secondary"></i>Brand Guidelines</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-secondary"></i>Color & Typography</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-secondary"></i>Social Branding</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-secondary"></i>Brand Voice</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-secondary"></i>Competitor Analysis</li>
+                </ul>
+                <a href="contact.html?service=brand" class="w-full py-4 bg-brand-secondary hover:bg-brand-secondary/80 text-brand-dark font-extrabold rounded-xl text-center block magnetic magnetic-btn">Get Started</a>
+            </div>
+
+            <!-- GROWTH -->
+            <div x-show="activeDetailsModal === 'growth'">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 bg-brand-accent/20 rounded-2xl flex items-center justify-center border border-white/5 text-brand-accent"><i data-lucide="trending-up" class="w-7 h-7"></i></div>
+                    <div>
+                        <span class="text-xs font-bold text-brand-accent tracking-widest uppercase">Service</span>
+                        <h3 class="text-2xl font-heading font-extrabold text-white spin-letters">Growth-Focused Strategy</h3>
+                    </div>
+                </div>
+                <p class="text-slate-400 mb-6 leading-relaxed">We develop comprehensive growth strategies that align marketing, sales, and product for maximum business impact.</p>
+                <ul class="grid grid-cols-2 gap-3 mb-8 text-slate-300 text-sm">
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-accent"></i>Full-Funnel Plans</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-accent"></i>Journey Mapping</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-accent"></i>Revenue Roadmaps</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-accent"></i>KPI Analytics</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-accent"></i>Market Research</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-brand-accent"></i>Strategy Reviews</li>
+                </ul>
+                <a href="contact.html?service=growth" class="w-full py-4 bg-brand-accent hover:bg-brand-accent/80 text-white font-bold rounded-xl text-center block magnetic magnetic-btn">Get Started</a>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+
+    <script>
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.classList.add('preloader-hidden');
+                setTimeout(() => preloader.remove(), 600);
+            }
+        });
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,682 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script>
+        if (sessionStorage.getItem('preloader_shown') === 'true') {
+            document.documentElement.classList.add('preloader-skipped');
+        }
+    </script>
+    <style>
+        .preloader-skipped #preloader {
+            display: none !important;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog & Insights | IKANTIK Agency</title>
+    <meta name="description"
+        content="Read the latest insights on SEO, social media growth, and digital marketing trends from the experts at IKANTIK.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Scripts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#05020c',
+                            primary: '#ff2e93',
+                            secondary: '#ff6a00',
+                            accent: '#00f2fe',
+                            slate: '#b4b6d4'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        heading: ['Sora', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+
+<body x-data="{ mobileMenu: false, scrolled: false, searchQuery: '', activeArticle: null }"
+    @scroll.window="scrolled = (window.pageYOffset > 20)">
+
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 bg-[#05020a] z-[99999] flex flex-col items-center justify-center transition-all duration-500 ease-in-out">
+        <div class="relative w-20 h-20 mb-6">
+            <div class="absolute inset-0 rounded-full border-2 border-brand-primary/10"></div>
+            <div class="absolute inset-0 rounded-full border-t-2 border-r-2 border-brand-primary animate-spin"></div>
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-brand-primary rounded-full shadow-[0_0_15px_#ff2e93] animate-pulse"></div>
+        </div>
+        <div class="flex items-center gap-1 font-heading text-lg font-bold text-white tracking-widest uppercase">
+            <span class="spin-letters">IKAN</span><span class="text-brand-primary">TIK</span>
+        </div>
+        <div class="mt-2 text-xs font-semibold text-slate-500 tracking-widest font-mono">Loading...</div>
+    </div>
+
+    <!-- Background Decoration -->
+    <div class="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden pointer-events-none">
+        <div class="cosmic-glow-1 top-[-10%] right-[-10%] opacity-20"></div>
+        <div class="cosmic-glow-2 bottom-[-10%] left-[-10%] opacity-15"></div>
+        <div class="absolute top-1/4 left-1/3 w-[450px] h-[450px] rounded-full bg-gradient-to-tr from-brand-primary/10 to-brand-accent/5 opacity-[0.03] blur-[100px] animate-pulse"></div>
+    </div>
+
+    <!-- Navigation (Replicated) -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300"
+        :class="scrolled ? 'glass py-3' : 'py-6 bg-transparent'">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div class="relative w-10 h-10 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-secondary rounded-xl rotate-6 group-hover:rotate-12 transition-transform duration-300 opacity-80"></div>
+                    <div class="absolute inset-0 bg-brand-dark rounded-xl border border-white/10 flex items-center justify-center shadow-lg shadow-brand-primary/20">
+                        <i data-lucide="orbit" class="text-white w-5 h-5 group-hover:rotate-180 transition-transform duration-700"></i>
+                    </div>
+                </div>
+                <span class="text-2xl font-heading font-extrabold tracking-tight text-white"><span class="spin-letters">IKAN</span><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">TIK</span></span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-300">
+                <a href="index.html" class="hover:text-white transition-colors">Home</a>
+                <a href="services.html" class="hover:text-white transition-colors">Services</a>
+                <a href="process.html" class="hover:text-white transition-colors">Process</a>
+                <a href="portfolio.html" class="hover:text-white transition-colors">Portfolio</a>
+                <a href="about.html" class="hover:text-white transition-colors">About</a>
+                <a href="blog.html" class="text-brand-primary">Blog</a>
+                <a href="contact.html"
+                    class="px-5 py-2.5 bg-brand-primary text-white rounded-full hover:bg-brand-primary/80 transition-all shadow-lg shadow-brand-primary/20">Get
+                    Started</a>
+            </div>
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-white">
+                <i data-lucide="menu" x-show="!mobileMenu" class="w-8 h-8"></i>
+                <i data-lucide="x" x-show="mobileMenu" class="w-8 h-8"></i>
+            </button>
+        </div>
+        <div x-show="mobileMenu" class="absolute top-full left-0 w-full glass md:hidden pb-8 shadow-2xl" x-cloak>
+            <div class="flex flex-col space-y-4 px-6 pt-4 text-lg font-medium">
+                <a href="index.html" class="text-slate-300">Home</a>
+                <a href="services.html" class="text-slate-300">Services</a>
+                <a href="process.html" class="hover:text-white transition-colors">Process</a>
+                <a href="portfolio.html" class="text-slate-300">Portfolio</a>
+                <a href="about.html" class="text-slate-300">About</a>
+                <a href="blog.html" class="text-brand-primary">Blog</a>
+                <a href="contact.html" class="text-brand-primary font-bold">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="pt-32 pb-16 md:pt-48 md:pb-24">
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl">
+                <h1 class="text-5xl md:text-7xl font-heading font-extrabold text-white mb-6">
+                    <span class="spin-letters">Latest </span><span class="cosmic-gradient-text">Insights</span>
+                </h1>
+                <p class="text-xl text-slate-400 mb-10 leading-relaxed font-medium">
+                    Dive deep into the strategies that are shaping the future of digital marketing. No filler, just pure
+                    architectural growth.
+                </p>
+
+                <!-- Search Simulation -->
+                <div class="relative max-w-lg group">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent rounded-2xl blur opacity-30 group-focus-within:opacity-100 transition duration-1000 group-focus-within:duration-200"></div>
+                    <div class="relative">
+                        <input type="text" x-model="searchQuery" placeholder="Search articles..."
+                            class="w-full glass py-4 px-6 pr-12 rounded-2xl text-white placeholder-slate-500 focus:outline-none transition-all duration-300 border border-white/10 focus:border-brand-primary/50">
+                        <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center justify-center text-slate-400 group-focus-within:text-brand-primary transition-colors">
+                            <i data-lucide="search" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Grid -->
+    <section class="pb-24">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Article 1 -->
+                <article x-show="searchQuery === '' || 'seo blueprint web vitals strategy'.includes(searchQuery.toLowerCase())"
+                    class="glass-card rounded-[40px] overflow-hidden flex flex-col h-full group hover-fuchsia reveal-on-scroll">
+                    <div class="relative h-56 w-full overflow-hidden">
+                        <img src="assets/seo_cosmic_graph.png"
+                            class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-700 ease-out">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-60"></div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="px-3 py-1 bg-brand-primary/10 text-brand-primary text-[10px] font-bold uppercase tracking-widest rounded-full">Strategy</span>
+                            <span class="text-slate-500 text-[10px] font-bold uppercase tracking-widest">5 Min Read</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4 transition-colors">
+                            <span class="spin-letters">The 2026 SEO Blueprint: Why Core Web Vitals Still Matter</span>
+                        </h3>
+                        <p class="text-slate-500 text-sm mb-6 flex-grow">A deep dive into the latest algorithmic shifts
+                            and how technical architecture is becoming the primary ranking signal.</p>
+                        <div class="pt-4 mt-auto">
+                            <a href="#" @click.prevent="activeArticle = 'seo-blueprint'" class="magnetic inline-flex items-center text-brand-primary font-bold text-sm cursor-pointer group/btn">
+                                <span class="relative">
+                                    Read Full Article
+                                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-primary transition-all duration-300 group-hover/btn:w-full"></span>
+                                </span>
+                                <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1.5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article x-show="searchQuery === '' || 'creator economy b2b influencer seeding trust partner'.includes(searchQuery.toLowerCase())"
+                    class="glass-card rounded-[40px] overflow-hidden flex flex-col h-full group hover-orange reveal-on-scroll">
+                    <div class="relative h-56 w-full overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=600"
+                            class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-700 ease-out">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-60"></div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="px-3 py-1 bg-brand-secondary/10 text-brand-secondary text-[10px] font-bold uppercase tracking-widest rounded-full">Social</span>
+                            <span class="text-slate-500 text-[10px] font-bold uppercase tracking-widest">6 Min Read</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4 transition-colors">
+                            <span class="spin-letters">The Creator Economy: B2B Influencer Seeding</span>
+                        </h3>
+                        <p class="text-slate-500 text-sm mb-6 flex-grow">Why partnering with specialized niche creators is the ultimate shortcut to establishing enterprise-level brand trust.</p>
+                        <div class="pt-4 mt-auto">
+                            <a href="#" @click.prevent="activeArticle = 'creator-economy'" class="magnetic inline-flex items-center text-brand-secondary font-bold text-sm cursor-pointer group/btn">
+                                <span class="relative">
+                                    Read Full Article
+                                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-secondary transition-all duration-300 group-hover/btn:w-full"></span>
+                                </span>
+                                <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1.5 text-brand-secondary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article x-show="searchQuery === '' || 'omnichannel advertising search social google meta sync'.includes(searchQuery.toLowerCase())"
+                    class="glass-card rounded-[40px] overflow-hidden flex flex-col h-full group hover-cyan reveal-on-scroll">
+                    <div class="relative h-56 w-full overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=600"
+                            class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-700 ease-out">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-60"></div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="px-3 py-1 bg-brand-accent/10 text-brand-accent text-[10px] font-bold uppercase tracking-widest rounded-full">Advertising</span>
+                            <span class="text-slate-500 text-[10px] font-bold uppercase tracking-widest">7 Min Read</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4 transition-colors">
+                            <span class="spin-letters">Omnichannel Advertising: Unifying Search and Social</span>
+                        </h3>
+                        <p class="text-slate-500 text-sm mb-6 flex-grow">Discover how sync-matching Google Search queries with Meta video ads creates a high-trust conversion cycle.</p>
+                        <div class="pt-4 mt-auto">
+                            <a href="#" @click.prevent="activeArticle = 'omnichannel-ads'" class="magnetic inline-flex items-center text-brand-accent font-bold text-sm cursor-pointer group/btn">
+                                <span class="relative">
+                                    Read Full Article
+                                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover/btn:w-full"></span>
+                                </span>
+                                <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1.5 text-brand-accent"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 4 -->
+                <article x-show="searchQuery === '' || 'scaling conversion psychology microcopy cta button'.includes(searchQuery.toLowerCase())"
+                    class="glass-card rounded-[40px] overflow-hidden flex flex-col h-full group hover-fuchsia reveal-on-scroll">
+                    <div class="relative h-56 w-full overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1542435503-956c469947f6?auto=format&fit=crop&q=80&w=600"
+                            class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-700 ease-out">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-60"></div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="px-3 py-1 bg-brand-primary/10 text-brand-primary text-[10px] font-bold uppercase tracking-widest rounded-full">Strategy</span>
+                            <span class="text-slate-500 text-[10px] font-bold uppercase tracking-widest">4 Min Read</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4 transition-colors">
+                            <span class="spin-letters">Scaling Conversion: The Psychology of Micro-Copy</span>
+                        </h3>
+                        <p class="text-slate-500 text-sm mb-6 flex-grow">How subtle adjustments to CTA button copy and input field labels can boost conversion rates by up to 28%.</p>
+                        <div class="pt-4 mt-auto">
+                            <a href="#" @click.prevent="activeArticle = 'scaling-conversion'" class="magnetic inline-flex items-center text-brand-primary font-bold text-sm cursor-pointer group/btn">
+                                <span class="relative">
+                                    Read Full Article
+                                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-primary transition-all duration-300 group-hover/btn:w-full"></span>
+                                </span>
+                                <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1.5 text-brand-primary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 5 -->
+                <article x-show="searchQuery === '' || 'precision targeting broad ad sets advertising paid'.includes(searchQuery.toLowerCase())"
+                    class="glass-card rounded-[40px] overflow-hidden flex flex-col h-full group hover-cyan reveal-on-scroll">
+                    <div class="relative h-56 w-full overflow-hidden">
+                        <img src="assets/volt_ads.png"
+                            class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-700 ease-out">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-60"></div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="px-3 py-1 bg-brand-accent/10 text-brand-accent text-[10px] font-bold uppercase tracking-widest rounded-full">Advertising</span>
+                            <span class="text-slate-500 text-[10px] font-bold uppercase tracking-widest">8 Min Read</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4 transition-colors">
+                            <span class="spin-letters">Precision Targeting: The End Of Broad Ad Sets</span>
+                        </h3>
+                        <p class="text-slate-500 text-sm mb-6 flex-grow">Why laser-focused audience segmentation is the
+                            only way to maintain profitable ROAS in the current privacy-first era.</p>
+                        <div class="pt-4 mt-auto">
+                            <a href="#" @click.prevent="activeArticle = 'precision-targeting'" class="magnetic inline-flex items-center text-brand-accent font-bold text-sm cursor-pointer group/btn">
+                                <span class="relative">
+                                    Read Full Article
+                                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover/btn:w-full"></span>
+                                </span>
+                                <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1.5 text-brand-accent"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 6 -->
+                <article x-show="searchQuery === '' || 'viral loops community social growth'.includes(searchQuery.toLowerCase())"
+                    class="glass-card rounded-[40px] overflow-hidden flex flex-col h-full group hover-orange reveal-on-scroll">
+                    <div class="relative h-56 w-full overflow-hidden">
+                        <img src="assets/social_viral_nodes.png"
+                            class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-700 ease-out">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-60"></div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="px-3 py-1 bg-brand-secondary/10 text-brand-secondary text-[10px] font-bold uppercase tracking-widest rounded-full">Social</span>
+                            <span class="text-slate-500 text-[10px] font-bold uppercase tracking-widest">3 Min Read</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4 transition-colors">
+                            <span class="spin-letters">Viral Loops: How To Build A Self-Sustaining Community</span>
+                        </h3>
+                        <p class="text-slate-500 text-sm mb-6 flex-grow">Learn the psychology behind community building
+                            and how to turn passive followers into active brand advocates.</p>
+                        <div class="pt-4 mt-auto">
+                            <a href="#" @click.prevent="activeArticle = 'viral-loops'" class="magnetic inline-flex items-center text-brand-secondary font-bold text-sm cursor-pointer group/btn">
+                                <span class="relative">
+                                    Read Full Article
+                                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-secondary transition-all duration-300 group-hover/btn:w-full"></span>
+                                </span>
+                                <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1.5 text-brand-secondary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- Automated AI Insights Terminal -->
+        <div class="mt-24 max-w-4xl mx-auto reveal-on-scroll" x-data="{ state: 'idle', email: '', typeText: '', targetText: 'Access Granted: Insights synchronized.', typeIndex: 0, 
+            subscribe() {
+                if(!this.email) return;
+                this.state = 'processing';
+                setTimeout(() => {
+                    this.state = 'success';
+                    this.typeWriter();
+                }, 2000);
+            },
+            typeWriter() {
+                if (this.typeIndex < this.targetText.length) {
+                    this.typeText += this.targetText.charAt(this.typeIndex);
+                    this.typeIndex++;
+                    setTimeout(() => this.typeWriter(), 50);
+                }
+            }
+        }">
+            <div class="glass-card rounded-[32px] p-1 border border-white/10 relative overflow-hidden group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+                <div class="relative bg-brand-dark/80 backdrop-blur-2xl rounded-[30px] p-8 md:p-12 flex flex-col md:flex-row items-center gap-10">
+                    
+                    <!-- Radar/Orbital Automation Animation -->
+                    <div class="relative w-24 h-24 flex-shrink-0">
+                        <div class="absolute inset-0 rounded-full border border-white/10"></div>
+                        <div class="absolute inset-2 rounded-full border border-brand-accent/30 animate-[spin_4s_linear_infinite]"></div>
+                        <div class="absolute inset-4 rounded-full border border-brand-primary/30 animate-[spin_3s_linear_infinite_reverse]"></div>
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-brand-accent shadow-[0_0_15px_#00f2fe]" :class="state === 'processing' ? 'animate-ping' : ''"></div>
+                        
+                        <!-- Radar Sweep -->
+                        <div class="absolute top-1/2 left-1/2 w-12 h-1 bg-gradient-to-r from-transparent to-brand-accent/50 origin-left animate-[spin_2s_linear_infinite]" x-show="state !== 'success'"></div>
+                        
+                        <!-- Success Check -->
+                        <div x-show="state === 'success'" class="absolute inset-0 flex items-center justify-center text-green-400" x-transition:enter="transition ease-out duration-500 delay-300" x-transition:enter-start="scale-0 opacity-0" x-transition:enter-end="scale-100 opacity-100">
+                            <i data-lucide="check-circle" class="w-8 h-8"></i>
+                        </div>
+                    </div>
+
+                    <!-- Terminal Interface -->
+                    <div class="flex-grow w-full text-center md:text-left">
+                        <h4 class="text-2xl font-bold text-white mb-2"><span class="spin-letters">Automated</span> <span class="cosmic-gradient-text">Insights Link</span></h4>
+                        <p class="text-slate-400 text-sm mb-6">Initialize a direct feed to our latest growth algorithms.</p>
+                        
+                        <div x-show="state === 'idle'" class="relative max-w-md mx-auto md:mx-0">
+                            <input type="email" x-model="email" placeholder="ENTER_SYSTEM_EMAIL..." class="w-full glass bg-white/5 border border-white/10 rounded-xl py-3 px-5 text-sm text-white focus:outline-none focus:border-brand-accent/50 font-mono placeholder-slate-600 transition-colors">
+                            <button @click="subscribe()" class="magnetic absolute right-1.5 top-1.5 bottom-1.5 bg-white/10 hover:bg-brand-accent hover:text-brand-dark text-white text-xs font-bold px-4 rounded-lg transition-all flex items-center justify-center">
+                                INITIALIZE
+                            </button>
+                        </div>
+                        
+                        <!-- Processing State -->
+                        <div x-show="state === 'processing'" class="flex items-center justify-center md:justify-start space-x-3 text-brand-accent font-mono text-sm py-3" x-cloak>
+                            <i data-lucide="loader" class="w-4 h-4 animate-spin"></i>
+                            <span>Processing connection sequence...</span>
+                        </div>
+                        
+                        <!-- Success State (Typing) -->
+                        <div x-show="state === 'success'" class="flex items-center justify-center md:justify-start space-x-3 text-green-400 font-mono text-sm py-3 min-h-[44px]" x-cloak>
+                            <span x-text="typeText"></span><span class="w-2 h-4 bg-green-400 animate-pulse ml-1 inline-block"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Replicated) -->
+    <footer class="bg-brand-dark/50 pt-20 pb-10 border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <a href="index.html" class="flex items-center space-x-3 mb-6 group">
+                        <div class="relative w-10 h-10 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-secondary rounded-xl rotate-6 group-hover:rotate-12 transition-transform duration-300 opacity-80"></div>
+                            <div class="absolute inset-0 bg-brand-dark rounded-xl border border-white/10 flex items-center justify-center shadow-lg shadow-brand-primary/20">
+                                <i data-lucide="orbit" class="text-white w-5 h-5 group-hover:rotate-180 transition-transform duration-700"></i>
+                            </div>
+                        </div>
+                        <span class="text-2xl font-heading font-extrabold tracking-tight text-white"><span class="spin-letters">IKAN</span><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">TIK</span></span>
+                    </a>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">
+                        The modern architecture for digital growth. We build brands that stand the test of time and
+                        technology.
+                    </p>
+                                        <div class="flex space-x-4">
+                        <a href="https://www.instagram.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                        <a href="https://www.linkedin.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+                        <a href="https://wa.me/918849178176" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.864.002-2.637-1.023-5.116-2.887-6.98-1.865-1.864-4.343-2.887-6.982-2.889-5.44 0-9.863 4.42-9.867 9.865-.001 1.968.514 3.89 1.492 5.58l-.978 3.57 3.654-.959zM17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+                        </a>
+                        <a href="https://www.facebook.com" target="_blank" class="w-10 h-10 border border-amber-500/20 hover:border-amber-500/80 flex items-center justify-center rounded-full text-amber-500/80 hover:text-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                    </div>
+                </div>
+
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Company</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li><a href="about.html" class="hover:text-white">Our Story</a></li>
+                        <li><a href="process.html" class="hover:text-white">Process</a></li>
+                        <li><a href="portfolio.html" class="hover:text-white">Portfolio</a></li>
+                        <li><a href="blog.html" class="text-white font-bold">Blog</a></li>
+                        <li><a href="faq.html" class="hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Services</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li><a href="seo.html" class="hover:text-white">SEO Supremacy</a></li>
+                        <li><a href="social-media.html" class="hover:text-white">Social Growth</a></li>
+                        <li><a href="advertising.html" class="hover:text-white">Paid Advertising</a></li>
+                        <li><a href="services.html" class="hover:text-white">All Services</a></li>
+                    </ul>
+                </div>
+
+                <div class="md:ml-auto">
+                    <h4 class="text-white font-bold mb-6">Contact</h4>
+                    <ul class="space-y-4 text-slate-500 text-sm">
+                        <li class="flex items-center"><i data-lucide="mail" class="w-4 h-4 mr-2"></i> hello@ikantik.com
+                        </li>
+                        <li class="flex items-center"><i data-lucide="phone" class="w-4 h-4 mr-2"></i> +91 88491 78176
+                        </li>
+                        <li class="flex items-center"><i data-lucide="map-pin" class="w-4 h-4 mr-2"></i> Vesu, Surat</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-slate-500 text-xs text-center md:text-left">
+                <p>&copy; 2026 IKANTIK Agency. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Dynamic Reading Article Modals -->
+    <div x-show="activeArticle"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-brand-dark/95 backdrop-blur-xl"
+        x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+        @keydown.escape.window="activeArticle = null" x-cloak>
+
+        <!-- Modal Container -->
+        <div class="relative w-full max-w-3xl bg-slate-900 border border-white/10 rounded-[32px] p-8 md:p-10 shadow-2xl max-h-[85vh] overflow-y-auto glass scrollbar-thin"
+            @click.away="activeArticle = null" x-show="activeArticle"
+            x-transition:enter="transition ease-out duration-300 transform"
+            x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+            x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-200 transform"
+            x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+            x-transition:leave-end="opacity-0 scale-95 translate-y-4">
+
+            <!-- Glowing Accent Backgrounds based on service -->
+            <div class="absolute -top-40 -right-40 w-[350px] h-[350px] rounded-full blur-[100px] opacity-20 pointer-events-none"
+                :class="{
+                     'bg-brand-primary': activeArticle === 'seo-blueprint' || activeArticle === 'scaling-conversion',
+                     'bg-brand-secondary': activeArticle === 'viral-loops' || activeArticle === 'creator-economy',
+                     'bg-brand-accent': activeArticle === 'precision-targeting' || activeArticle === 'omnichannel-ads'
+                 }"></div>
+
+            <!-- Close Button -->
+            <button @click="activeArticle = null"
+                class="magnetic absolute top-6 right-6 w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all cursor-pointer border border-white/5 z-10">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <!-- Article Details Content -->
+            <div>
+                <!-- Article Header -->
+                <div class="mb-6 pb-6 border-b border-white/5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="px-3 py-1 text-[10px] font-bold uppercase tracking-widest rounded-full"
+                            :class="{
+                                'bg-brand-primary/10 text-brand-primary': activeArticle === 'seo-blueprint' || activeArticle === 'scaling-conversion',
+                                'bg-brand-secondary/10 text-brand-secondary': activeArticle === 'viral-loops' || activeArticle === 'creator-economy',
+                                'bg-brand-accent/10 text-brand-accent': activeArticle === 'precision-targeting' || activeArticle === 'omnichannel-ads'
+                            }"
+                            x-text="
+                                activeArticle === 'seo-blueprint' || activeArticle === 'scaling-conversion' ? 'Strategy' :
+                                activeArticle === 'viral-loops' || activeArticle === 'creator-economy' ? 'Social' : 'Advertising'
+                            ">
+                        </span>
+                        <span class="text-slate-500 text-[10px] font-bold uppercase tracking-widest"
+                            x-text="
+                                activeArticle === 'seo-blueprint' ? '5 Min Read' :
+                                activeArticle === 'viral-loops' ? '3 Min Read' :
+                                activeArticle === 'precision-targeting' ? '8 Min Read' :
+                                activeArticle === 'scaling-conversion' ? '4 Min Read' :
+                                activeArticle === 'creator-economy' ? '6 Min Read' : '7 Min Read'
+                            ">
+                        </span>
+                    </div>
+
+                    <h3 class="text-2xl md:text-4xl font-heading font-extrabold text-white leading-tight mb-4"
+                        x-text="
+                            activeArticle === 'seo-blueprint' ? 'The 2026 SEO Blueprint: Why Core Web Vitals Still Matter' :
+                            activeArticle === 'viral-loops' ? 'Viral Loops: How To Build A Self-Sustaining Community' :
+                            activeArticle === 'precision-targeting' ? 'Precision Targeting: The End Of Broad Ad Sets' :
+                            activeArticle === 'scaling-conversion' ? 'Scaling Conversion: The Psychology of Micro-Copy' :
+                            activeArticle === 'creator-economy' ? 'The Creator Economy: B2B Influencer Seeding' :
+                            'Omnichannel Advertising: Unifying Search and Social'
+                        ">
+                    </h3>
+
+                    <!-- Author Details -->
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center border border-white/5 text-slate-300 font-bold text-sm">
+                            F
+                        </div>
+                        <div>
+                            <div class="text-white text-xs font-bold">IKANTIK Experts</div>
+                            <div class="text-slate-500 text-[10px]">Published 2026 &bull; Marketing Strategy</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article Body Content -->
+                <div class="space-y-6 text-slate-300 text-sm md:text-base leading-relaxed mb-8">
+                    <!-- Section 1 -->
+                    <div>
+                        <h4 class="text-white font-bold text-lg mb-2">Introduction</h4>
+                        <p x-text="
+                            activeArticle === 'seo-blueprint' ? 'Search engine algorithms are undergoing a major shift. In 2026, user experience has moved from a minor signal to the absolute foundation of organic SEO blueprints.' :
+                            activeArticle === 'viral-loops' ? 'In a world of short attention spans, organic social reach is driven by one core concept: the self-sustaining viral loop. You must turn consumers into active participators.' :
+                            activeArticle === 'precision-targeting' ? 'With major privacy overhauls and data-tracking limitations, broad, unstructured ad sets are no longer profitable. The new era of advertising demands ultra-precise audience segmentation.' :
+                            activeArticle === 'scaling-conversion' ? 'Subtle wording holds immense power. Micro-copyâ€”the small bits of text on buttons, error messages, and form labelsâ€”can make or break a user interface\'s conversion rate.' :
+                            activeArticle === 'creator-economy' ? 'The creator economy is no longer just for consumer products. Modern B2B decisions are increasingly influenced by trusted niche industry voices.' :
+                            'Deploying marketing campaigns in silos limits their efficiency. Unifying Google Search intent with Meta social attention maximizes overall advertising impact.'
+                        "></p>
+                    </div>
+
+                    <!-- Section 2 -->
+                    <div>
+                        <h4 class="text-white font-bold text-lg mb-2">The Strategic Core</h4>
+                        <p x-text="
+                            activeArticle === 'seo-blueprint' ? 'With AI search engines summarizing web content directly, the key to winning traffic is providing exceptional speed, zero layout shifts, and absolute security. Google\'s newest ranking updates penalize sluggish websites, prioritizing instead those that render instantly.' :
+                            activeArticle === 'viral-loops' ? 'Users don\'t just consume content; they want to share, participate, and build communities. By engineering direct triggers that incentivize shares, you transform passive viewers into brand champions.' :
+                            activeArticle === 'precision-targeting' ? 'By leveraging custom first-party data and dynamic lookalike lists, you can feed advertising algorithms high-intent signals that lower customer acquisition costs. Deliver highly targeted visual creatives to relevant cohorts.' :
+                            activeArticle === 'scaling-conversion' ? 'A button that says \'Get Started\' can perform vastly differently than one saying \'Unlock Free Trial\'. By matching micro-copy to the user\'s exact intent and reducing friction, we can guide decision journeys smoothly.' :
+                            activeArticle === 'creator-economy' ? 'Securing enterprise partnerships requires deep credibility. Direct seeding of products or platforms to thought leaders on LinkedIn or YouTube establishes high-fidelity organic endorsement.' :
+                            'When a prospective user searches for a solution on Google, retargeting them on social channels with highly customized video demonstrations builds high-trust conversion cycles.'
+                        "></p>
+                    </div>
+
+                    <!-- Actionable Points -->
+                    <div class="p-5 bg-white/5 border border-white/5 rounded-2xl">
+                        <span class="text-xs font-bold text-white uppercase tracking-widest block mb-3"
+                            :class="{
+                                'text-brand-primary': activeArticle === 'seo-blueprint' || activeArticle === 'scaling-conversion',
+                                'text-brand-secondary': activeArticle === 'viral-loops' || activeArticle === 'creator-economy',
+                                'text-brand-accent': activeArticle === 'precision-targeting' || activeArticle === 'omnichannel-ads'
+                            }">
+                            Actionable Steps & Blueprint Key Points
+                        </span>
+                        <ul class="space-y-3 text-xs md:text-sm text-slate-300 font-medium">
+                            <!-- Bullet 1 -->
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle" class="w-4 h-4 mr-2.5 mt-0.5 flex-shrink-0 transition-transform duration-300"
+                                    :class="{
+                                        'text-brand-primary': activeArticle === 'seo-blueprint' || activeArticle === 'scaling-conversion',
+                                        'text-brand-secondary': activeArticle === 'viral-loops' || activeArticle === 'creator-economy',
+                                        'text-brand-accent': activeArticle === 'precision-targeting' || activeArticle === 'omnichannel-ads'
+                                    }">
+                                </i>
+                                <span x-text="
+                                    activeArticle === 'seo-blueprint' ? 'Focus on Largest Contentful Paint (LCP): Ensure main content renders within 1.2s.' :
+                                    activeArticle === 'viral-loops' ? 'Create Shareable Hooks: Design relatable, highly visual video or text assets.' :
+                                    activeArticle === 'precision-targeting' ? 'Utilize first-party dynamic CRM lists: Target cohorts with high retention likelihood.' :
+                                    activeArticle === 'scaling-conversion' ? 'Use Action-Oriented Verbs: Focus on the value the user receives rather than the action they perform.' :
+                                    activeArticle === 'creator-economy' ? 'Identify True Authority Voices: Prioritize creators with high engagement rates over simple counts.' :
+                                    'Sync Audience Lists: Map Google Search Click IDs to Meta Custom Audiences instantly.'
+                                "></span>
+                            </li>
+                            <!-- Bullet 2 -->
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle" class="w-4 h-4 mr-2.5 mt-0.5 flex-shrink-0 transition-transform duration-300"
+                                    :class="{
+                                        'text-brand-primary': activeArticle === 'seo-blueprint' || activeArticle === 'scaling-conversion',
+                                        'text-brand-secondary': activeArticle === 'viral-loops' || activeArticle === 'creator-economy',
+                                        'text-brand-accent': activeArticle === 'precision-targeting' || activeArticle === 'omnichannel-ads'
+                                    }">
+                                </i>
+                                <span x-text="
+                                    activeArticle === 'seo-blueprint' ? 'Optimize Interaction to Next Paint (INP): Keep interface latency under 50ms.' :
+                                    activeArticle === 'viral-loops' ? 'Reward Engagement: Celebrate viewer participation and feature user comments.' :
+                                    activeArticle === 'precision-targeting' ? 'Design tailored creatives: Adapt copy dynamic layers to match regional cohorts.' :
+                                    activeArticle === 'scaling-conversion' ? 'Address Hesitations Instantly: Place small reassurances right next to high-friction input fields.' :
+                                    activeArticle === 'creator-economy' ? 'Send Frictionless Seeds: Gift early access keys with zero initial promotional demands.' :
+                                    'Sequenced Ad Stories: Show testimonials on Instagram, then a deep technical breakdown on YouTube.'
+                                "></span>
+                            </li>
+                            <!-- Bullet 3 -->
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle" class="w-4 h-4 mr-2.5 mt-0.5 flex-shrink-0 transition-transform duration-300"
+                                    :class="{
+                                        'text-brand-primary': activeArticle === 'seo-blueprint' || activeArticle === 'scaling-conversion',
+                                        'text-brand-secondary': activeArticle === 'viral-loops' || activeArticle === 'creator-economy',
+                                        'text-brand-accent': activeArticle === 'precision-targeting' || activeArticle === 'omnichannel-ads'
+                                    }">
+                                </i>
+                                <span x-text="
+                                    activeArticle === 'seo-blueprint' ? 'Eliminate Cumulative Layout Shift (CLS): Set explicit size parameters for all dynamic assets.' :
+                                    activeArticle === 'viral-loops' ? 'Maintain Daily Rhythm: Publish short-form Reels with automated dynamic caption layers.' :
+                                    activeArticle === 'precision-targeting' ? 'Scale Dynamic Catalog Ads: Optimize retargeting with dynamic overlay templates.' :
+                                    activeArticle === 'scaling-conversion' ? 'Keep Error States Friendly: Avoid robotic or accusatory messages, and guide users gently.' :
+                                    activeArticle === 'creator-economy' ? 'Repurpose Co-Created Assets: Feature reviews and collaborative case studies directly in ads.' :
+                                    'Harmonized Copy Angles: Maintain a consistent value proposition across all visual ad feeds.'
+                                "></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-white/5">
+                    <a href="contact.html" 
+                        class="magnetic-btn magnetic w-full py-4 text-center font-extrabold text-sm uppercase tracking-wider rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group/modal-btn shadow-lg"
+                        :class="{
+                            'bg-brand-primary text-white hover:bg-brand-primary/90 shadow-brand-primary/20': activeArticle === 'seo-blueprint' || activeArticle === 'scaling-conversion',
+                            'bg-brand-secondary text-brand-dark hover:bg-brand-secondary/90 shadow-brand-secondary/20': activeArticle === 'viral-loops' || activeArticle === 'creator-economy',
+                            'bg-brand-accent text-brand-dark hover:bg-brand-accent/90 shadow-brand-accent/20': activeArticle === 'precision-targeting' || activeArticle === 'omnichannel-ads'
+                        }">
+                        <span>Schedule a Strategy Session</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 transition-transform duration-300 group-hover/modal-btn:translate-x-1.5"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <script>
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.classList.add('preloader-hidden');
+                setTimeout(() => preloader.remove(), 600);
+            }
+        });
+    </script>
+</body>
+
+</html>
+
