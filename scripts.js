@@ -1,4 +1,4 @@
-﻿/**
+/**
  * IKANTIK Agency - Premium Interactive Scripts
  * Handles:
  * 1. 3D Character Splitting and Hover-Spin mechanics (GPU-Accelerated)
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initCardTilt();
 
     // 7. Initialize Heavy Physics Canvas for Cosmic Growth Core
-    initGrowthCoreCanvas();
+    // // initGrowthCoreCanvas(); // removed heavy animation // removed heavy animation
     
     // 8. Initialize Contact Page Networking Canvas
     initContactNetworkCanvas();
@@ -45,74 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
  * which animate on hover and load with staggered transition delays.
  */
 function initLetterSpinning() {
-    const elements = document.querySelectorAll('.spin-letters');
-    
-    elements.forEach(element => {
-        // Skip if already processed or marked
-        if (element.classList.contains('spin-letters-done')) return;
-        element.classList.add('spin-letters-done');
-
-        let elementCharCounter = 0;
-
-        function recurse(node) {
-            if (node.nodeType === Node.TEXT_NODE) {
-                const text = node.textContent;
-                // If it is just whitespace (e.g. spacing between elements), ignore
-                if (!text.trim()) return;
-
-                const fragment = document.createDocumentFragment();
-                // Normalize multiple spaces and preserve spacing
-                const normalized = text.replace(/\s+/g, ' ');
-                const parts = normalized.split(/(\s+)/);
-
-                parts.forEach(part => {
-                    if (!part) return;
-                    if (/^\s+$/.test(part)) {
-                        // Whitespace
-                        const spaceSpan = document.createElement('span');
-                        spaceSpan.innerHTML = '&nbsp;';
-                        spaceSpan.style.display = 'inline-block';
-                        fragment.appendChild(spaceSpan);
-                    } else {
-                        // Word wrapper to prevent word wrapping mid-word
-                        const wordSpan = document.createElement('span');
-                        wordSpan.style.display = 'inline-block';
-                        wordSpan.style.whiteSpace = 'nowrap';
-                        
-                        const chars = [...part];
-                        chars.forEach((char) => {
-                            const charSpan = document.createElement('span');
-                            charSpan.innerText = char;
-                            charSpan.classList.add('spin-char');
-                            
-                            const globalIdx = elementCharCounter++;
-                            charSpan.style.transitionDelay = `${globalIdx * 20}ms`;
-                            
-                            // Add subtle continuous floating/breathing to occasional characters
-                            if (globalIdx % 8 === 2) {
-                                charSpan.classList.add('gentle-spin-char');
-                                charSpan.style.animationDelay = `${globalIdx * 100}ms`;
-                            }
-                            
-                            wordSpan.appendChild(charSpan);
-                        });
-                        fragment.appendChild(wordSpan);
-                    }
-                });
-
-                node.parentNode.replaceChild(fragment, node);
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-                // Ignore already processed characters
-                if (node.classList.contains('spin-char') || node.classList.contains('gentle-spin-char')) return;
-                
-                // Recurse through all child nodes
-                const children = Array.from(node.childNodes);
-                children.forEach(child => recurse(child));
-            }
-        }
-
-        recurse(element);
-    });
+    // Simplified: Disabled character-by-character DOM splitting to maximize website smoothness and responsiveness as requested.
+    return;
 }
 
 /**
@@ -131,22 +65,45 @@ function initMouseTrackingGlows() {
         interactiveGlow.style.width = '400px';
         interactiveGlow.style.height = '400px';
         interactiveGlow.style.background = 'radial-gradient(circle, var(--accent-cyan) 0%, transparent 70%)';
-        interactiveGlow.style.transform = 'translate(-50%, -50%)';
-        interactiveGlow.style.left = '-1000px'; // Off-screen initially
-        interactiveGlow.style.top = '-1000px';
+        // Set fixed properties to 0 and position using translate3d for GPU acceleration
+        interactiveGlow.style.left = '0';
+        interactiveGlow.style.top = '0';
+        interactiveGlow.style.transform = 'translate3d(-1000px, -1000px, 0)';
         interactiveGlow.style.transition = 'opacity 0.5s ease';
         container.appendChild(interactiveGlow);
     }
 
+    let mouseX = 0, mouseY = 0;
+    let glowX = 0, glowY = 0;
+    let trackingActive = false;
+
+    function updateGlowPosition() {
+        // Linear interpolation (lerp) for smooth trailing effect
+        glowX += (mouseX - glowX) * 0.08;
+        glowY += (mouseY - glowY) * 0.08;
+        
+        interactiveGlow.style.transform = `translate3d(calc(${glowX}px - 50%), calc(${glowY}px - 50%), 0)`;
+
+        if (Math.abs(mouseX - glowX) > 0.5 || Math.abs(mouseY - glowY) > 0.5) {
+            window.requestAnimationFrame(updateGlowPosition);
+        } else {
+            trackingActive = false;
+        }
+    }
+
     // Update glow position on mouse move
     window.addEventListener('mousemove', (e) => {
-        // Only run on desktop screen sizes for performance and UI compatibility
         if (window.innerWidth > 1024) {
-            interactiveGlow.style.left = `${e.clientX}px`;
-            interactiveGlow.style.top = `${e.clientY}px`;
-            interactiveGlow.style.opacity = '0.25';
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            interactiveGlow.style.opacity = '0.2';
+            
+            if (!trackingActive) {
+                trackingActive = true;
+                window.requestAnimationFrame(updateGlowPosition);
+            }
         }
-    });
+    }, { passive: true });
 
     window.addEventListener('mouseout', () => {
         interactiveGlow.style.opacity = '0';
@@ -251,37 +208,9 @@ function initScrollReveal() {
  * Attracts cards slightly to the mouse and tilts in 3D perspective relative to the cursor!
  */
 function initCardTilt() {
-    const cards = document.querySelectorAll('.glass-card');
-    cards.forEach(card => {
-        card.addEventListener('mousemove', e => {
-            // Only active on desktop sizes for optimal performance and comfort
-            if (window.innerWidth <= 1024) return;
-            
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left; // X inside card
-            const y = e.clientY - rect.top;  // Y inside card
-            
-            // Normalized coordinate values from -0.5 to 0.5
-            const xc = (x / rect.width) - 0.5;
-            const yc = (y / rect.height) - 0.5;
-            
-            const maxRotate = 8; // Max tilt rotation in degrees
-            
-            // Rotate X is driven by vertical offset (inverted)
-            // Rotate Y is driven by horizontal offset
-            const rotateX = -yc * maxRotate;
-            const rotateY = xc * maxRotate;
-            
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px) scale(1.015)`;
-            card.style.transition = 'transform 0.05s ease-out';
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            // Smooth elastic snap back to base state
-            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0) scale(1)';
-            card.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
-        });
-    });
+    // Simplified: Completely disabled JS tilt movement to prevent layout thrashing and CPU load.
+    // GPU-accelerated standard CSS hover transitions in styles.css now handle the card movement cleanly at 120 FPS!
+    return;
 }
 
 /**
@@ -465,8 +394,8 @@ function initContactNetworkCanvas() {
     
     let particles = [];
     const colors = ['#00f2fe', '#b4b6d4']; // Cyan and Slate
-    const numParticles = 80;
-    const connectionDistance = 150;
+    const numParticles = 35; // Reduced from 80 to 35 for smooth rendering
+    const connectionDistance = 120; // Reduced from 150 to 120
     
     let mouse = { x: null, y: null, radius: 200 };
     
@@ -628,7 +557,7 @@ function initHolographicBootSequence() {
         const ctx = vortexCanvas.getContext('2d');
         let vW, vH;
         const vortexParticles = [];
-        const numVortex = 200;
+        const numVortex = 40; // Reduced from 200 to 40 for optimal performance
         const colors = ['#ff2e93', '#00f2fe', '#ff6a00', '#ffffff'];
         let vortexActive = true;
 
@@ -721,9 +650,9 @@ function initHolographicBootSequence() {
                     const dx = vortexParticles[i].x - vortexParticles[j].x;
                     const dy = vortexParticles[i].y - vortexParticles[j].y;
                     const dist = Math.sqrt(dx*dx + dy*dy);
-                    if (dist < 80) {
+                    if (dist < 50) { // Reduced distance threshold
                         ctx.beginPath();
-                        ctx.strokeStyle = `rgba(0, 242, 254, ${0.15 * (1 - dist/80)})`;
+                        ctx.strokeStyle = `rgba(0, 242, 254, ${0.15 * (1 - dist/50)})`;
                         ctx.lineWidth = 0.5;
                         ctx.moveTo(vortexParticles[i].x, vortexParticles[i].y);
                         ctx.lineTo(vortexParticles[j].x, vortexParticles[j].y);
